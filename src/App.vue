@@ -7,8 +7,8 @@ import PanelLetters from './components/PanelLetters.vue';
 export default {
   data() {
     return {
-      guessedLetters: ['a', 't', 'r'],
-      movie: "Star Wars"
+      guessedLetters: ['e','l', 's', 'r','ñ','d','a','n','o','i'],
+      movie: "El Señor De Los Anillos"
     }
   }
 }
@@ -65,7 +65,6 @@ a,
   }
 
   #app {
-
     padding: 0 2rem;
   }
 
