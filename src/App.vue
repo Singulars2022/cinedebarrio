@@ -1,13 +1,15 @@
 <script setup>
 import PanelLetters from './components/PanelLetters.vue';
+import keyboard from './components/keyboard.vue';
 </script>
 
 <script>
 
 export default {
+  components: { keyboard },
   data() {
     return {
-      guessedLetters: ['a', 't', 'r'],
+      guessedLetters: [],
       movie: "Star Wars"
     }
   }
@@ -18,16 +20,17 @@ export default {
 </script>
 
 <template>
-  <h1>Cine de Barrio</h1>
   <main>
+   <h1>Cine de Barrio</h1>
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
+    <keyboard :movie="movie" :guessedLetters="guessedLetters"  @guessedLettersPush="(letter) => guessedLetters.push(letter)"/> <p>{{guessedLetters}}</p>
   </main>
 </template>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 @import './assets/base.css';
-
+ 
 #app {
   max-width: 1280px;
   margin: 0 auto;
