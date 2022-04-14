@@ -1,6 +1,6 @@
 <script setup>
 import PanelLetters from './components/PanelLetters.vue';
-import keyboard from './components/keyboard.vue';
+import keyboard from './components/Keyboard.vue';
 </script>
 
 <script>
@@ -9,8 +9,51 @@ export default {
   components: { keyboard },
   data() {
     return {
+      uid: 0,
       guessedLetters: [],
-      movie: "Star Wars"
+      movie: "Star Wars",
+      letterArray: [
+        ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+        ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
+        ["z", "x", "c", "v", "b", "n", "m"],
+      ],
+    }
+  },
+  created() {
+    this.letterArray = this.letterArray.map(arrayRow => {
+        return arrayRow.map(l => {
+          return {
+            id: this.uid++,
+            letter: l,
+            status: "default"
+          }
+        });
+      });
+
+      console.log(this.letterArray);
+  },
+  computed: {
+    lettersControl() {
+      return this.letterArray;
+    }
+  },
+  methods: {
+    letterClicked(letter) {
+      const clickedLetter = [].concat(...this.letterArray).find(l => l.letter == letter);
+
+      if (!this.guessedLetters.includes(clickedLetter.letter)) {
+        if(this.movie.includes(clickedLetter.letter)) {
+          clickedLetter.status = "correct";
+        } else {
+          clickedLetter.status = "wrong";
+        }
+
+        this.guessedLetters.push(clickedLetter.letter)
+      }
+
+      
+
+      // console.log(this.letterArray);
     }
   }
 }
@@ -23,7 +66,7 @@ export default {
   <main>
    <h1>Cine de Barrio</h1>
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
-    <keyboard :movie="movie" :guessedLetters="guessedLetters"  @guessedLettersPush="(letter) => guessedLetters.push(letter)"/> <p>{{guessedLetters}}</p>
+    <keyboard :letters="letterArray" @guessedLettersPush="(id) => letterClicked(id)"/> <p>{{guessedLetters}}</p>
   </main>
 </template>
 

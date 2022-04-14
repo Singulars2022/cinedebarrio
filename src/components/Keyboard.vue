@@ -2,31 +2,15 @@
 <script>
 export default {
   props: {
-    movie: String,
-    guessedLetters: Array
+    letters: Array,
   },
   emits: ["guessedLettersPush"],
   data() {
-    return {
-      letterArray: [
-        ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-        ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
-        ["z", "x", "c", "v", "b", "n", "m"],
-      ],
-    };
+    return {};
   },
   methods: {
-    checkLetter(e) {
-      let key= e.target.innerText.toLowerCase();
-      if (this.guessedLetters.includes(key)) {
-        return;
-      }      
-      this.$emit("guessedLettersPush", key);
-      if (this.movie.toLowerCase().includes(key)) {
-        e.target.classList.add("keyIsCorrect");
-      } else {
-        e.target.classList.add("keyIsWrong");
-      }
+    checkLetter(letter) {
+      this.$emit("guessedLettersPush", letter);
     },
   },
 };
@@ -34,18 +18,22 @@ export default {
 
 <template>
   <div>
-    <p
-      class="keyboardLines"
-      v-for="(letterRow, index) in letterArray"
-      :key="index"
-    >
+    <p class="keyboardLines" v-for="(letterRow, index) in letters" :key="index">
       <span
-        @click="checkLetter"
-        class="keyStyles"
         v-for="(letter, index2) in letterRow"
         :key="index2"
-        >{{ letter }}</span
+        @click="checkLetter(letter.letter)"
+        class="keyStyles"
+        :class="
+          letter.status == 'default'
+            ? 'keyIsDefault'
+            : letter.status == 'correct'
+            ? 'keyIsCorrect'
+            : 'keyIsWrong'
+        "
       >
+        {{ letter.letter }}
+      </span>
     </p>
     <!-- <p>{{movie}}</p> -->
   </div>
@@ -56,12 +44,13 @@ export default {
 .keyboardLines {
   text-align: center;
 }
+
 .keyStyles {
-  color: white;
+  background-color: transparent;
   text-align: center;
   width: 40px;
+  height: 40px;
   padding: 5px;
-  border: 2px solid grey;
   border-radius: 5px;
   margin: 3px;
   display: inline-block;
@@ -69,24 +58,24 @@ export default {
   font-weight: bold;
 }
 
-.keyStyles:active{
+.keyIsDefault {
+  color: white;
+  background-color: transparent;
+  border: 2px solid grey;
+}
+.keyIsDefault:active {
   background-color: pink;
 }
 
-.keyIsCorrect:active {
-  border-color: #2AA800;
-  background-color: transparent;
-}
-.keyIsWrong:active{
-   background-color: #B70000;
+.keyIsCorrect, .keyIsCorrect:active {
+    color: white;
+  border: 2px solid #2aa800;
 }
 
-.keyIsCorrect{
-  border-color: #2AA800;
-}
-.keyIsWrong{
-  background-color: #B70000;
-  border-color: transparent;
 
+.keyIsWrong {
+    color: white;
+  background-color: #b70000;
+  border: 2px solid transparent;
 }
 </style>
