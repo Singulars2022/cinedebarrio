@@ -13,7 +13,7 @@ export default {
     return {
       uid: 0,
       guessedLetters: [],
-      movie: "el club de la lucha",
+      movie: "El club de la lucha",
       letterArray: [
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],

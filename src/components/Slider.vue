@@ -4,11 +4,8 @@ export default {
   data() {
     return {
       arraySlider: this.ArrayMovies,
-      index: this.ArrayMovies.length - 1,
+      index: 0,
     };
-  },
-  updated(){
-    this.index = this.ArrayMovies.length - 1;
   },
   computed: {
     getURL() {
@@ -18,6 +15,14 @@ export default {
   methods: {
     SwitchImage(value) {
       this.index = value;
+    },
+  },
+  watch: {
+    arraySlider: {
+      handler() {
+        this.index = this.arraySlider.length - 1;
+      },
+      deep: true,
     },
   },
 };
@@ -31,7 +36,7 @@ export default {
           <ul class="menu">
             <li
               class="slide-fwd-center"
-              v-for="(_ , index) in arraySlider"
+              v-for="(_, index) in arraySlider"
               :key="index"
               @click="SwitchImage(index)"
               href=""
