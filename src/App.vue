@@ -11,7 +11,7 @@ export default {
     return {
       uid: 0,
       guessedLetters: [],
-      movie: "star wars",
+      movie: "El Padrino",
       letterArray: [
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
@@ -104,7 +104,6 @@ a,
   }
 
   #app {
-
     padding: 0 2rem;
   }
 
