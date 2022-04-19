@@ -1,9 +1,11 @@
 <script setup>
-import PanelLetters from './components/PanelLetters.vue';
-import keyboard from './components/Keyboard.vue';
+import PanelLetters from "./components/PanelLetters.vue";
+import keyboard from "./components/Keyboard.vue";
+import Slider from "./components/Slider.vue";
 </script>
 
 <script>
+let movies = ["peli1.jpg", "peli2.png", "peli3.jpg"];
 
 export default {
   components: { keyboard },
@@ -11,62 +13,67 @@ export default {
     return {
       uid: 0,
       guessedLetters: [],
-      movie: "El Padrino",
+      movie: "el club de la lucha",
       letterArray: [
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
         ["z", "x", "c", "v", "b", "n", "m"],
       ],
-    }
+      arrayMovie: [movies.pop()],
+    };
   },
   created() {
-    this.letterArray = this.letterArray.map(arrayRow => {
-        return arrayRow.map(l => {
-          return {
-            id: this.uid++,
-            letter: l,
-            status: "default"
-          }
-        });
-      });      
+    this.letterArray = this.letterArray.map((arrayRow) => {
+      return arrayRow.map((l) => {
+        return {
+          id: this.uid++,
+          letter: l,
+          status: "default",
+        };
+      });
+    });
   },
   computed: {
     lettersControl() {
       return this.letterArray;
-    }
+    },
   },
   methods: {
     letterClicked(letter) {
-      const clickedLetter = [].concat(...this.letterArray).find(l => l.letter == letter);
+      const clickedLetter = []
+        .concat(...this.letterArray)
+        .find((l) => l.letter == letter);
 
       if (!this.guessedLetters.includes(clickedLetter.letter)) {
-        if(this.movie.includes(clickedLetter.letter)) {
+        if (this.movie.includes(clickedLetter.letter)) {
           clickedLetter.status = "correct";
         } else {
           clickedLetter.status = "wrong";
+          this.arrayMovie.push(movies.pop());
         }
-        this.guessedLetters.push(clickedLetter.letter)
+        this.guessedLetters.push(clickedLetter.letter);
       }
-    }
-  }
-}
-
-
-
+    },
+  },
+};
 </script>
 
 <template>
   <main>
-   <h1>Cine de Barrio</h1>
+    <h1>Cine de Barrio</h1>
+    <Slider :ArrayMovies="arrayMovie" />
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
-    <keyboard :letters="letterArray" @clickedLetter="(id) => letterClicked(id)"/>
+    <keyboard
+      :letters="letterArray"
+      @clickedLetter="(id) => letterClicked(id)"
+    />
   </main>
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-@import './assets/base.css';
- 
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+@import "./assets/base.css";
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
