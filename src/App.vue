@@ -7,8 +7,8 @@ import PanelLetters from './components/PanelLetters.vue';
 export default {
   data() {
     return {
-      guessedLetters: ['e','l', 's', 'r','ñ','d','a','n','o','i'],
-      movie: "El Señor De Los Anillos"
+      guessedLetters: ['c','e','l', 's', 'r','ñ','d','a','n','o','i'],
+      movie: "El silencio de los corderos"
     }
   }
 }

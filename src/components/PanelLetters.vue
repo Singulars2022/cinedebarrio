@@ -47,7 +47,7 @@ export default {
 .word--panel {
     display: flex;
     text-transform: uppercase;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin-left: 72px;
     margin-right: 72px;
     justify-content: center;
