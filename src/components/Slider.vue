@@ -7,6 +7,9 @@ export default {
       index: this.ArrayMovies.length - 1,
     };
   },
+  updated(){
+    this.index = this.ArrayMovies.length - 1;
+  },
   computed: {
     getURL() {
       return `url("../../public/${this.arraySlider[this.index]}")`;

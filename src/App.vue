@@ -2,23 +2,24 @@
 import PanelLetters from "./components/PanelLetters.vue";
 import keyboard from "./components/Keyboard.vue";
 import Slider from "./components/Slider.vue";
-let movies = ["peli1.jpg", "peli2.png", "peli3.jpg"];
 </script>
 
 <script>
+let movies = ["peli1.jpg", "peli2.png", "peli3.jpg"];
+
 export default {
   components: { keyboard },
   data() {
     return {
       uid: 0,
       guessedLetters: [],
-      movie: "El Padrino",
+      movie: "el club de la lucha",
       letterArray: [
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
         ["z", "x", "c", "v", "b", "n", "m"],
       ],
-      arrayMovie: [],
+      arrayMovie: [movies.pop()],
     };
   },
   created() {
@@ -48,6 +49,7 @@ export default {
           clickedLetter.status = "correct";
         } else {
           clickedLetter.status = "wrong";
+          this.arrayMovie.push(movies.pop());
         }
         this.guessedLetters.push(clickedLetter.letter);
       }
@@ -59,7 +61,7 @@ export default {
 <template>
   <main>
     <h1>Cine de Barrio</h1>
-    <Slider :ArrayMovies="movies" />
+    <Slider :ArrayMovies="arrayMovie" />
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
     <keyboard
       :letters="letterArray"
