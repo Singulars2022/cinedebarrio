@@ -5,8 +5,8 @@ export default {
     props: ["text", "guessedLetters"],
     data() {
         return {
-            title: this.text.toUpperCase().split(' '),
-            guessedLettersMayus: this.guessedLetters.map(x => x.toUpperCase())
+            title: this.text.toLowerCase().split(' '),
+            guessedLettersMayus: this.guessedLetters
         }
     }
 }
