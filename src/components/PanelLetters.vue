@@ -68,6 +68,7 @@ export default {
     font-weight: 700;
     transition: 1s all;
     position: absolute;
+    user-select: none; 
    
 }
 
