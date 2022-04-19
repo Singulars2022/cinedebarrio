@@ -4,13 +4,13 @@ export default {
   props: {
     letters: Array,
   },
-  emits: ["guessedLettersPush"],
+  emits: ["clickedLetter"],
   data() {
     return {};
   },
   methods: {
     checkLetter(letter) {
-      this.$emit("guessedLettersPush", letter);
+      this.$emit("clickedLetter", letter);
     },
   },
 };
@@ -35,14 +35,16 @@ export default {
         {{ letter.letter }}
       </span>
     </p>
-    <!-- <p>{{movie}}</p> -->
   </div>
 </template>
 
 
-<style>
+<style scoped>
+div{
+  padding: 10px;
+}
 .keyboardLines {
-  text-align: center;
+  text-align: center;  
 }
 
 .keyStyles {
@@ -56,22 +58,23 @@ export default {
   display: inline-block;
   text-transform: uppercase;
   font-weight: bold;
+  user-select: none;  
 }
 
 .keyIsDefault {
   color: white;
   background-color: transparent;
   border: 2px solid grey;
+  cursor: pointer;
 }
 .keyIsDefault:active {
-  background-color: pink;
+  background-color: rgb(87,0,0);
 }
 
 .keyIsCorrect, .keyIsCorrect:active {
     color: white;
   border: 2px solid #2aa800;
 }
-
 
 .keyIsWrong {
     color: white;

@@ -11,7 +11,7 @@ export default {
     return {
       uid: 0,
       guessedLetters: [],
-      movie: "Star Wars",
+      movie: "star wars",
       letterArray: [
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
@@ -28,9 +28,7 @@ export default {
             status: "default"
           }
         });
-      });
-
-      console.log(this.letterArray);
+      });      
   },
   computed: {
     lettersControl() {
@@ -47,13 +45,8 @@ export default {
         } else {
           clickedLetter.status = "wrong";
         }
-
         this.guessedLetters.push(clickedLetter.letter)
       }
-
-      
-
-      // console.log(this.letterArray);
     }
   }
 }
@@ -66,7 +59,7 @@ export default {
   <main>
    <h1>Cine de Barrio</h1>
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
-    <keyboard :letters="letterArray" @guessedLettersPush="(id) => letterClicked(id)"/> <p>{{guessedLetters}}</p>
+    <keyboard :letters="letterArray" @clickedLetter="(id) => letterClicked(id)"/>
   </main>
 </template>
 
