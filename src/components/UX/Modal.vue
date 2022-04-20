@@ -16,7 +16,7 @@ export default {
 
 <template>
  <transition name="modal-fade">
-  <div v-if="isModalVisible" class="modal">
+  <div v-if="isModalVisible" class="modal" @click.self="close">
     <div class="modal-content">
         <slot></slot>
       <span class="closeModal" @click="close">&#9932;</span>

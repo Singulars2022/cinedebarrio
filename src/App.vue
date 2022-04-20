@@ -1,9 +1,9 @@
 <script setup>
 import PanelLetters from './components/PanelLetters.vue';
 import keyboard from './components/Keyboard.vue';
-// import modal from './components/UX/Modal.vue';
 import helpIcon from './assets/icons/help_white_48dp.svg';
 import Rules from './components/pages/Rules.vue';
+import Info from './components/pages/Info.vue';
 import Modal from './components/UX/Modal.vue';
 </script>
 
@@ -78,7 +78,8 @@ export default {
   <modal :isModalVisible="isModalVisible" @close="closeModal">
     <component :is="currentModal" class="modal"></component>
   </modal>
-  <button @click="openModal(Rules)">Open modal</button>
+  <button @click="openModal(Rules)">Open Rules</button>
+  <button @click="openModal(Info)">Open Info</button>
   
   </main>
   
