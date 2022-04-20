@@ -27,8 +27,7 @@ export default {
       currentModal: "",
       modals: [],
       isModalVisible: false,
-      arrayMovie: [movies.pop()],
-      toggle: true
+      arrayMovie: [movies.pop()]
     };
   },
   created() {
@@ -76,21 +75,18 @@ export default {
 </script>
 
 <template >
-  <Options @ontoggle="changeToogle" :Options="options"/>
-  <main  class="bg-dark main-app">
-        <div class="slider-movie">
-    <!--<SliderMovie>-->
-  <img class="logo" src="/public/img/logo-b-cinedebarrio-white.png" alt="logo">
-     <Slider :ArrayMovies="arrayMovie" />
+  <Options />
+  <main>
+    <div class="slider-movie">
+      <!--<SliderMovie>-->
+      <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo">
+      <Slider :ArrayMovies="arrayMovie" />
 
-  </div>
+    </div>
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
-    <keyboard
-      :letters="letterArray"
-      @clickedLetter="(id) => letterClicked(id)"
-    /> 
+    <keyboard :letters="letterArray" @clickedLetter="(id) => letterClicked(id)" />
 
-<!--
+    <!--
     <modal :isModalVisible="isModalVisible" @close="closeModal">
       <component :is="currentModal" class="modal"></component>
     </modal>
@@ -101,39 +97,37 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
-@import "./assets/base.css"; 
+@import "./assets/base.css";
 @import "./assets/style.css";
 
+
 #app {
-  width: 100vw;
-  padding: 2rem;
-  margin: 0 auto;
+  max-width: 100vw;
+  max-height: 100vh;
+
   font-weight: normal;
+
 }
-.main-app {
-    height: 100vh;
-}
+
 
 header {
   line-height: 1.5;
 }
 
 .logo {
-    width: 80px;
-    position: absolute;
-    z-index: 1;
-    left: 7vw;
-    top: -25px;
+  width: 80px;
+  position: absolute;
+  z-index: 1;
+  left: 7vw;
+  top: -25px;
 }
 
 .slider-movie {
-    margin: 20px;
-    margin-top:-20px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    width: auto;
-    height: 400px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: auto;
+  height: 400px;
 }
 
 a,
@@ -155,9 +149,6 @@ a,
     flex-direction: column;
   }
 
-  #app {
-    padding: 0 2rem;
-  }
 
   header {
     display: flex;
@@ -169,10 +160,6 @@ a,
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
   }
 }
 </style>

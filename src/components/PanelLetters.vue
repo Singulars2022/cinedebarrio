@@ -21,7 +21,8 @@ export default {
                 :key="index">
                 <TransitionGroup name="slide-fade">
                     <!-- Letra con letra -->
-                    <span class="letter" :class="guessedLettersMayus.includes(letter) ? 'animation':''" v-if="guessedLettersMayus.includes(letter)"> {{ letter }}</span>
+                    <span class="letter" :class="guessedLettersMayus.includes(letter) ? 'animation' : ''"
+                        v-if="guessedLettersMayus.includes(letter)"> {{ letter }}</span>
                     <!-- Letra sin letra o espacio -->
                     <span class="letter" v-if="!guessedLettersMayus.includes(letter)"></span>
                 </TransitionGroup>
@@ -37,11 +38,11 @@ export default {
     border: none;
 }
 
-.quest--panel{
+.quest--panel {
     display: flex;
-    flex-wrap:wrap;
-    justify-content: center;    
-    
+    flex-wrap: wrap;
+    justify-content: center;
+
 }
 
 .word--panel {
@@ -69,8 +70,8 @@ export default {
     font-weight: 700;
     transition: 1s all;
     position: absolute;
-    user-select: none; 
-   
+    user-select: none;
+
 }
 
 .letter--panel {
@@ -78,7 +79,7 @@ export default {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    background-image: url("../../public/panel-1letters.png");
+    background-image: url("/panel-1letters.png");
     background-size: 100%;
     width: 145px;
     height: 171px;
@@ -106,14 +107,13 @@ export default {
     transition: all 0.5s;
 }
 
-.slide-fade-enter-from{
+.slide-fade-enter-from {
     opacity: 1;
     transform: rotateY(-90deg);
 }
 
-.slide-fade-leave-to {    
+.slide-fade-leave-to {
     opacity: 0;
     transform: rotateY(0deg);
 }
-
 </style>

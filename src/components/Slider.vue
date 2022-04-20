@@ -9,7 +9,7 @@ export default {
   },
   computed: {
     getURL() {
-      return `url("../../public/${this.arraySlider[this.index]}")`;
+      return `url("/${this.arraySlider[this.index]}")`;
     },
   },
   methods: {
@@ -34,13 +34,8 @@ export default {
       <div class="main-div">
         <nav>
           <ul class="menu">
-            <li
-              class="slide-fwd-center"
-              v-for="(_, index) in arraySlider"
-              :key="index"
-              @click="SwitchImage(index)"
-              href=""
-            >
+            <li class="slide-fwd-center" v-for="(_, index) in arraySlider" :key="index" @click="SwitchImage(index)"
+              href="">
               <span class="indexmovie">{{ index + 1 }}</span>
             </li>
           </ul>
@@ -59,20 +54,25 @@ export default {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  padding-bottom: 1rem;
 }
+
 .flex {
   display: flex;
   justify-content: space-between;
 }
+
 .menu {
   display: flex;
   justify-content: center;
 }
+
 .indexmovie {
   color: red;
   font-size: 18px;
   font-weight: 700;
 }
+
 .menu li:hover {
   cursor: pointer;
   border: 3px solid #570000;
@@ -86,11 +86,9 @@ export default {
   text-decoration: none;
   background-color: rgba(255, 72, 0, 0);
   padding: 15px;
-  margin-right: 2rem;
   width: 10px;
   height: 10px;
   border-radius: 100%;
-  margin-bottom: 1.5rem;
 }
 </style>
 
