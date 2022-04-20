@@ -9,24 +9,30 @@ export default {
     },
   },
   methods: {
+    // Limpiamos la letra de acentos y dieresis.
     cleanLetter(letter) {
+      // Quitamos acentos
       letter = letter.replace(/á/gi, "a");
       letter = letter.replace(/é/gi, "e");
       letter = letter.replace(/í/gi, "i");
       letter = letter.replace(/ó/gi, "o");
       letter = letter.replace(/ú/gi, "u");
-      letter = letter.replace(/ü/gi, "u");
-      letter = letter.replace(/ö/gi,"o");
+      // Quitamos Dieresis
+      letter = letter.replace(/ä/gi, "a");
+      letter = letter.replace(/ë/gi, "e");
+      letter = letter.replace(/ï/gi, "i");
+      letter = letter.replace(/ö/gi, "o");      
+      letter = letter.replace(/ü/gi, "u");      
       return letter;
     },
+    // Comprobamos si el caracter actual es o no un simbolo o un numero.
     isSpecial(letter) {
-      var specialChars = "¡!@#$^&%*()+=-[]/{}|:<>?,.";
-      let patern = /^[0-9]+$/;
-      console.log(specialChars.includes(letter))
+      var specialChars = "¡!@#$^&%*()+=-[]/{}|:<>?¿,.";
+      let patern = /^[0-9]+$/;      
       if (specialChars.includes(letter) || letter.match(patern)) {
-        return true;
+        return true; // Si el caracter es un numero o un simbolo devuelve true
       } else {
-        return false;
+        return false; // Si el caracter es una letra devuelve false.
       }
     },
   },
@@ -34,7 +40,7 @@ export default {
 </script>
 
 <template>
-  <div class="quest--panel">
+  <div class="quest--panel">    
     <!-- Bucle de palabras -->
     <span class="word--panel" v-for="(word, index) in title" :key="index">
       <!-- Bucle de letras -->
@@ -49,16 +55,23 @@ export default {
           <span
             class="letter"
             :class="
-              guessedLetters.includes(cleanLetter(letter))||isSpecial(letter) ? 'animation' : ''
+              guessedLetters.includes(cleanLetter(letter)) || isSpecial(letter)
+                ? 'animation'
+                : ''
             "
-            v-if="guessedLetters.includes(cleanLetter(letter))||isSpecial(letter) "
+            v-if="
+              guessedLetters.includes(cleanLetter(letter)) || isSpecial(letter)
+            "
           >
             {{ letter }}</span
           >
           <!-- Letra sin letra o espacio -->
           <span
             class="letter"
-            v-if="!guessedLetters.includes(cleanLetter(letter)) && !isSpecial(letter)"
+            v-if="
+              !guessedLetters.includes(cleanLetter(letter)) &&
+              !isSpecial(letter)
+            "
           ></span>
         </TransitionGroup>
       </span>
@@ -103,6 +116,7 @@ export default {
   transition: 1s all;
   position: absolute;
   user-select: none;
+  color: black;
 }
 
 .letter--panel {

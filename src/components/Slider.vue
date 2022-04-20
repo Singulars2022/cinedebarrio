@@ -56,7 +56,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   height: 600px;
-  min-width: 80vw;
+  /*min-width: 80vw;*/
   display: flex;
   justify-content: center;
   align-items: flex-end;
