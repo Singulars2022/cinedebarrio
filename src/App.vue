@@ -6,6 +6,7 @@ import Rules from "./components/pages/Rules.vue";
 import Info from "./components/pages/Info.vue";
 import Modal from "./components/UX/Modal.vue";
 import Slider from "./components/Slider.vue";
+import KeyboardEvents from "./components/Keyboard-events.vue"
 </script>
 
 <script>
@@ -56,10 +57,23 @@ export default {
           clickedLetter.status = "correct";
         } else {
           clickedLetter.status = "wrong";
-          this.arrayMovie.push(movies.pop());
+          if (movies.length > 0) {
+            this.arrayMovie.push(movies.pop());
+          }
+          else {
+            return
+          }
         }
         this.guessedLetters.push(clickedLetter.letter);
       }
+    },
+    letterPressed(e) {
+      if ((e.keyCode < 65 || e.keyCode > 90) && e.keyCode != 192) {
+        return;
+      }
+      let keyPressed = e.key;
+      this.letterClicked(keyPressed);
+
     },
     closeModal() {
       this.isModalVisible = false;
@@ -75,13 +89,11 @@ export default {
 
 <template>
   <main>
+    <KeyboardEvents @keyup="letterPressed"></KeyboardEvents>
     <h1>Cine de Barrio</h1>
     <Slider :ArrayMovies="arrayMovie" />
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
-    <keyboard
-      :letters="letterArray"
-      @clickedLetter="(id) => letterClicked(id)"
-    />
+    <keyboard :letters="letterArray" @clickedLetter="(id) => letterClicked(id)" />
 
     <modal :isModalVisible="isModalVisible" @close="closeModal">
       <component :is="currentModal" class="modal"></component>
