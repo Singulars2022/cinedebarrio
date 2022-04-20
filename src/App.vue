@@ -14,13 +14,12 @@ export default {
       uid: 0,
       guessedLetters: [],
       actualMovie: [],
-      Panelmovie: "",
+      Panelmovie: {images:[],title:''},
       letterArray: [
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
         ["z", "x", "c", "v", "b", "n", "m"],
-      ],
-      arrayMovie: [movies.pop()],
+      ],      
     };
   },
   async created() {
@@ -41,17 +40,31 @@ export default {
     lettersControl() {
       return this.letterArray;
     },
-    movie() {
-      return this.Panelmovie.toLowerCase();
+    movieTitle() {
+      return this.Panelmovie.title.toLowerCase();
     }
   },
   methods: {
     async getData(){
       let results = await fetch(`https://api.themoviedb.org/3/list/8199288?api_key=42f1941bec5c4006006323f020c28fa5&language=es-ES`);
-      let json = await results.json();      
+      let json = await results.json();   
+      console.log(json.items);
       // Peticion de peliculas a la api
       this.actualMovie = json.items[Math.floor(Math.random() * json.items.length -1)];
-      this.Panelmovie = this.actualMovie.original_title
+      
+      // Obtenemos el titulo de la api
+      this.Panelmovie.title = this.actualMovie.original_title
+      
+      // Creamos un array de imagenes con la portada y un frame de la pelicula
+      const path_to_images = 'https://image.tmdb.org/t/p/original'
+      
+      // Si existe la portada o la contraportada la metemos en el array.
+      if(this.actualMovie.backdrop_path != null && this.actualMovie.backdrop_path != undefined){
+        this.Panelmovie.images.push(path_to_images+this.actualMovie.backdrop_path)
+      }
+      if(this.actualMovie.poster_path != null && this.actualMovie.poster_path != undefined){
+        this.Panelmovie.images.push(path_to_images+this.actualMovie.poster_path)
+      }
     },
     letterClicked(letter) {
       const clickedLetter = []
@@ -59,7 +72,7 @@ export default {
         .find((l) => l.letter == letter);
 
       if (!this.guessedLetters.includes(clickedLetter.letter)) {
-        if (this.movie.includes(clickedLetter.letter)) {
+        if (this.movieTitle.includes(clickedLetter.letter)) {
           clickedLetter.status = "correct";
         } else {
           clickedLetter.status = "wrong";
@@ -76,8 +89,8 @@ export default {
 <template>
   <main>
     <h1>Cine de Barrio</h1>
-    <Slider :ArrayMovies="arrayMovie" />
-    <panel-letters :text="movie" :guessedLetters="guessedLetters" />
+    <Slider :ArrayMovies="Panelmovie.images" />
+    <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
     <keyboard
       :letters="letterArray"
       @clickedLetter="(id) => letterClicked(id)"

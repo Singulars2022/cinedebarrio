@@ -9,7 +9,8 @@ export default {
   },
   computed: {
     getURL() {
-      return `url("../../public/${this.arraySlider[this.index]}")`;
+      //return `url("../../public/${this.arraySlider[this.index]}")`;
+      return `url(${this.arraySlider[this.index]})`;
     },
   },
   methods: {
