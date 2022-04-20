@@ -11,7 +11,8 @@ export default {
     return {
       uid: 0,
       guessedLetters: [],
-      movie: "El Padrino",
+      actualMovie: [],
+      Panelmovie: "",
       letterArray: [
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
@@ -19,7 +20,10 @@ export default {
       ],
     }
   },
-  created() {
+  async created() {
+    // Peticion Fetch a TMDB    
+    await this.getData();
+    // Creación del teclado
     this.letterArray = this.letterArray.map(arrayRow => {
         return arrayRow.map(l => {
           return {
@@ -33,9 +37,19 @@ export default {
   computed: {
     lettersControl() {
       return this.letterArray;
+    },
+    movie() {
+      return this.Panelmovie.toLowerCase();
     }
   },
   methods: {
+    async getData(){
+      let results = await fetch(`https://api.themoviedb.org/3/list/8199288?api_key=42f1941bec5c4006006323f020c28fa5&language=es-ES`);
+      let json = await results.json();      
+      // Peticion de peliculas a la api
+      this.actualMovie = json.items[Math.floor(Math.random() * json.items.length -1)];
+      this.Panelmovie = this.actualMovie.original_title
+    },
     letterClicked(letter) {
       const clickedLetter = [].concat(...this.letterArray).find(l => l.letter == letter);
 
@@ -51,13 +65,11 @@ export default {
   }
 }
 
-
-
 </script>
 
 <template>
   <main>
-   <h1>Cine de Barrio</h1>
+   <h1>Cine de Barrio</h1>   
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
     <keyboard :letters="letterArray" @clickedLetter="(id) => letterClicked(id)"/>
   </main>

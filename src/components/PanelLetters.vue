@@ -3,12 +3,12 @@
 <script>
 export default {
     props: ["text", "guessedLetters"],
-    data() {
-        return {
-            title: this.text.toLowerCase().split(' '),
-            guessedLettersMayus: this.guessedLetters
+    computed:{
+        title(){
+            return this.text.split(' ');
         }
     }
+
 }
 </script>
 
@@ -21,9 +21,9 @@ export default {
                 :key="index">
                 <TransitionGroup name="slide-fade">
                     <!-- Letra con letra -->
-                    <span class="letter" :class="guessedLettersMayus.includes(letter) ? 'animation':''" v-if="guessedLettersMayus.includes(letter)"> {{ letter }}</span>
+                    <span class="letter" :class="guessedLetters.includes(letter) ? 'animation':''" v-if="guessedLetters.includes(letter)"> {{ letter }}</span>
                     <!-- Letra sin letra o espacio -->
-                    <span class="letter" v-if="!guessedLettersMayus.includes(letter)"></span>
+                    <span class="letter" v-if="!guessedLetters.includes(letter)"></span>
                 </TransitionGroup>
             </span>
         </span>
