@@ -24,9 +24,8 @@ data() {
     }
 }
 </script>
-
 <template>
-  <main :class="[toggle ? 'bg-light' : 'bg-dark']">
+  <main :class="[toggle ? '--vt-c-white' : '--vt-c-black']">
   <nav class="icons">
     <div v-if = "toggle" >
       <img @mouseover="onMouseOverInfo" @mouseleave="onMouseLeaveInfo" :src="srcInfoIcon" alt="info">

@@ -62,6 +62,7 @@ export default {
     font-size: 3rem;
     border: black solid 1px;
     background-color: white;
+    color: black;
     width: 80px;
     height: 80px;
     text-align: center;

@@ -101,7 +101,7 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
-/* @import "./assets/base.css"; */
+@import "./assets/base.css"; 
 @import "./assets/style.css";
 
 #app {
@@ -110,18 +110,6 @@ export default {
   margin: 0 auto;
   font-weight: normal;
 }
-
-.bg-light {
-
-    background: radial-gradient(ellipse, #dfdfdf 0%, #7b7b7b 100%);
-
-}
-
-.bg-dark {
-
-    background: radial-gradient(ellipse, #303030 0%, #161312 100%);
-}
-
 .main-app {
     height: 100vh;
 }
@@ -134,7 +122,7 @@ header {
     width: 80px;
     position: absolute;
     z-index: 1;
-    left: 3vw;
+    left: 7vw;
     top: -25px;
 }
 
