@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="47.31787px" height="47.73163px" viewBox="0 0 47.31787 47.73163" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="help_white_24dp">
+    <path d="M0 0L48 0L48 48L0 48L0 0Z" id="Shape" fill="none" stroke="none" />
+    <path d="M24 4C12.96 4 4 12.96 4 24C4 35.04 12.96 44 24 44C35.04 44 44 35.04 44 24C44 12.96 35.04 4 24 4L24 4ZM26 38L22 38L22 34L26 34L26 38L26 38ZM30.14 22.5L28.34 24.34C26.9 25.8 26 27 26 30L22 30L22 29C22 26.8 22.9 24.8 24.34 23.34L26.82 20.82C27.56 20.1 28 19.1 28 18C28 15.8 26.2 14 24 14C21.8 14 20 15.8 20 18L16 18C16 13.58 19.58 10 24 10C28.42 10 32 13.58 32 18C32 19.76 31.28 21.36 30.14 22.5L30.14 22.5Z" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+  </g>
+</svg>
