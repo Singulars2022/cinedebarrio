@@ -1,26 +1,28 @@
+<script setup>
+import Rules from '../pages/Rules.vue';
+</script>
 
 <script>
 export default {
-  data() {
-    return {
-      modalShow: false,
-    };
-  },
+  emits: ["close"],
+  props: ["isModalVisible"],
+  methods: {
+    close() {
+      this.$emit("close");
+    }
+  }
 };
 </script>
 
 <template>
  <transition name="modal-fade">
-  <div v-if="modalShow" class="modal">
+  <div v-if="isModalVisible" class="modal">
     <div class="modal-content">
-        <slot name="content"></slot>
-      <span class="closeModal" @click="modalShow = !modalShow">&#9932;</span>
+        <slot></slot>
+      <span class="closeModal" @click="close">&#9932;</span>
     </div>
   </div>
  </transition>
-  <span @click="modalShow = !modalShow">
-    <slot name="button"></slot>
-  </span>
 </template>
 
 <style scoped>

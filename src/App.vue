@@ -1,14 +1,16 @@
 <script setup>
 import PanelLetters from './components/PanelLetters.vue';
 import keyboard from './components/Keyboard.vue';
-import modal from './components/UX/Modal.vue';
+// import modal from './components/UX/Modal.vue';
 import helpIcon from './assets/icons/help_white_48dp.svg';
-import Rules from './components/modalPages/Rules.vue';
+import Rules from './components/pages/Rules.vue';
+import Modal from './components/UX/Modal.vue';
 </script>
 
 <script>
 
 export default {
+  components: { Modal },
   data() {
     return {
       uid: 0,
@@ -19,6 +21,9 @@ export default {
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
         ["z", "x", "c", "v", "b", "n", "m"],
       ],
+      currentModal: '',
+      modals:[],
+      isModalVisible: false
     }
   },
   created() {
@@ -49,6 +54,14 @@ export default {
         }
         this.guessedLetters.push(clickedLetter.letter)
       }
+    },
+    closeModal() {
+      this.isModalVisible = false;
+      this.currentModal=undefined;
+    },
+    openModal(modal) {
+      this.isModalVisible = true;
+      this.currentModal=modal;
     }
   }
 }
@@ -62,20 +75,12 @@ export default {
    <h1>Cine de Barrio</h1>
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
     <keyboard :letters="letterArray" @clickedLetter="(id) => letterClicked(id)"/>
-  </main>
-  <modal> 
-     <template v-slot:content>
-          <h1>Instrucciones</h1>
-          <h2>Adivina la película por las imágenes</h2>
-          <ul>
-            <li>Cada vez que falles, se te mostrará una imagen nueva.</li>
-            <li>En el teclado podrás ver las letras que has ido pulsando, correctas e incorrectas.</li>
-            <li>Si aciertas la película antes de que x, ¡ganaras!</li>
-          </ul>
-        </template>
-        <template v-slot:button> <img :src="helpIcon" alt=""></template>
-
+  <modal :isModalVisible="isModalVisible" @close="closeModal">
+    <component :is="currentModal" class="modal"></component>
   </modal>
+  <button @click="openModal(Rules)">Open modal</button>
+  
+  </main>
   
 </template>
 
