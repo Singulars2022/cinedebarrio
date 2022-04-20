@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="signal_cellular_alt_white_24dp">
+    <path d="M0 0L48 0L48 48L0 48L0 0Z" id="Shape" fill="none" fill-rule="evenodd" stroke="none" />
+    <path d="M34 8L40 8L40 40L34 40L34 8ZM10 28L16 28L16 40L10 40L10 28ZM22 18L28 18L28 40L22 40L22 18Z" id="Shape" fill="#BF0000" fill-rule="evenodd" stroke="none" />
+  </g>
+</svg>

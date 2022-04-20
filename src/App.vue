@@ -6,6 +6,7 @@ import Rules from "./components/pages/Rules.vue";
 import Info from "./components/pages/Info.vue";
 import Modal from "./components/UX/Modal.vue";
 import Slider from "./components/Slider.vue";
+import Options from "./components/Options.vue";
 </script>
 
 <script>
@@ -27,6 +28,7 @@ export default {
       modals: [],
       isModalVisible: false,
       arrayMovie: [movies.pop()],
+      toggle: true
     };
   },
   created() {
@@ -68,39 +70,60 @@ export default {
     openModal(modal) {
       this.isModalVisible = true;
       this.currentModal = modal;
-    },
+    }
   },
 };
 </script>
 
-<template>
-  <main>
-    <h1>Cine de Barrio</h1>
-    <Slider :ArrayMovies="arrayMovie" />
+<template >
+  <Options @ontoggle="changeToogle" :Options="options"/>
+  <main  class="bg-dark main-app">
+        <div class="slider-movie">
+    <!--<SliderMovie>-->
+  <img class="logo" src="/public/img/logo-b-cinedebarrio-white.png" alt="logo">
+     <Slider :ArrayMovies="arrayMovie" />
+
+  </div>
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
     <keyboard
       :letters="letterArray"
       @clickedLetter="(id) => letterClicked(id)"
-    />
+    /> 
 
+<!--
     <modal :isModalVisible="isModalVisible" @close="closeModal">
       <component :is="currentModal" class="modal"></component>
     </modal>
     <button @click="openModal(Rules)">Open Rules</button>
-    <button @click="openModal(Info)">Open Info</button>
+    <button @click="openModal(Info)">Open Info</button> -->
   </main>
 </template>
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
-@import "./assets/base.css";
+/* @import "./assets/base.css"; */
+@import "./assets/style.css";
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100vw;
   padding: 2rem;
-
+  margin: 0 auto;
   font-weight: normal;
+}
+
+.bg-light {
+
+    background: radial-gradient(ellipse, #dfdfdf 0%, #7b7b7b 100%);
+
+}
+
+.bg-dark {
+
+    background: radial-gradient(ellipse, #303030 0%, #161312 100%);
+}
+
+.main-app {
+    height: 100vh;
 }
 
 header {
@@ -108,8 +131,21 @@ header {
 }
 
 .logo {
-  display: block;
-  margin: 0 auto 2rem;
+    width: 80px;
+    position: absolute;
+    z-index: 1;
+    left: 3vw;
+    top: -25px;
+}
+
+.slider-movie {
+    margin: 20px;
+    margin-top:-20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    height: 400px;
 }
 
 a,
