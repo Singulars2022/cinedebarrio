@@ -2,6 +2,7 @@
 import PanelLetters from "./components/PanelLetters.vue";
 import keyboard from "./components/Keyboard.vue";
 import Slider from "./components/Slider.vue";
+import RulesComponents from "./components/RulesComponents.vue";
 </script>
 
 <script>
@@ -61,6 +62,14 @@ export default {
 <template>
   <main>
     <h1>Cine de Barrio</h1>
+    
+    <select v-model="idiomas" name="" id="">
+      <option value="text">ES</option>
+      <option value="text">CA</option>
+    </select>
+
+    <RulesComponents :idiomas="idiomasArray"/>
+
     <Slider :ArrayMovies="arrayMovie" />
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
     <keyboard
