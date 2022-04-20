@@ -27,7 +27,7 @@ export default {
     },
     // Comprobamos si el caracter actual es o no un simbolo o un numero.
     isSpecial(letter) {
-      var specialChars = "¡!@#$^&%*()+=-[]/{}|:<>?¿,.";
+      var specialChars = "¡!@#$^&%*()+=-[]/{}|:<>?¿,.'";
       let patern = /^[0-9]+$/;      
       if (specialChars.includes(letter) || letter.match(patern)) {
         return true; // Si el caracter es un numero o un simbolo devuelve true
