@@ -15,21 +15,21 @@ export default {
 </script>
 
 <template>
- <transition name="modal-fade">
-  <div v-if="isModalVisible" class="modal" @click.self="close">
-    <div class="modal-content">
+  <transition name="modal-fade">
+    <div v-if="isModalVisible" class="modal" @click.self="close">
+      <div class="modal-content">
         <slot></slot>
-      <span class="closeModal" @click="close">&#9932;</span>
+        <span class="closeModal" @click="close">&#9932;</span>
+      </div>
     </div>
-  </div>
- </transition>
+  </transition>
 </template>
 
 <style scoped>
 .modal {
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(2px);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
@@ -37,14 +37,16 @@ export default {
   align-items: center;
   width: 100vw;
   height: 100vh;
+  z-index: 10;
 }
+
 .modal-content {
   box-shadow: 0px 0px 15px 0px white;
   position: relative;
   background-color: rgb(135, 1, 1);
   width: 70%;
   padding: 50px 50px;
-  color:white;
+  color: white;
 }
 
 .closeModal {
@@ -54,25 +56,24 @@ export default {
   transition: transform 0.2s;
   font-size: 2rem;
 }
+
 .closeModal:hover {
   color: white;
   transform: scale(1.2);
 }
 
-span{
-    cursor: pointer;
-  }
+span {
+  cursor: pointer;
+}
 
 /* Transition */
-  .modal-fade-enter,
-  .modal-fade-leave-to {
-    opacity: 0;
-  }
+.modal-fade-enter,
+.modal-fade-leave-to {
+  opacity: 0;
+}
 
-  .modal-fade-enter-active,
-  .modal-fade-leave-active {
-    transition: opacity .2s ease;
-  }
-  
-
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity .2s ease;
+}
 </style>

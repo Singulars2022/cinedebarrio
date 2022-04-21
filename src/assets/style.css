@@ -1,0 +1,13 @@
+:root {
+    --letter-basic-white: #FFFFFF;
+    --letter-basic-black: #000000;
+    --panel-color: #FFFFFF;
+    --panel-color-correct: #570000;
+    --letter-correct: #2AA800;
+    --letter-incorrect: #B70000;
+    --button-keyboard-active: #570000;
+    --border-keyboard: #808080;
+    --bg-keyboard: transparent;
+    --box-alert: #870101;
+
+}
