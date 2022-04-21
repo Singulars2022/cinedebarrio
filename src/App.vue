@@ -49,6 +49,7 @@ export default {
   },
   methods: {
     letterClicked(letter) {
+      letter = letter.toLowerCase();
       const clickedLetter = []
         .concat(...this.letterArray)
         .find((l) => l.letter == letter);

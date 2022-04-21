@@ -33,7 +33,7 @@ export default {
     <div :style="{ backgroundImage: getURL }" class="movie">
       <div class="main-div">
         <nav>
-          <ul class="menu">
+          <ul v-show="arraySlider.length > 1" class="menu">
             <li class="slide-fwd-center" v-for="(_, index) in arraySlider" :key="index" @click="SwitchImage(index)"
               href="">
               <span class="indexmovie">{{ index + 1 }}</span>
@@ -65,6 +65,7 @@ export default {
 .menu {
   display: flex;
   justify-content: center;
+  gap: 1rem;
 }
 
 .indexmovie {
