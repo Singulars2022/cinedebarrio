@@ -62,13 +62,14 @@ export default {
 <template>
   <main>
     <h1>Cine de Barrio</h1>
-    
-    <select v-model="idiomas" name="" id="">
-      <option value="text">ES</option>
-      <option value="text">CA</option>
+
+    <select v-model="$i18n.locale" name="" id="">
+      <option value="">Idioma</option>
+      <option value="es">ES</option>
+      <option value="ca">CA</option>
     </select>
 
-    <RulesComponents :idiomas="idiomasArray"/>
+  
 
     <Slider :ArrayMovies="arrayMovie" />
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
