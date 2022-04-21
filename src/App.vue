@@ -9,14 +9,14 @@ import KeyboardEvents from "./components/Keyboard-events.vue"
 </script>
 
 <script>
-let movies = ["peli1.jpg", "peli2.png", "peli3.jpg"];
 
 export default {
   data() {
     return {
       uid: 0,
       guessedLetters: [],
-      movie: "El club de la lucha",
+      actualMovie: [],
+      Panelmovie: { images: [], title: '' },
       letterArray: [
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
@@ -24,17 +24,25 @@ export default {
       ],
       currentModal: "",
       isModalVisible: false,
-      arrayMovie: [movies.pop()]
+      displayedImages: []
     };
   },
-  created() {
-    this.letterArray = this.letterArray.map((arrayRow) => {
-      return arrayRow.map((l) => {
+  async created() {
+    // Peticion Fetch a TMDB    
+    await this.getData();
+
+    // Ponemos la primera imagen
+    const firstImage = this.Panelmovie.images.pop();
+    this.displayedImages.push(firstImage);
+
+    // Creación del teclado
+    this.letterArray = this.letterArray.map(arrayRow => {
+      return arrayRow.map(l => {
         return {
           id: this.uid++,
           letter: l,
-          status: "default",
-        };
+          status: "default"
+        }
       });
     });
   },
@@ -42,21 +50,56 @@ export default {
     lettersControl() {
       return this.letterArray;
     },
+    movieTitle() {
+      return this.Panelmovie.title.toLowerCase();
+    }
   },
   methods: {
+    async getData() {
+      let results = await fetch(`https://api.themoviedb.org/3/list/8199288?api_key=42f1941bec5c4006006323f020c28fa5&language=es-ES`);
+      let json = await results.json();
+      console.log(json.items);
+      // Peticion de peliculas a la api
+      this.actualMovie = json.items[Math.floor(Math.random() * json.items.length - 1)];
+
+      // Obtenemos el titulo de la api
+      this.Panelmovie.title = this.actualMovie.original_title
+
+      // Creamos un array de imagenes con la portada y un frame de la pelicula
+      const path_to_images = 'https://image.tmdb.org/t/p/original'
+
+      // Si existe la portada o la contraportada la metemos en el array.
+      if (this.actualMovie.backdrop_path != null && this.actualMovie.backdrop_path != undefined) {
+        this.Panelmovie.images.push(path_to_images + this.actualMovie.backdrop_path)
+      }
+      if (this.actualMovie.poster_path != null && this.actualMovie.poster_path != undefined) {
+        this.Panelmovie.images.push(path_to_images + this.actualMovie.poster_path)
+      }
+    },
     letterClicked(letter) {
       letter = letter.toLowerCase();
+
+      let normalizedMovie = this.Panelmovie.title;
+
+      const removeAccents = (str) => {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      }
+
+      normalizedMovie = removeAccents(normalizedMovie);
+
       const clickedLetter = []
         .concat(...this.letterArray)
         .find((l) => l.letter == letter);
 
+      // TODO: Refactorizar, hacer un return
       if (!this.guessedLetters.includes(clickedLetter.letter)) {
-        if (this.movie.includes(clickedLetter.letter)) {
+        if (normalizedMovie.includes(clickedLetter.letter)) {
           clickedLetter.status = "correct";
         } else {
           clickedLetter.status = "wrong";
-          if (movies.length > 0) {
-            this.arrayMovie.push(movies.pop());
+          // Mientras queden imágenes que mostrar, sacar la siguiente
+          if (this.Panelmovie.images.length > 0) {
+            this.displayedImages.push(this.Panelmovie.images.pop());
           }
           else {
             return
@@ -92,10 +135,10 @@ export default {
     <div class="slider-movie">
       <!--<SliderMovie>-->
       <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo">
-      <Slider :ArrayMovies="arrayMovie" />
+      <Slider :ArrayMovies="displayedImages" />
 
     </div>
-    <panel-letters :text="movie" :guessedLetters="guessedLetters" />
+    <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
     <keyboard :letters="letterArray" @clickedLetter="(id) => letterClicked(id)" />
 
   </main>
