@@ -3,9 +3,9 @@ import App from './App.vue'
 import { createI18n } from 'vue-i18n'
 
 const i18n = createI18n({
-    locale: "ca",
+    locale: navigator.language,
     messages: {
-        es: {
+        "es-ES": {
             instructionRules: 'Instrucciones'
 
         },
@@ -13,9 +13,10 @@ const i18n = createI18n({
         ca: {
             instructionRules: 'Instruccions'
         }
-
     }
 })
+
+console.log(navigator);
 
 createApp(App)
     .use(i18n)
