@@ -62,7 +62,6 @@ export default {
         `https://api.themoviedb.org/3/list/8199288?api_key=42f1941bec5c4006006323f020c28fa5&language=es-ES`
       );
       let json = await results.json();
-      console.log(json.items);
       // Peticion de peliculas a la api
       this.actualMovie =
         json.items[Math.floor(Math.random() * json.items.length - 1)];
@@ -95,7 +94,6 @@ export default {
       letter = letter.toLowerCase();
 
       let normalizedMovie = this.movieTitle;
-      console.log("movie:", normalizedMovie);
 
       const removeAccents = (str) => {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -127,22 +125,40 @@ export default {
             return;
           }
         }
-        this.guessedLetters.push(letter);        
+        this.guessedLetters.push(letter);
       }
-      // Hacemos una comprobación de si hemos ganado
-        let contError = 0;
-        normalizedMovie.split("").forEach((element) => {
-          if (!this.guessedLetters.includes(element)) {
-            contError++;
-          }
-        });
 
-        if (contError == 0) {
-          this.gameStatus = 2;
+      // Comprobamos si hemos ganado.
+      this.checkVictory(normalizedMovie);
+      
+    },
+    checkVictory(normalizedMovie){
+      // Hacemos una comprobación de si hemos ganado
+      console.log("Vamos a comprobar si hemos ganado.");
+      let contError = 0;
+      console.log("contError: ", contError);
+
+      normalizedMovie.split("").forEach((element) => {
+        if (!this.guessedLetters.includes(element) && element != ' ' && !this.isSpecial(element)) {
+          contError++;
         }
+      });
+
+      if (contError == 0) {
+        this.gameStatus = 2;        
+      }
+
+    },
+    isSpecial(letter) { // Comprobamos si un elemento es especial
+      var specialChars = "¡!@#$^&%*()+=-[]/{}|:<>¿?,.'";
+      let patern = /^[0-9]+$/;      
+      if (specialChars.includes(letter) || letter.match(patern)) {
+        return true;
+      } else {
+        return false;
+      }
     },
     letterPressed(e) {
-      console.log(e.keyCode);
       if ((e.keyCode < 65 || e.keyCode > 90) && e.keyCode != 192) {
         return;
       }
