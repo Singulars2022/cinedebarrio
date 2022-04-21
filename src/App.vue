@@ -6,7 +6,6 @@ import Rules from "./components/pages/Rules.vue";
 import Info from "./components/pages/Info.vue";
 import Modal from "./components/UX/Modal.vue";
 import Slider from "./components/Slider.vue";
-import RulesComponents from "./components/RulesComponents.vue";
 </script>
 
 <script>
