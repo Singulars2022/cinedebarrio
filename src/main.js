@@ -19,4 +19,5 @@ const i18n = createI18n({
 
 createApp(App)
     .use(i18n)
-    .mount('#app')
+    .mount('#app');
+

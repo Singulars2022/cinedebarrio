@@ -117,6 +117,7 @@ export default {
       let keyPressed = e.key;
       this.letterClicked(keyPressed);
 
+
     },
     closeModal() {
       this.isModalVisible = false;
@@ -145,6 +146,7 @@ export default {
     <keyboard :letters="letterArray" @clickedLetter="(id) => letterClicked(id)" />
 
   </main>
+  <p style="font-size:32px; text-align:center">Pulsa F11 para pantalla completa</p>
 </template>
 
 <style>
