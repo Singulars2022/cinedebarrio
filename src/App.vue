@@ -1,6 +1,10 @@
 <script setup>
 import PanelLetters from "./components/PanelLetters.vue";
 import keyboard from "./components/Keyboard.vue";
+import helpIcon from "./assets/icons/help_white_48dp.svg";
+import Rules from "./components/pages/Rules.vue";
+import Info from "./components/pages/Info.vue";
+import Modal from "./components/UX/Modal.vue";
 import Slider from "./components/Slider.vue";
 import RulesComponents from "./components/RulesComponents.vue";
 </script>
@@ -9,7 +13,7 @@ import RulesComponents from "./components/RulesComponents.vue";
 let movies = ["peli1.jpg", "peli2.png", "peli3.jpg"];
 
 export default {
-  components: { keyboard },
+  components: { Modal },
   data() {
     return {
       uid: 0,
@@ -20,6 +24,9 @@ export default {
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
         ["z", "x", "c", "v", "b", "n", "m"],
       ],
+      currentModal: "",
+      modals: [],
+      isModalVisible: false,
       arrayMovie: [movies.pop()],
     };
   },
@@ -55,6 +62,14 @@ export default {
         this.guessedLetters.push(clickedLetter.letter);
       }
     },
+    closeModal() {
+      this.isModalVisible = false;
+      this.currentModal = undefined;
+    },
+    openModal(modal) {
+      this.isModalVisible = true;
+      this.currentModal = modal;
+    },
   },
 };
 </script>
@@ -77,6 +92,12 @@ export default {
       :letters="letterArray"
       @clickedLetter="(id) => letterClicked(id)"
     />
+
+    <modal :isModalVisible="isModalVisible" @close="closeModal">
+      <component :is="currentModal" class="modal"></component>
+    </modal>
+    <button @click="openModal(Rules)">Open Rules</button>
+    <button @click="openModal(Info)">Open Info</button>
   </main>
 </template>
 
