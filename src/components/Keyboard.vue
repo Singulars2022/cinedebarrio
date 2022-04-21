@@ -3,6 +3,7 @@
 export default {
   props: {
     letters: Array,
+    popcornNumber:Number
   },
   emits: ["clickedLetter"],
   data() {
@@ -18,6 +19,10 @@ export default {
 
 <template>
   <div>
+    <div class="tryCount">
+          Intentos:
+          <div v-for="i in this.popcornNumber" :key="i">🍿</div>
+        </div>
     <p class="keyboardLines" v-for="(letterRow, index) in letters" :key="index">
       <span
         v-for="(letter, index2) in letterRow"
@@ -80,5 +85,12 @@ div{
     color: white;
   background-color: #b70000;
   border: 2px solid transparent;
+}
+.tryCount {
+  display: flex;
+  color: white;
+  font-size: 2em;
+  justify-content: center;
+  align-items: center;
 }
 </style>
