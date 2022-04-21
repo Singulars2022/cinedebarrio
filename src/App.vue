@@ -110,7 +110,6 @@ export default {
       }
     },
     letterPressed(e) {
-      console.log(e.keyCode);
       if ((e.keyCode < 65 || e.keyCode > 90) && e.keyCode != 192) {
         return;
       }

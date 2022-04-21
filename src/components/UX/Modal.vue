@@ -43,10 +43,14 @@ export default {
 .modal-content {
   box-shadow: 0px 0px 15px 0px white;
   position: relative;
-  background-color: rgb(135, 1, 1);
+  /* background-color: rgb(135, 1, 1); */
+  background-color: white;
   width: 70%;
+  height: 80%;
   padding: 50px 50px;
-  color: white;
+  /* color: white; */
+  color: black;
+  overflow-y: scroll;
 }
 
 .closeModal {
