@@ -22,7 +22,7 @@ export default {
     isSpecial(letter) {
       var specialChars = "¡!@#$^&%*()+=-[]/{}|:<>¿?,.'";
       let patern = /^[0-9]+$/;
-      console.log(specialChars.includes(letter))
+      //console.log(specialChars.includes(letter))
       if (specialChars.includes(letter) || letter.match(patern)) {
         return true;
       } else {
