@@ -1,12 +1,19 @@
 
-<script>
+<script setup>
+import Modal from "./UX/Modal.vue";
+import Rules from "./pages/Rules.vue";
+import Info from "./pages/Info.vue"; // @ significa 'desde la carpeta 'src'
+</script>
 
+<script>
 export default {
   data() {
     return {
       toggle: false,
       active: false,
-      srcInfoIcon: '/svg/info_black_48dp.svg'
+      srcInfoIcon: '/svg/info_black_48dp.svg',
+      isModalVisible: false,
+      currentModal: undefined
 
     }
   },
@@ -20,12 +27,24 @@ export default {
     },
     onMouseLeaveInfo() {
       this.srcInfoIcon = '/svg/info_black_48dp.svg';
+    },
+    closeModal() {
+      this.isModalVisible = false;
+      this.currentModal = undefined;
+    },
+    openModal(modal) {
+      this.isModalVisible = true;
+      this.currentModal = modal;
     }
   }
 }
 </script>
 <template>
   <!-- <main :class="[toggle ? 'var--vt-c-white' : '--vt-c-black']"> -->
+
+  <modal :isModalVisible="isModalVisible" @close="closeModal">
+    <component :is="currentModal" class="modal"></component>
+  </modal>
   <div>
     <nav class="icons">
       <div v-if="toggle">
@@ -39,9 +58,9 @@ export default {
   alt="toggle-dark"> -->
       </div>
       <div v-else>
-        <img class="info" src="/svg/info_white_48dp.svg" alt="info">
+        <img @click="openModal(Info)" class="info" src="/svg/info_white_48dp.svg" alt="info">
         <!-- <img v-on:mouseover="active = !active" src="/svg/info_white_48dp.svg" alt="info"> -->
-        <img class="help" src="/svg/help_white_48dp.svg" alt="help">
+        <img @click="openModal(Rules)" class="help" src="/svg/help_white_48dp.svg" alt="help">
         <!-- <img v-on:mouseover="active = !active" src="/svg/help_white_48dp.svg" alt="help"> -->
         <!-- <img class="light animate__animated animate__rubberBand " @click="ontoggle" src="/svg/toggle_off_white_48dp.svg" 
   alt="toggle-light"> -->

@@ -2,9 +2,7 @@
 import PanelLetters from "./components/PanelLetters.vue";
 import keyboard from "./components/Keyboard.vue";
 import helpIcon from "./assets/icons/help_white_48dp.svg";
-import Rules from "./components/pages/Rules.vue";
-import Info from "./components/pages/Info.vue";
-import Modal from "./components/UX/Modal.vue";
+
 import Slider from "./components/Slider.vue";
 import Options from "./components/Options.vue";
 import KeyboardEvents from "./components/Keyboard-events.vue"
@@ -14,7 +12,6 @@ import KeyboardEvents from "./components/Keyboard-events.vue"
 let movies = ["peli1.jpg", "peli2.png", "peli3.jpg"];
 
 export default {
-  components: { Modal },
   data() {
     return {
       uid: 0,
@@ -26,7 +23,6 @@ export default {
         ["z", "x", "c", "v", "b", "n", "m"],
       ],
       currentModal: "",
-      modals: [],
       isModalVisible: false,
       arrayMovie: [movies.pop()]
     };
@@ -102,12 +98,6 @@ export default {
     <panel-letters :text="movie" :guessedLetters="guessedLetters" />
     <keyboard :letters="letterArray" @clickedLetter="(id) => letterClicked(id)" />
 
-    <!--
-    <modal :isModalVisible="isModalVisible" @close="closeModal">
-      <component :is="currentModal" class="modal"></component>
-    </modal>
-    <button @click="openModal(Rules)">Open Rules</button>
-    <button @click="openModal(Info)">Open Info</button> -->
   </main>
 </template>
 
