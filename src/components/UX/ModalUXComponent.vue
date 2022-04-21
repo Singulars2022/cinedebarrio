@@ -1,7 +1,3 @@
-<script setup>
-import Rules from '../pages/Rules.vue';
-</script>
-
 <script>
 export default {
   emits: ["close"],
@@ -46,23 +42,23 @@ export default {
   /* background-color: rgb(135, 1, 1); */
   background-color: white;
   width: 70%;
-  height: 80%;
+  max-height: 80%;
   padding: 50px 50px;
   /* color: white; */
   color: black;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .closeModal {
   position: absolute;
   top: 15px;
   right: 15px;
-  transition: transform 0.2s;
+  transition: transform .1s, color .1s;
   font-size: 2rem;
 }
 
 .closeModal:hover {
-  color: white;
+  color: rgb(135, 1, 1);
   transform: scale(1.2);
 }
 
