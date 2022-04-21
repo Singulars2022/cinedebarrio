@@ -128,6 +128,7 @@ export default {
     }
   },
 };
+
 </script>
 
 <template >
@@ -142,10 +143,11 @@ export default {
 
     </div>
     <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
-    <keyboard :letters="letterArray" @clickedLetter="(id) => letterClicked(id)" />
+    <keyboard id="keyboard" :letters="letterArray" @clickedLetter="(id) => letterClicked(id)" />
 
   </main>
 </template>
+
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
@@ -213,5 +215,10 @@ a,
     place-items: flex-start;
     flex-wrap: wrap;
   }
+}
+#keyboard{
+  position:absolute;
+  left: 50%;
+  transform: translate(-50%);
 }
 </style>
