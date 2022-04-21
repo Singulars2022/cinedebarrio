@@ -9,7 +9,6 @@ import KeyboardEvents from "./components/Keyboard-events.vue"
 </script>
 
 <script>
-
 export default {
   data() {
     return {
