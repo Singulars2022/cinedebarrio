@@ -49,6 +49,7 @@ export default {
 .movie {
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   height: 100%;
   min-width: 80vw;
   display: flex;
