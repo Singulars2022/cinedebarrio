@@ -79,7 +79,8 @@ export default {
     letterClicked(letter) {
       letter = letter.toLowerCase();
 
-      let normalizedMovie = this.Panelmovie.title;
+      let normalizedMovie = this.movieTitle;
+      console.log('movie:', normalizedMovie)
 
       const removeAccents = (str) => {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -92,8 +93,8 @@ export default {
         .find((l) => l.letter == letter);
 
       // TODO: Refactorizar, hacer un return
-      if (!this.guessedLetters.includes(clickedLetter.letter)) {
-        if (normalizedMovie.includes(clickedLetter.letter)) {
+      if (!this.guessedLetters.includes(letter)) {
+        if (normalizedMovie.includes(letter)) {
           clickedLetter.status = "correct";
         } else {
           clickedLetter.status = "wrong";
@@ -105,10 +106,11 @@ export default {
             return
           }
         }
-        this.guessedLetters.push(clickedLetter.letter);
+        this.guessedLetters.push(letter);
       }
     },
     letterPressed(e) {
+      console.log(e.keyCode);
       if ((e.keyCode < 65 || e.keyCode > 90) && e.keyCode != 192) {
         return;
       }
