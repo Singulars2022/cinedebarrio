@@ -7,6 +7,7 @@ import Info from "./components/pages/Info.vue";
 import Modal from "./components/UX/Modal.vue";
 import Slider from "./components/Slider.vue";
 import Options from "./components/Options.vue";
+import KeyboardEvents from "./components/Keyboard-events.vue"
 </script>
 
 <script>
@@ -57,10 +58,23 @@ export default {
           clickedLetter.status = "correct";
         } else {
           clickedLetter.status = "wrong";
-          this.arrayMovie.push(movies.pop());
+          if (movies.length > 0) {
+            this.arrayMovie.push(movies.pop());
+          }
+          else {
+            return
+          }
         }
         this.guessedLetters.push(clickedLetter.letter);
       }
+    },
+    letterPressed(e) {
+      if ((e.keyCode < 65 || e.keyCode > 90) && e.keyCode != 192) {
+        return;
+      }
+      let keyPressed = e.key;
+      this.letterClicked(keyPressed);
+
     },
     closeModal() {
       this.isModalVisible = false;
@@ -77,6 +91,7 @@ export default {
 <template >
   <Options />
   <main>
+    <KeyboardEvents @keyup="letterPressed"></KeyboardEvents>
     <div class="slider-movie">
       <!--<SliderMovie>-->
       <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo">
