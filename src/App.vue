@@ -129,12 +129,7 @@ export default {
 </script>
 
 <template >
-<!-- Selector para cambiar el idioma mirar fichero main.js
-     <select v-model="$i18n.locale" name="" id="">
-      <option value="">Idioma</option>
-      <option value="es">ES</option>
-      <option value="ca">CA</option>
-    </select> -->
+
   <Options />
   <main>
     <KeyboardEvents @keyup="letterPressed"></KeyboardEvents>

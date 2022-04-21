@@ -41,6 +41,7 @@ export default {
 </script>
 <template>
   <!-- <main :class="[toggle ? 'var--vt-c-white' : '--vt-c-black']"> -->
+  <!-- Selector para cambiar el idioma mirar fichero main.js -->
 
   <modal :isModalVisible="isModalVisible" @close="closeModal">
     <component :is="currentModal" class="modal"></component>
@@ -48,6 +49,7 @@ export default {
   <div>
     <nav class="icons">
       <div v-if="toggle">
+
         <img @mouseover="onMouseOverInfo" @mouseleave="onMouseLeaveInfo" :src="srcInfoIcon" alt="info">
         <img class="help" src="/svg/help_black_48dp.svg" alt="help">
         <!-- <img v-if="active" class="info" src="/svg/info_red_48dp.svg" alt="info">
@@ -64,12 +66,27 @@ export default {
         <!-- <img v-on:mouseover="active = !active" src="/svg/help_white_48dp.svg" alt="help"> -->
         <!-- <img class="light animate__animated animate__rubberBand " @click="ontoggle" src="/svg/toggle_off_white_48dp.svg" 
   alt="toggle-light"> -->
+        <select class="languages" v-model="$i18n.locale">
+          <option value="es">ES</option>
+          <option value="ca">CA</option>
+        </select>
       </div>
     </nav>
   </div>
 </template>
 
 <style scoped>
+.languages {
+  border-radius: 16px;
+  background-color: transparent;
+  color: white;
+  font-weight: 700;
+}
+
+.languages option {
+  color: black;
+}
+
 .icons div {
   display: flex;
   justify-content: flex-end;

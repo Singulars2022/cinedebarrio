@@ -1,6 +1,6 @@
  <template>
   <div class="modal">
-      <h1>Instrucciones</h1>
+      <h1>{{ $t("instructionRules") }}</h1>
       <h2>Adivina la película por las imágenes</h2>
       <ul>
         <li>Cada vez que falles, se te mostrará una imagen nueva.</li>
