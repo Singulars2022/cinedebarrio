@@ -24,6 +24,7 @@ export default {
       currentModal: "",
       isModalVisible: false,
       displayedImages: [],
+      darkTheme: true,
     };
   },
   async created() {
@@ -62,7 +63,7 @@ export default {
         pos3 = 0,
         pos4 = 0;
       if (document.getElementById(elmnt.id + "header")) {
-        /* if present, the header is where you move the DIV from:*/ 
+        /* if present, the header is where you move the DIV from:*/
         document.getElementById(elmnt.id + "header").onmousedown =
           dragMouseDown;
       } else {
@@ -184,12 +185,15 @@ export default {
       this.isModalVisible = true;
       this.currentModal = modal;
     },
+    onChangeTheme(isDarkTheme) {
+      this.darkTheme = isDarkTheme;
+    }
   }
 };
 </script>
 
 <template >
-  <Options />
+  <Options @changeTheme="onChangeTheme" />
   <main>
     <KeyboardEvents @keyup="letterPressed"></KeyboardEvents>
     <div class="slider-movie">
@@ -198,22 +202,24 @@ export default {
       <Slider :ArrayMovies="displayedImages" />
     </div>
     <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
-    <keyboard 
-      ref="keyboardRef"
-      id="keyboard"
-      :letters="letterArray"
-      @clickedLetter="(id) => letterClicked(id)"
-    />
+    <keyboard id="keyboard" :letters="letterArray" @clickedLetter="(id) => letterClicked(id)" />
   </main>
 </template>
-
-
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 @import "./assets/base.css";
 @import "./assets/style.css";
 
-#app {
+#game {
+  background: radial-gradient(ellipse, #303030 0%, #161312 100%);
+}
+
+#game.light {
+  background: radial-gradient(ellipse, #dfdfdf 0%, #7b7b7b 100%);
+
+}
+
+main #app {
   max-width: 100vw;
   max-height: 100vh;
 
@@ -258,6 +264,7 @@ header {
     flex-wrap: wrap;
   }
 }
+
 #keyboard {
   position: absolute;
   left: 50%;
