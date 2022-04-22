@@ -62,7 +62,7 @@ export default {
         pos3 = 0,
         pos4 = 0;
       if (document.getElementById(elmnt.id + "header")) {
-        /* if present, the header is where you move the DIV from:*/
+        /* if present, the header is where you move the DIV from:*/ 
         document.getElementById(elmnt.id + "header").onmousedown =
           dragMouseDown;
       } else {
