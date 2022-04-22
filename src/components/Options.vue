@@ -1,8 +1,8 @@
 
 <script setup>
-import Modal from "./UX/Modal.vue";
-import Rules from "./pages/Rules.vue";
-import Info from "./pages/Info.vue"; // @ significa 'desde la carpeta 'src'
+import Modal from "./UX/ModalUXComponent.vue";
+import Rules from "./pages/RulesPage.vue";
+import Info from "./pages/InfoPage.vue"; // @ significa 'desde la carpeta 'src'
 </script>
 
 <script>
@@ -16,7 +16,7 @@ export default {
       srcInfoIcon: '/svg/info_black_48dp.svg',
       isModalVisible: false,
       currentModal: undefined,
-            darkTheme: false,
+      darkTheme: false,
 
 
     }
@@ -52,7 +52,7 @@ export default {
   <!-- Selector para cambiar el idioma mirar fichero main.js -->
 
   <modal :isModalVisible="isModalVisible" @close="closeModal">
-    <component :is="currentModal" class="modal"></component>
+    <component :is="currentModal"></component>
   </modal>
   <div>
     <nav class="icons">
@@ -79,10 +79,10 @@ export default {
           <option value="ca">CA</option>
         </select>
         <button @click="changeTheme" class="btn-toggle">
-                <i v-if="darkTheme" class="fas fa-sun"></i>
+          <i v-if="darkTheme" class="fas fa-sun"></i>
 
-        <i v-else class="fa-solid fa-moon"></i>
-  </button>
+          <i v-else class="fa-solid fa-moon"></i>
+        </button>
       </div>
     </nav>
   </div>
@@ -94,55 +94,66 @@ export default {
   background-color: transparent;
   color: white;
   font-weight: 700;
-  margin:10px;
+  margin: 10px;
 }
 
 .languages option {
   border: none;
-  background-color:black;
+  background-color: black;
   color: white;
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: 700;
 
 }
-.languages:hover{
-  border:none;
-  background-color:red;
+
+.languages:hover {
+  border: none;
+  background-color: red;
 }
+
 .icons div {
   display: flex;
   justify-content: flex-end;
   cursor: pointer;
 
 }
-.info{
+
+.info {
   margin: 10px;
 }
-.info:hover{
-  border-radius:100px;
-  background-color:red;
-  
+
+.info:hover {
+  border-radius: 100px;
+  background-color: red;
+
 
 }
-.help{
+
+.help {
   margin: 10px;
 }
-.help:hover{
-  border-radius:100px;
-  background-color:red;
+
+.help:hover {
+  border-radius: 100px;
+  background-color: red;
 }
-.btn-toggle{
-  margin:10px;
-  background-color:transparent;
-  border:none;
+
+.btn-toggle {
+  margin: 10px;
+  background-color: transparent;
+  border: none;
   width: 48px;
   cursor: pointer;
 }
-.fa-moon, .fa-sun{
-  font-size:48px;
+
+.fa-moon,
+i {
+  font-size: 48px;
   color: white;
 }
-.fa-moon:hover, .fa-sun:hover{
+
+.fa-moon:hover,
+i:hover {
   color: red;
 }
 </style>

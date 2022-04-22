@@ -1,0 +1,47 @@
+INFO DE NOSOTROS 
+
+Bienvenido a Cine de Barrio 
+
+Este es un proyecto de programación Frontend desarrollado por el grupo Singulars 2022. Esta es una variación del juego del ahorcado en el que habrás de descubrir cada película por medio de diversas escenas que vamos a mostrarte. 
+
+¿Quiénes somos? 
+
+Somos un grupo de jóvenes estudiantes de programación que a lo largo de 300 horas nos hemos dedicado al aprendizaje y materia de la creación de aplicaciones web para gente tan guapa como ustedes. 
+
+¿Por qué hacemos esto? 
+
+Nuestro objetivo con este proyecto es probarle al mundo que somos capaces de trabajar como equipo para crear una aplicación web funcional, elegante y divertida. Nos ilusiona la idea de dedicarnos a trabajar en el sector de programación, así que esta es una buena manera de ayudarnos a impulsar nuestra carrera. 
+
+ 
+
+ 
+
+INSTRUCCIONES DEL JUEGO 
+
+¿Cómo Jugar? 
+
+¿Has jugado al ahorcado? ¡Pues esto es parecido, pero con películas de la época dorada! 
+
+Te vamos a presentar algunas escenas de una película y tu objetivo será desvelar el título. 
+
+(EJEMPLO VISUAL DE TODA LA PANTALLA DE JUEGO) 
+
+Para completar el título, puedes usar el teclado del ordenador o el que tienes en pantalla. 
+
+(EJEMPLO DEL TECLADO) 
+
+Este es el panel se irán descubriendo las letras correctas que vayas pulsando. 
+
+(EJEMPLO DEL PANEL) 
+
+Si adivinas una letra correcta, ésta se pintará de color verde y la letra aparecerá en su panel correspondiente. Si la letra es incorrecta se pondrá de color rojo y perderás uno de tus cinco intentos. 
+
+(EJEMPLO VISUAL DEL PANEL CON LETRAS CORRECTAS E INCORRECTAS) FLECHITAS SERIAN CONVENIENTES 
+
+Cada vez que falles la escena de la película cambiará, para ayudarte a recordarla. 
+
+(EJEMPLO VISUAL DE TODA LA PANTALLA DE JUEGO PERO AHORA CON UNA IMAGEN DIFERENTE ) 
+
+ 
+
+¿Serás capaz de adivinar todas? ¿Qué tanto sabes de cine? 
