@@ -191,7 +191,6 @@ export default {
 <template >
   <Options />
   <main>
-    <Options />
     <KeyboardEvents @keyup="letterPressed"></KeyboardEvents>
     <div class="slider-movie">
       <!--<SliderMovie>-->
