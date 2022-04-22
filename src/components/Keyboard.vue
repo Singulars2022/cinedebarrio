@@ -57,7 +57,7 @@ div {
 }
 
 .keyStyles {
-  background-color: transparent;
+  background-color: #303030 ;
   text-align: center;
   width: 40px;
   height: 40px;
@@ -72,7 +72,7 @@ div {
 
 .keyIsDefault {
   color: white;
-  background-color: transparent;
+  background-color:#303030;
   border: 2px solid grey;
   cursor: pointer;
 }

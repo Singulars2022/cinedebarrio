@@ -34,6 +34,7 @@ export default {
       // Vriables de jugabilidad
       tryNumber: 5,
       gameStatus: 0,
+      darkTheme: true,
     };
   },
   async created() {
@@ -61,7 +62,55 @@ export default {
     },
     movieTitle() {
       return this.Panelmovie.title.toLowerCase();
-    },
+    }
+  },
+  mounted() {
+    dragElement(document.getElementById("keyboard"));
+
+    function dragElement(elmnt) {
+      var pos1 = 0,
+        pos2 = 0,
+        pos3 = 0,
+        pos4 = 0;
+      if (document.getElementById(elmnt.id + "header")) {
+        /* if present, the header is where you move the DIV from:*/
+        document.getElementById(elmnt.id + "header").onmousedown =
+          dragMouseDown;
+      } else {
+        /* otherwise, move the DIV from anywhere inside the DIV:*/
+        elmnt.onmousedown = dragMouseDown;
+      }
+
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+        elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+      }
+
+      function closeDragElement() {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
   },
   methods: {
     // Obtiene los datos de la aplicación
@@ -71,8 +120,7 @@ export default {
       );
       let json = await results.json();
       // Peticion de peliculas a la api
-      this.actualMovie =
-        json.items[Math.floor(Math.random() * json.items.length - 1)];
+      this.actualMovie = json.items[Math.floor(Math.random() * json.items.length - 1)];
 
       // Obtenemos el titulo de la api
       this.Panelmovie.title = this.actualMovie.title;
@@ -106,6 +154,7 @@ export default {
       letter = letter.toLowerCase();
 
       let normalizedMovie = this.movieTitle;
+      console.log("movie:", normalizedMovie);
 
       const removeAccents = (str) => {
         return str.normalize().replace(/[\u0300-\u036f]/g, "");
@@ -203,6 +252,9 @@ export default {
     reloadPage() {
       window.location.reload();
     },
+    onChangeTheme(isDarkTheme) {
+      this.darkTheme = isDarkTheme;
+    }
   },
 };
 </script>
@@ -213,6 +265,7 @@ export default {
     <component :is="currentModal" class="modal"></component>
   </modal>
 
+  <Options @changeTheme="onChangeTheme" />
   <main>
     <KeyboardEvents
       v-if="this.gameStatus == 0"
@@ -237,17 +290,22 @@ export default {
       @clickedLetter="(id) => letterClicked(id)"
     />
   </main>
-  <p style="font-size: 32px; text-align: center">
-    Pulsa F11 para pantalla completa
-  </p>
 </template>
-
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 @import "./assets/base.css";
 @import "./assets/style.css";
 
-#app {
+#game {
+  background: radial-gradient(ellipse, #303030 0%, #161312 100%);
+}
+
+#game.light {
+  background: radial-gradient(ellipse, #dfdfdf 0%, #7b7b7b 100%);
+
+}
+
+main #app {
   max-width: 100vw;
   max-height: 100vh;
 
@@ -319,5 +377,11 @@ a,
     place-items: flex-start;
     flex-wrap: wrap;
   }
+}
+
+#keyboard {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
 }
 </style>
