@@ -1,8 +1,8 @@
 
 <script setup>
-import Modal from "./UX/Modal.vue";
-import Rules from "./pages/Rules.vue";
-import Info from "./pages/Info.vue"; // @ significa 'desde la carpeta 'src'
+import Modal from "./UX/ModalUXComponent.vue";
+import Rules from "./pages/RulesPage.vue";
+import Info from "./pages/InfoPage.vue"; // @ significa 'desde la carpeta 'src'
 </script>
 
 <script>
@@ -44,7 +44,7 @@ export default {
   <!-- Selector para cambiar el idioma mirar fichero main.js -->
 
   <modal :isModalVisible="isModalVisible" @close="closeModal">
-    <component :is="currentModal" class="modal"></component>
+    <component :is="currentModal"></component>
   </modal>
   <div>
     <nav class="icons">
