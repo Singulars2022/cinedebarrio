@@ -108,10 +108,12 @@ export default {
       let normalizedMovie = this.movieTitle;
 
       const removeAccents = (str) => {
-        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        return str.normalize().replace(/[\u0300-\u036f]/g, "");
       };
 
       normalizedMovie = removeAccents(normalizedMovie);
+
+      console.log("movie:", normalizedMovie);
 
       const clickedLetter = []
         .concat(...this.letterArray)
@@ -228,6 +230,9 @@ export default {
       @clickedLetter="(id) => letterClicked(id)"
     />
   </main>
+  <p style="font-size: 32px; text-align: center">
+    Pulsa F11 para pantalla completa
+  </p>
 </template>
 
 <style>

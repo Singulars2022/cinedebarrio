@@ -43,22 +43,26 @@ export default {
 .modal-content {
   box-shadow: 0px 0px 15px 0px white;
   position: relative;
-  background-color: rgb(135, 1, 1);
+  /* background-color: rgb(135, 1, 1); */
+  background-color: white;
   width: 70%;
+  max-height: 80%;
   padding: 50px 50px;
-  color: white;
+  /* color: white; */
+  color: black;
+  overflow-y: auto;
 }
 
 .closeModal {
   position: absolute;
   top: 15px;
   right: 15px;
-  transition: transform 0.2s;
+  transition: transform .1s, color .1s;
   font-size: 2rem;
 }
 
 .closeModal:hover {
-  color: white;
+  color: rgb(135, 1, 1);
   transform: scale(1.2);
 }
 
