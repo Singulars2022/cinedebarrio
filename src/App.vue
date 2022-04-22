@@ -142,7 +142,7 @@ export default {
       console.log("movie:", normalizedMovie);
 
       const removeAccents = (str) => {
-        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        return str.normalize().replace(/[\u0300-\u036f]/g, "");
       };
 
       normalizedMovie = removeAccents(normalizedMovie);
