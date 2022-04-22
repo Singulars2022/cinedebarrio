@@ -13,24 +13,22 @@ export default {
       Isitblackmode: true,
       toggle: false,
       active: false,
-      srcInfoIcon: '/svg/info_black_48dp.svg',
+      srcInfoIcon: "/svg/info_black_48dp.svg",
       isModalVisible: false,
       currentModal: undefined,
       darkTheme: false,
-
-
     }
   },
   methods: {
     ontoggle() {
-      console.log("toogle")
+      console.log("toogle");
       this.toggle = !this.toggle;
     },
     onMouseOverInfo() {
-      this.srcInfoIcon = '/svg/info_red_48dp.svg'
+      this.srcInfoIcon = "/svg/info_red_48dp.svg";
     },
     onMouseLeaveInfo() {
-      this.srcInfoIcon = '/svg/info_black_48dp.svg';
+      this.srcInfoIcon = "/svg/info_black_48dp.svg";
     },
     closeModal() {
       this.isModalVisible = false;
@@ -57,9 +55,13 @@ export default {
   <div>
     <nav class="icons">
       <div v-if="toggle">
-
-        <img @mouseover="onMouseOverInfo" @mouseleave="onMouseLeaveInfo" :src="srcInfoIcon" alt="info">
-        <img class="help" src="/svg/help_black_48dp.svg" alt="help">
+        <img
+          @mouseover="onMouseOverInfo"
+          @mouseleave="onMouseLeaveInfo"
+          :src="srcInfoIcon"
+          alt="info"
+        />
+        <img class="help" src="/svg/help_black_48dp.svg" alt="help" />
         <!-- <img v-if="active" class="info" src="/svg/info_red_48dp.svg" alt="info">
       <img v-on:mouseover="active = !active" class="info" src="/svg/info_black_48dp.svg" alt="info">
       <img v-if="active" class="help" src="/svg/help_red_48dp.svg" alt="help">
@@ -67,10 +69,21 @@ export default {
         <!-- <img class="dark animate__animated animate__rubberBand" @click="ontoggle"  src="/svg/toggle_on_black_48dp.svg" 
   alt="toggle-dark"> -->
       </div>
-      <div v-else>
-        <img @click="openModal(Info)" class="info" src="/svg/info_white_48dp.svg" alt="info">
+
+      <div v-else>        
+        <img
+          @click="openModal(Info)"
+          class="info"
+          src="/svg/info_white_48dp.svg"
+          alt="info"
+        />
         <!-- <img v-on:mouseover="active = !active" src="/svg/info_white_48dp.svg" alt="info"> -->
-        <img @click="openModal(Rules)" class="help" src="/svg/help_white_48dp.svg" alt="help">
+        <img
+          @click="openModal(Rules)"
+          class="help"
+          src="/svg/help_white_48dp.svg"
+          alt="help"
+        />
         <!-- <img v-on:mouseover="active = !active" src="/svg/help_white_48dp.svg" alt="help"> -->
         <!-- <img class="light animate__animated animate__rubberBand " @click="ontoggle" src="/svg/toggle_off_white_48dp.svg" 
   alt="toggle-light"> -->

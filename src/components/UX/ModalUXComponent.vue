@@ -1,3 +1,7 @@
+<script setup>
+
+</script>
+
 <script>
 export default {
   emits: ["close"],
