@@ -4,8 +4,8 @@
     <div class="loserContent">
         <img src="/img/PalomaPerdedoraRecortada.png" alt="Carmen ha perdido :( ">
         <div class="description">
-            <p>Esta vez no has adivinado la pelicula, pero no pasa nada, porque puedes intentarlo las veces que quieras !</p>
-            <button @click="reloadPage"> Volver a Jugar !</button>        
+            <p>😥Esta vez no has adivinado la pelicula, pero no pasa nada, porque puedes intentarlo las veces que quieras !</p>
+            <button @click="reloadPage">Volver a Jugar</button>        
         </div>
 
     </div>    

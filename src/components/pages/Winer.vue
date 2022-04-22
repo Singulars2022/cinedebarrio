@@ -4,8 +4,8 @@
     <div class="winerContent">
         <img src="/img/PalomaGanadora.png" alt="Carmen ha perdido :( ">
         <div class="description">
-            <p>Felicidades! Has adivinado la pelicula!</p>
-            <button @click="reloadPage"> Volver a Jugar !</button>        
+            <p>¡Felicidades! Has adivinado la pelicula 🎉</p>
+            <button @click="reloadPage">Volver a Jugar</button>        
         </div>
 
     </div>    

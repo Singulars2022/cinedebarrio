@@ -64,6 +64,7 @@ export default {
     },
   },
   methods: {
+    // Obtiene los datos de la aplicación
     async getData() {
       let results = await fetch(
         `https://api.themoviedb.org/3/list/8199288?api_key=42f1941bec5c4006006323f020c28fa5&language=es-ES`
@@ -97,6 +98,7 @@ export default {
         );
       }
     },
+    // Mega funcion, 1. Comprueba y pulsa la tecla del teclado virtual, 2. Resta intentos,3. Comprueba si has perdido, 5. Llama a la función para comprobar si has perdido
     letterClicked(letter) {
       if(this.gameStatus != 0){
         return;
@@ -143,12 +145,11 @@ export default {
       this.checkVictory(normalizedMovie);
       
     },
+    // Función que comprueba si has ganado
     checkVictory(normalizedMovie){
-      // Hacemos una comprobación de si hemos ganado
-      console.log("Vamos a comprobar si hemos ganado.");
-      let contError = 0;
-      console.log("contError: ", contError);
+      // Hacemos una comprobación de si hemos ganado      
 
+      let contError = 0;      
       normalizedMovie.split("").forEach((element) => {
         if (!this.guessedLetters.includes(element) && element != ' ' && !this.isSpecial(element)) {
           contError++;
@@ -177,6 +178,7 @@ export default {
       let keyPressed = e.key;
       this.letterClicked(keyPressed);
     },
+    // Modal, abrir y cerrar
     closeModal() {
       this.isModalVisible = false;
       this.currentModal = undefined;
@@ -185,6 +187,10 @@ export default {
       this.isModalVisible = true;
       this.currentModal = modal;
     },
+    // Recargar la pagina
+    reloadPage() {
+      window.location.reload();
+    }
   },
 };
 </script>
@@ -203,6 +209,7 @@ export default {
       <Slider :ArrayMovies="displayedImages" />
     </div>
     <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
+    <button v-if="this.gameStatus != 0"> Volver a jugar</button>
     <keyboard
       v-if="this.gameStatus == 0"
       :popcornNumber="tryNumber"
@@ -250,6 +257,17 @@ a,
   color: hsla(160, 100%, 37%, 1);
   transition: 0.4s;
 }
+
+button{
+        background: black;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        font-size: 1em;        
+        border: 0px transparent;
+        cursor: pointer;
+        margin-top: 1em;
+    }
 
 @media (hover: hover) {
   a:hover {
