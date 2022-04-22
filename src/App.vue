@@ -205,9 +205,6 @@ export default {
       @clickedLetter="(id) => letterClicked(id)"
     />
   </main>
-  <p style="font-size: 32px; text-align: center">
-    Pulsa F11 para pantalla completa
-  </p>
 </template>
 
 
