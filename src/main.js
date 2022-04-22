@@ -43,15 +43,15 @@ const i18n = createI18n({
                 fourthRule: "Si encertes una lletra, aquesta es pintarà de color verd i apareixerà al seu panell corresponent. Si la lletra és incorrecta, es posarà de color vermell i perdràs un dels 5 intents.",
                 fourthRuleImgDescription: "Exemple del panell i teclat amb lletres correctes i incorrectes.",
                 fifthRule: "Cada cop que fallis, tindràs disponible una nova imatge.",
-                end: "Què tant saps de cinema? Seràs capaç d'endevinar-les totes?"
+                end: "Que tant saps de cinema? Seràs capaç d'endevinar-les totes?"
             },
             info: {
                 title: "Benvingut a Cine de Barrio",
-                intro: "Aquest és un projecte de programació Frontend desenvolupat per el grup Singulars 2022. És una variació del joc del penjat on hauràs de revelar el títol de la pel·lícula.",
+                intro: "Aquest és un projecte de programació Frontend desenvolupat pel grup Singulars 2022. És una variació del joc del penjat on hauràs de revelar el títol de la pel·lícula.",
                 firstQuestion: "Qui som?",
-                firstAnswer: "Som un grup de joves estudiants de programació que al llarg de 300 hores ens hem dedicat a l'aprenentatje i matèria de la creació d'aplicacions web.",
+                firstAnswer: "Som un grup de joves estudiants de programació que al llarg de 300 hores ens hem dedicat a l'aprenentatge i matèria de la creació d'aplicacions web.",
                 secondQuestion: "Per què fem això?",
-                secondAnswer: "El nostre objectiu amb aquest projecte és provar al món que som capaços de treballar com a equip per crear una aplicació web funcional, elegant i divertida. Ens il·lusiona la idea de dedicar-nos a treballar al sector de la programació, així que aquesta és un a bona manera d'ajudar-nos a impulsar la nostra carrera."
+                secondAnswer: "El nostre objectiu amb aquest projecte és provar al món que som capaços de treballar com a equip per crear una aplicació web funcional, elegant i divertida. Ens il·lusiona la idea de dedicar-nos a treballar al sector de la programació, així que aquesta és una bona manera d'ajudar-nos a impulsar la nostra carrera."
             }
         }
     }
