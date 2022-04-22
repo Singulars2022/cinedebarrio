@@ -6,6 +6,9 @@ import helpIcon from "./assets/icons/help_white_48dp.svg";
 import Slider from "./components/Slider.vue";
 import Options from "./components/Options.vue";
 import KeyboardEvents from "./components/Keyboard-events.vue";
+import Modal from "./components/UX/Modal.vue";
+import Loser from "./components/pages/Loser.vue";
+import Winer from "./components/pages/Winer.vue";
 </script>
 
 <script>
@@ -21,10 +24,14 @@ export default {
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
         ["z", "x", "c", "v", "b", "n", "m"],
       ],
+      // Variables del modal
       currentModal: "",
       isModalVisible: false,
+
+      // Variables del slider
       displayedImages: [],
 
+      // Vriables de jugabilidad
       tryNumber: 5,
       gameStatus: 0,
     };
@@ -91,6 +98,9 @@ export default {
       }
     },
     letterClicked(letter) {
+      if(this.gameStatus != 0){
+        return;
+      }
       letter = letter.toLowerCase();
 
       let normalizedMovie = this.movieTitle;
@@ -116,6 +126,7 @@ export default {
           this.tryNumber--;
           if (this.tryNumber <= 0) {
             this.gameStatus = 1; // 1 significa has perdido
+            this.openModal(Loser);
           }
 
           // Mientras queden imágenes que mostrar, sacar la siguiente
@@ -145,7 +156,8 @@ export default {
       });
 
       if (contError == 0) {
-        this.gameStatus = 2;        
+        this.gameStatus = 2;
+        this.openModal(Winer);
       }
 
     },
@@ -178,17 +190,21 @@ export default {
 </script>
 
 <template >
-  <Options />
+  <Options />  
+    <modal :isModalVisible="isModalVisible" @close="closeModal">
+      <component :is="currentModal" class="modal"></component>      
+    </modal>
+
   <main>
-    <KeyboardEvents @keyup="letterPressed"></KeyboardEvents>
-    <div class="slider-movie">
+    <KeyboardEvents v-if="this.gameStatus == 0" @keyup="letterPressed"></KeyboardEvents>
+    <div class="slider-movie" :style="this.gameStatus !=0 ? {height:'800px'}:''" >
       <!--<SliderMovie>-->
       <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo" />
       <Slider :ArrayMovies="displayedImages" />
     </div>
     <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
-    {{ this.gameStatus }}
     <keyboard
+      v-if="this.gameStatus == 0"
       :popcornNumber="tryNumber"
       :letters="letterArray"
       @clickedLetter="(id) => letterClicked(id)"
@@ -215,7 +231,7 @@ header {
 .logo {
   width: 80px;
   position: absolute;
-  z-index: 1;
+  z-index: 999;
   left: 7vw;
   top: -25px;
 }

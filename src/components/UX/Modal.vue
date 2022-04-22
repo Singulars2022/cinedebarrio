@@ -1,5 +1,5 @@
 <script setup>
-import Rules from '../pages/Rules.vue';
+
 </script>
 
 <script>

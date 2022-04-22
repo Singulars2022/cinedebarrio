@@ -3,7 +3,7 @@
 export default {
   props: {
     letters: Array,
-    popcornNumber:Number
+    popcornNumber: Number,
   },
   emits: ["clickedLetter"],
   data() {
@@ -20,9 +20,13 @@ export default {
 <template>
   <div>
     <div class="tryCount">
-          Intentos:
+      <div class="popcornContent">
+        <span>Intentos:</span>
+        <div class="popcornPoints">
           <div v-for="i in this.popcornNumber" :key="i">🍿</div>
         </div>
+      </div>
+    </div>
     <p class="keyboardLines" v-for="(letterRow, index) in letters" :key="index">
       <span
         v-for="(letter, index2) in letterRow"
@@ -45,11 +49,11 @@ export default {
 
 
 <style scoped>
-div{
+div {
   padding: 10px;
 }
 .keyboardLines {
-  text-align: center;  
+  text-align: center;
 }
 
 .keyStyles {
@@ -63,7 +67,7 @@ div{
   display: inline-block;
   text-transform: uppercase;
   font-weight: bold;
-  user-select: none;  
+  user-select: none;
 }
 
 .keyIsDefault {
@@ -73,19 +77,27 @@ div{
   cursor: pointer;
 }
 .keyIsDefault:active {
-  background-color: rgb(87,0,0);
+  background-color: rgb(87, 0, 0);
 }
 
-.keyIsCorrect, .keyIsCorrect:active {
-    color: white;
+.keyIsCorrect,
+.keyIsCorrect:active {
+  color: white;
   border: 2px solid #2aa800;
 }
 
 .keyIsWrong {
-    color: white;
+  color: white;
   background-color: #b70000;
   border: 2px solid transparent;
 }
+
+.popcornPoints {
+  display: flex;
+  justify-content: flex-start;
+  width: 250px;
+}
+
 .tryCount {
   display: flex;
   color: white;
@@ -93,4 +105,11 @@ div{
   justify-content: center;
   align-items: center;
 }
+
+.popcornContent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 </style>
