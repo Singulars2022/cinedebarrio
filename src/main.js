@@ -1,9 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { createI18n } from 'vue-i18n'
+import { createI18n } from 'vue-i18n/index'
 
 const i18n = createI18n({
-    locale: "ca",
+    locale: navigator.language,
     messages: {
         es: {
             rules: {
@@ -54,10 +54,12 @@ const i18n = createI18n({
                 secondAnswer: "El nostre objectiu amb aquest projecte és provar al món que som capaços de treballar com a equip per crear una aplicació web funcional, elegant i divertida. Ens il·lusiona la idea de dedicar-nos a treballar al sector de la programació, així que aquesta és un a bona manera d'ajudar-nos a impulsar la nostra carrera."
             }
         }
-
     }
 })
 
+console.log(navigator);
+
 createApp(App)
     .use(i18n)
-    .mount('#app')
+    .mount('#app');
+
