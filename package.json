@@ -7,10 +7,9 @@
     "preview": "vite preview --port 5050"
   },
   "dependencies": {
-    "@branu-jp/v-drag": "^0.1.0",
+    "react-dnd-html5-backend": "^16.0.1",
     "vue": "^3.2.31",
-    "vue-i18n": "^9.1.9",
-    "vuedraggable": "^4.1.0"
+    "vue-i18n": "^9.1.9"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",

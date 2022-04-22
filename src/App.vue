@@ -5,18 +5,17 @@ import helpIcon from "./assets/icons/help_white_48dp.svg";
 
 import Slider from "./components/Slider.vue";
 import Options from "./components/Options.vue";
-import KeyboardEvents from "./components/Keyboard-events.vue"
+import KeyboardEvents from "./components/Keyboard-events.vue";
 </script>
 
 <script>
-
 export default {
   data() {
     return {
       uid: 0,
       guessedLetters: [],
       actualMovie: [],
-      Panelmovie: { images: [], title: '' },
+      Panelmovie: { images: [], title: "" },
       letterArray: [
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
@@ -24,11 +23,11 @@ export default {
       ],
       currentModal: "",
       isModalVisible: false,
-      displayedImages: []
+      displayedImages: [],
     };
   },
   async created() {
-    // Peticion Fetch a TMDB    
+    // Peticion Fetch a TMDB
     await this.getData();
 
     // Ponemos la primera imagen
@@ -36,13 +35,13 @@ export default {
     this.displayedImages.push(firstImage);
 
     // Creación del teclado
-    this.letterArray = this.letterArray.map(arrayRow => {
-      return arrayRow.map(l => {
+    this.letterArray = this.letterArray.map((arrayRow) => {
+      return arrayRow.map((l) => {
         return {
           id: this.uid++,
           letter: l,
-          status: "default"
-        }
+          status: "default",
+        };
       });
     });
   },
@@ -52,39 +51,100 @@ export default {
     },
     movieTitle() {
       return this.Panelmovie.title.toLowerCase();
+    },
+  },
+  mounted() {
+    dragElement(document.getElementById("keyboard"));
+
+    function dragElement(elmnt) {
+      var pos1 = 0,
+        pos2 = 0,
+        pos3 = 0,
+        pos4 = 0;
+      if (document.getElementById(elmnt.id + "header")) {
+        /* if present, the header is where you move the DIV from:*/
+        document.getElementById(elmnt.id + "header").onmousedown =
+          dragMouseDown;
+      } else {
+        /* otherwise, move the DIV from anywhere inside the DIV:*/
+        elmnt.onmousedown = dragMouseDown;
+      }
+
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+        elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+      }
+
+      function closeDragElement() {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
     }
   },
   methods: {
     async getData() {
-      let results = await fetch(`https://api.themoviedb.org/3/list/8199288?api_key=42f1941bec5c4006006323f020c28fa5&language=es-ES`);
+      let results = await fetch(
+        `https://api.themoviedb.org/3/list/8199288?api_key=42f1941bec5c4006006323f020c28fa5&language=es-ES`
+      );
       let json = await results.json();
       console.log(json.items);
       // Peticion de peliculas a la api
-      this.actualMovie = json.items[Math.floor(Math.random() * json.items.length - 1)];
+      this.actualMovie =
+        json.items[Math.floor(Math.random() * json.items.length - 1)];
 
       // Obtenemos el titulo de la api
-      this.Panelmovie.title = this.actualMovie.original_title
+      this.Panelmovie.title = this.actualMovie.original_title;
 
       // Creamos un array de imagenes con la portada y un frame de la pelicula
-      const path_to_images = 'https://image.tmdb.org/t/p/original'
+      const path_to_images = "https://image.tmdb.org/t/p/original";
 
       // Si existe la portada o la contraportada la metemos en el array.
-      if (this.actualMovie.backdrop_path != null && this.actualMovie.backdrop_path != undefined) {
-        this.Panelmovie.images.push(path_to_images + this.actualMovie.backdrop_path)
+      if (
+        this.actualMovie.backdrop_path != null &&
+        this.actualMovie.backdrop_path != undefined
+      ) {
+        this.Panelmovie.images.push(
+          path_to_images + this.actualMovie.backdrop_path
+        );
       }
-      if (this.actualMovie.poster_path != null && this.actualMovie.poster_path != undefined) {
-        this.Panelmovie.images.push(path_to_images + this.actualMovie.poster_path)
+      if (
+        this.actualMovie.poster_path != null &&
+        this.actualMovie.poster_path != undefined
+      ) {
+        this.Panelmovie.images.push(
+          path_to_images + this.actualMovie.poster_path
+        );
       }
     },
     letterClicked(letter) {
       letter = letter.toLowerCase();
 
       let normalizedMovie = this.movieTitle;
-      console.log('movie:', normalizedMovie)
+      console.log("movie:", normalizedMovie);
 
       const removeAccents = (str) => {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      }
+      };
 
       normalizedMovie = removeAccents(normalizedMovie);
 
@@ -101,9 +161,8 @@ export default {
           // Mientras queden imágenes que mostrar, sacar la siguiente
           if (this.Panelmovie.images.length > 0) {
             this.displayedImages.push(this.Panelmovie.images.pop());
-          }
-          else {
-            return
+          } else {
+            return;
           }
         }
         this.guessedLetters.push(letter);
@@ -116,7 +175,6 @@ export default {
       }
       let keyPressed = e.key;
       this.letterClicked(keyPressed);
-
     },
     closeModal() {
       this.isModalVisible = false;
@@ -125,26 +183,28 @@ export default {
     openModal(modal) {
       this.isModalVisible = true;
       this.currentModal = modal;
-    }
-  },
+    },
+  }
 };
-
 </script>
 
 <template >
-
-  <Options />
   <main>
+    <Options />
     <KeyboardEvents @keyup="letterPressed"></KeyboardEvents>
     <div class="slider-movie">
       <!--<SliderMovie>-->
-      <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo">
+      <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo" />
       <Slider :ArrayMovies="displayedImages" />
-
     </div>
     <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
-    <keyboard id="keyboard" :letters="letterArray" @clickedLetter="(id) => letterClicked(id)" />
 
+    <keyboard
+      ref="keyboardRef"
+      id="keyboard"
+      :letters="letterArray"
+      @clickedLetter="(id) => letterClicked(id)"
+    />
   </main>
 </template>
 
@@ -154,15 +214,12 @@ export default {
 @import "./assets/base.css";
 @import "./assets/style.css";
 
-
 #app {
   max-width: 100vw;
   max-height: 100vh;
 
   font-weight: normal;
-
 }
-
 
 header {
   line-height: 1.5;
@@ -203,7 +260,6 @@ a,
     flex-direction: column;
   }
 
-
   header {
     display: flex;
     place-items: center;
@@ -216,8 +272,8 @@ a,
     flex-wrap: wrap;
   }
 }
-#keyboard{
-  position:absolute;
+#keyboard {
+  position: absolute;
   left: 50%;
   transform: translate(-50%);
 }
