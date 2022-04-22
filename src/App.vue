@@ -6,7 +6,7 @@ import helpIcon from "./assets/icons/help_white_48dp.svg";
 import Slider from "./components/Slider.vue";
 import Options from "./components/Options.vue";
 import KeyboardEvents from "./components/Keyboard-events.vue";
-import Modal from "./components/UX/Modal.vue";
+import Modal from "./components/UX/ModalUXComponent.vue";
 import Loser from "./components/pages/Loser.vue";
 import Winer from "./components/pages/Winer.vue";
 </script>
@@ -149,8 +149,15 @@ export default {
     // Función que comprueba si has ganado
     checkVictory(normalizedMovie) {
       // Hacemos una comprobación de si hemos ganado
-
+      normalizedMovie = normalizedMovie.replace(/á/gi, "a");
+      normalizedMovie = normalizedMovie.replace(/é/gi, "e");
+      normalizedMovie = normalizedMovie.replace(/í/gi, "i");
+      normalizedMovie = normalizedMovie.replace(/ó/gi, "o");
+      normalizedMovie = normalizedMovie.replace(/ú/gi, "u");
+      normalizedMovie = normalizedMovie.replace(/ü/gi, "u");
+      normalizedMovie = normalizedMovie.replace(/ö/gi, "o");
       let contError = 0;
+      console.log("Pelicula Normalizada: ", normalizedMovie);
       normalizedMovie.split("").forEach((element) => {
         if (
           !this.guessedLetters.includes(element) &&
