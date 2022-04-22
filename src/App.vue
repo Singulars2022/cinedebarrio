@@ -62,7 +62,7 @@ export default {
       this.actualMovie = json.items[Math.floor(Math.random() * json.items.length - 1)];
 
       // Obtenemos el titulo de la api
-      this.Panelmovie.title = this.actualMovie.original_title
+      this.Panelmovie.title = this.actualMovie.title
 
       // Creamos un array de imagenes con la portada y un frame de la pelicula
       const path_to_images = 'https://image.tmdb.org/t/p/original'
