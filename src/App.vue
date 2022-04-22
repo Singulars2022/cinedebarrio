@@ -259,13 +259,13 @@ export default {
 };
 </script>
 
-<template >
-  <Options />
+<template >  
+<Options @changeTheme="onChangeTheme" />
+
   <modal :isModalVisible="isModalVisible" @close="closeModal">
     <component :is="currentModal" class="modal"></component>
   </modal>
-
-  <Options @changeTheme="onChangeTheme" />
+  
   <main>
     <KeyboardEvents
       v-if="this.gameStatus == 0"
