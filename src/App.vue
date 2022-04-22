@@ -100,7 +100,7 @@ export default {
     },
     // Mega funcion, 1. Comprueba y pulsa la tecla del teclado virtual, 2. Resta intentos,3. Comprueba si has perdido, 5. Llama a la función para comprobar si has perdido
     letterClicked(letter) {
-      if(this.gameStatus != 0){
+      if (this.gameStatus != 0) {
         return;
       }
       letter = letter.toLowerCase();
@@ -143,15 +143,18 @@ export default {
 
       // Comprobamos si hemos ganado.
       this.checkVictory(normalizedMovie);
-      
     },
     // Función que comprueba si has ganado
-    checkVictory(normalizedMovie){
-      // Hacemos una comprobación de si hemos ganado      
+    checkVictory(normalizedMovie) {
+      // Hacemos una comprobación de si hemos ganado
 
-      let contError = 0;      
+      let contError = 0;
       normalizedMovie.split("").forEach((element) => {
-        if (!this.guessedLetters.includes(element) && element != ' ' && !this.isSpecial(element)) {
+        if (
+          !this.guessedLetters.includes(element) &&
+          element != " " &&
+          !this.isSpecial(element)
+        ) {
           contError++;
         }
       });
@@ -160,11 +163,11 @@ export default {
         this.gameStatus = 2;
         this.openModal(Winer);
       }
-
     },
-    isSpecial(letter) { // Comprobamos si un elemento es especial
+    isSpecial(letter) {
+      // Comprobamos si un elemento es especial
       var specialChars = "¡!@#$^&%*()+=-[]/{}|:<>¿?,.'";
-      let patern = /^[0-9]+$/;      
+      let patern = /^[0-9]+$/;
       if (specialChars.includes(letter) || letter.match(patern)) {
         return true;
       } else {
@@ -190,26 +193,34 @@ export default {
     // Recargar la pagina
     reloadPage() {
       window.location.reload();
-    }
+    },
   },
 };
 </script>
 
 <template >
-  <Options />  
-    <modal :isModalVisible="isModalVisible" @close="closeModal">
-      <component :is="currentModal" class="modal"></component>      
-    </modal>
+  <Options />
+  <modal :isModalVisible="isModalVisible" @close="closeModal">
+    <component :is="currentModal" class="modal"></component>
+  </modal>
 
   <main>
-    <KeyboardEvents v-if="this.gameStatus == 0" @keyup="letterPressed"></KeyboardEvents>
-    <div class="slider-movie" :style="this.gameStatus !=0 ? {height:'800px'}:''" >
+    <KeyboardEvents
+      v-if="this.gameStatus == 0"
+      @keyup="letterPressed"
+    ></KeyboardEvents>
+    <div
+      class="slider-movie"
+      :style="this.gameStatus != 0 ? { height: '800px' } : ''"
+    >
       <!--<SliderMovie>-->
       <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo" />
       <Slider :ArrayMovies="displayedImages" />
     </div>
+    <button @click="reloadPage" class="reset-btn" v-if="this.gameStatus != 0">
+      Volver a jugar
+    </button>
     <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
-    <button v-if="this.gameStatus != 0"> Volver a jugar</button>
     <keyboard
       v-if="this.gameStatus == 0"
       :popcornNumber="tryNumber"
@@ -258,16 +269,20 @@ a,
   transition: 0.4s;
 }
 
-button{
-        background: black;
-        color: white;
-        border-radius: 1em;
-        padding: 1em;
-        font-size: 1em;        
-        border: 0px transparent;
-        cursor: pointer;
-        margin-top: 1em;
-    }
+.reset-btn {
+  background: black;
+  color: white;
+  border-radius: 1em;
+  padding: 1em;
+  font-size: 1em;
+  border: 0px transparent;
+  cursor: pointer;
+  margin-top: 1em;
+  width: 50%;
+  margin: 0 auto;
+  display: block;
+  margin-top: 1em;
+}
 
 @media (hover: hover) {
   a:hover {
