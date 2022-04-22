@@ -51,7 +51,7 @@ export default {
     },
     movieTitle() {
       return this.Panelmovie.title.toLowerCase();
-    },
+    }
   },
   mounted() {
     dragElement(document.getElementById("keyboard"));
@@ -109,8 +109,7 @@ export default {
       let json = await results.json();
       console.log(json.items);
       // Peticion de peliculas a la api
-      this.actualMovie =
-        json.items[Math.floor(Math.random() * json.items.length - 1)];
+      this.actualMovie = json.items[102];
 
       // Obtenemos el titulo de la api
       this.Panelmovie.title = this.actualMovie.original_title;
@@ -148,6 +147,8 @@ export default {
 
       normalizedMovie = removeAccents(normalizedMovie);
 
+      console.log("movie:", normalizedMovie);
+
       const clickedLetter = []
         .concat(...this.letterArray)
         .find((l) => l.letter == letter);
@@ -169,7 +170,6 @@ export default {
       }
     },
     letterPressed(e) {
-      console.log(e.keyCode);
       if ((e.keyCode < 65 || e.keyCode > 90) && e.keyCode != 192) {
         return;
       }
@@ -189,6 +189,7 @@ export default {
 </script>
 
 <template >
+  <Options />
   <main>
     <Options />
     <KeyboardEvents @keyup="letterPressed"></KeyboardEvents>
@@ -198,14 +199,16 @@ export default {
       <Slider :ArrayMovies="displayedImages" />
     </div>
     <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
-
-    <keyboard
+    <keyboard 
       ref="keyboardRef"
       id="keyboard"
       :letters="letterArray"
       @clickedLetter="(id) => letterClicked(id)"
     />
   </main>
+  <p style="font-size: 32px; text-align: center">
+    Pulsa F11 para pantalla completa
+  </p>
 </template>
 
 
@@ -239,19 +242,6 @@ header {
   justify-content: center;
   width: auto;
   height: 400px;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
 }
 
 @media (min-width: 1024px) {
