@@ -109,7 +109,7 @@ export default {
       let json = await results.json();
       console.log(json.items);
       // Peticion de peliculas a la api
-      this.actualMovie = json.items[102];
+      this.actualMovie = json.items[Math.floor(Math.random() * json.items.length - 1)];
 
       // Obtenemos el titulo de la api
       this.Panelmovie.title = this.actualMovie.original_title;
