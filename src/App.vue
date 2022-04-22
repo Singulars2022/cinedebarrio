@@ -23,7 +23,8 @@ export default {
       ],
       currentModal: "",
       isModalVisible: false,
-      displayedImages: []
+      displayedImages: [],
+      darkTheme: false,
     };
   },
   async created() {
@@ -125,14 +126,18 @@ export default {
     openModal(modal) {
       this.isModalVisible = true;
       this.currentModal = modal;
+    },
+    onChangeTheme(isDarkTheme) {
+      this.darkTheme = isDarkTheme;
     }
-  },
+  }
 };
 </script>
 
 <template >
+<div id="game" :class="{light: !darkTheme }">
 
-  <Options />
+  <Options @changeTheme="onChangeTheme"/>
   <main>
     <KeyboardEvents @keyup="letterPressed"></KeyboardEvents>
     <div class="slider-movie">
@@ -144,15 +149,24 @@ export default {
     <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
     <keyboard :letters="letterArray" @clickedLetter="(id) => letterClicked(id)" />
 
-  </main>
+   </main>
   <p style="font-size:32px; text-align:center">Pulsa F11 para pantalla completa</p>
-</template>
+  </div>
 
+</template>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 @import "./assets/base.css";
 @import "./assets/style.css";
 
+#game {
+  background: radial-gradient(ellipse, #303030 0%, #161312 100%);
+}
+
+#game.light {
+    background: radial-gradient(ellipse, #dfdfdf 0%, #7b7b7b 100%);
+
+}
 
 #app {
   max-width: 100vw;

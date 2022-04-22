@@ -7,13 +7,17 @@ import Info from "./pages/Info.vue"; // @ significa 'desde la carpeta 'src'
 
 <script>
 export default {
+  emits: ["changeTheme"],
   data() {
     return {
+      Isitblackmode: true,
       toggle: false,
       active: false,
       srcInfoIcon: '/svg/info_black_48dp.svg',
       isModalVisible: false,
-      currentModal: undefined
+      currentModal: undefined,
+            darkTheme: false,
+
 
     }
   },
@@ -35,6 +39,10 @@ export default {
     openModal(modal) {
       this.isModalVisible = true;
       this.currentModal = modal;
+    },
+    changeTheme() {
+      this.darkTheme = !this.darkTheme;
+      this.$emit('changeTheme', this.darkTheme)
     }
   }
 }
@@ -70,6 +78,11 @@ export default {
           <option value="es-ES">ES</option>
           <option value="ca">CA</option>
         </select>
+        <button @click="changeTheme" class="btn-toggle">
+                <i v-if="darkTheme" class="fas fa-sun"></i>
+
+        <i v-else class="fa-solid fa-moon"></i>
+  </button>
       </div>
     </nav>
   </div>
@@ -81,16 +94,55 @@ export default {
   background-color: transparent;
   color: white;
   font-weight: 700;
+  margin:10px;
 }
 
 .languages option {
-  color: black;
-}
+  border: none;
+  background-color:black;
+  color: white;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-weight: 700;
 
+}
+.languages:hover{
+  border:none;
+  background-color:red;
+}
 .icons div {
   display: flex;
   justify-content: flex-end;
   cursor: pointer;
 
+}
+.info{
+  margin: 10px;
+}
+.info:hover{
+  border-radius:100px;
+  background-color:red;
+  
+
+}
+.help{
+  margin: 10px;
+}
+.help:hover{
+  border-radius:100px;
+  background-color:red;
+}
+.btn-toggle{
+  margin:10px;
+  background-color:transparent;
+  border:none;
+  width: 48px;
+  cursor: pointer;
+}
+.fa-moon, .fa-sun{
+  font-size:48px;
+  color: white;
+}
+.fa-moon:hover, .fa-sun:hover{
+  color: red;
 }
 </style>

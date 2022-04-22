@@ -17,7 +17,7 @@ export default {
 <template>
   <transition name="modal-fade">
     <div v-if="isModalVisible" class="modal" @click.self="close">
-      <div class="modal-content">
+      <div class="modal-content animate__animated animate__zoomIn">
         <slot></slot>
         <span class="closeModal" @click="close">&#9932;</span>
       </div>
@@ -75,5 +75,8 @@ span {
 .modal-fade-enter-active,
 .modal-fade-leave-active {
   transition: opacity .2s ease;
+}
+.animate__zoomIn{
+  animation-duration: 0.2s;
 }
 </style>
