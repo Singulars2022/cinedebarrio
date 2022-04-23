@@ -265,17 +265,17 @@ export default {
     <component :is="currentModal" class="modal"></component>
   </modal>
   <main>
-    <KeyboardEvents v-if="this.gameStatus == 0" @keyup="letterPressed"></KeyboardEvents>
-    <div class="slider-movie" :style="this.gameStatus != 0 ? { height: '800px' } : ''">
+    <KeyboardEvents v-if="gameStatus == 0" @keyup="letterPressed"></KeyboardEvents>
+    <div class="slider-movie" :style="gameStatus != 0 ? { height: '800px' } : ''">
       <!--<SliderMovie>-->
       <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo" />
       <Slider :ArrayMovies="displayedImages" />
     </div>
-    <button @click="reloadPage" class="reset-btn" v-if="this.gameStatus != 0">
+    <button @click="reloadPage" class="reset-btn" v-if="gameStatus != 0">
       Volver a jugar
     </button>
     <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
-    <keyboard id="keyboard" v-if="this.gameStatus == 0" :popcornNumber="tryNumber" :letters="letterArray"
+    <keyboard id="keyboard" v-if="gameStatus == 0" :popcornNumber="tryNumber" :letters="letterArray"
       @clickedLetter="(id) => letterClicked(id)" />
   </main>
 </template>
