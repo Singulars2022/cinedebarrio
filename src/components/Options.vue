@@ -55,12 +55,7 @@ export default {
   <div>
     <nav class="icons">
       <div v-if="toggle">
-        <img
-          @mouseover="onMouseOverInfo"
-          @mouseleave="onMouseLeaveInfo"
-          :src="srcInfoIcon"
-          alt="info"
-        />
+        <img @mouseover="onMouseOverInfo" @mouseleave="onMouseLeaveInfo" :src="srcInfoIcon" alt="info" />
         <img class="help" src="/svg/help_black_48dp.svg" alt="help" />
         <!-- <img v-if="active" class="info" src="/svg/info_red_48dp.svg" alt="info">
       <img v-on:mouseover="active = !active" class="info" src="/svg/info_black_48dp.svg" alt="info">
@@ -70,20 +65,10 @@ export default {
   alt="toggle-dark"> -->
       </div>
 
-      <div v-else>        
-        <img
-          @click="openModal(Info)"
-          class="info"
-          src="/svg/info_white_48dp.svg"
-          alt="info"
-        />
+      <div v-else>
+        <img @click="openModal(Info)" class="info" src="/svg/info_white_48dp.svg" alt="info" />
         <!-- <img v-on:mouseover="active = !active" src="/svg/info_white_48dp.svg" alt="info"> -->
-        <img
-          @click="openModal(Rules)"
-          class="help"
-          src="/svg/help_white_48dp.svg"
-          alt="help"
-        />
+        <img @click="openModal(Rules)" class="help" src="/svg/help_white_48dp.svg" alt="help" />
         <!-- <img v-on:mouseover="active = !active" src="/svg/help_white_48dp.svg" alt="help"> -->
         <!-- <img class="light animate__animated animate__rubberBand " @click="ontoggle" src="/svg/toggle_off_white_48dp.svg" 
   alt="toggle-light"> -->
@@ -91,11 +76,11 @@ export default {
           <option value="es-ES">ES</option>
           <option value="ca">CA</option>
         </select>
-        <button @click="changeTheme" class="btn-toggle">
+        <!-- <button @click="changeTheme" class="btn-toggle">
           <i v-if="darkTheme" class="fas fa-sun"></i>
 
           <i v-else class="fa-solid fa-moon"></i>
-        </button>
+        </button> -->
       </div>
     </nav>
   </div>
@@ -111,7 +96,6 @@ export default {
 }
 
 .languages option {
-  border: none;
   background-color: black;
   color: white;
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -120,7 +104,6 @@ export default {
 }
 
 .languages:hover {
-  border: none;
   background-color: red;
 }
 
