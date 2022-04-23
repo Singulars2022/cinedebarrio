@@ -275,7 +275,7 @@ export default {
       Volver a jugar
     </button>
     <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
-    <keyboard v-if="this.gameStatus == 0" :popcornNumber="tryNumber" :letters="letterArray"
+    <keyboard id="keyboard" v-if="this.gameStatus == 0" :popcornNumber="tryNumber" :letters="letterArray"
       @clickedLetter="(id) => letterClicked(id)" />
   </main>
 </template>
