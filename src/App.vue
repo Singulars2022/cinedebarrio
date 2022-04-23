@@ -24,7 +24,7 @@ export default {
       currentModal: "",
       isModalVisible: false,
       displayedImages: [],
-      darkTheme: true,
+      darkTheme: false,
     };
   },
   async created() {
@@ -54,7 +54,16 @@ export default {
       return this.Panelmovie.title.toLowerCase();
     }
   },
+  watch: {
+    darkTheme: (isDarkTheme) => {
+      document.body.classList = isDarkTheme ? '' : 'light';
+    }
+  },
   mounted() {
+    // Set default theme
+    document.body.classList = this.darkTheme ? '' : 'light';
+
+    // Keyboard draggable
     dragElement(document.getElementById("keyboard"));
 
     function dragElement(elmnt) {
