@@ -20,6 +20,14 @@ export default {
       darkTheme: false,
     }
   },
+  created(){
+    if(!localStorage.firstVisit){
+      this.openModal(Rules);
+      localStorage.firstVisit = true;
+    }
+    
+    
+  },
   methods: {
     ontoggle() {
       console.log("toogle");
