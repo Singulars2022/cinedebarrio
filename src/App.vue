@@ -296,7 +296,6 @@ export default {
 main #app {
   max-width: 100vw;
   max-height: 100vh;
-
   font-weight: normal;
 }
 

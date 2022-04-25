@@ -66,7 +66,7 @@ export default {
       </div>
 
       <div v-else>
-        <img @click="openModal(Info)" class="info" src="/svg/info_white_48dp.svg" alt="info" />
+        <img @click="openModal(Info)" class="info-icon" src="/svg/rule-b-center.svg" alt="info" />
         <!-- <img v-on:mouseover="active = !active" src="/svg/info_white_48dp.svg" alt="info"> -->
         <img @click="openModal(Rules)" class="help" src="/svg/help_white_48dp.svg" alt="help" />
         <!-- <img v-on:mouseover="active = !active" src="/svg/help_white_48dp.svg" alt="help"> -->
@@ -114,18 +114,18 @@ export default {
 
 }
 
-.info {
+.info-icon {
   margin: 10px;
 }
 
-.info:hover {
-  border-radius: 100px;
+.info-icon:hover {
   background-color: red;
+  border-radius:6px; 
 
 
 }
 
-.help {
+.help{
   margin: 10px;
 }
 
