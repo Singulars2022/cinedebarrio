@@ -3,6 +3,7 @@
 import Modal from "./UX/ModalUXComponent.vue";
 import Rules from "./pages/RulesPage.vue";
 import Info from "./pages/InfoPage.vue"; // @ significa 'desde la carpeta 'src'
+import { toggleFullscreen } from "@/utils/utils.js";
 </script>
 
 <script>
@@ -41,7 +42,7 @@ export default {
     changeTheme() {
       this.darkTheme = !this.darkTheme;
       this.$emit('changeTheme', this.darkTheme)
-    }
+    },
   }
 }
 </script>
@@ -66,6 +67,7 @@ export default {
       </div>
 
       <div v-else>
+        <span class="full-screen-icon" @click="toggleFullscreen(document)"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></span>
         <img @click="openModal(Info)" class="info" src="/svg/info_white_48dp.svg" alt="info" />
         <!-- <img v-on:mouseover="active = !active" src="/svg/info_white_48dp.svg" alt="info"> -->
         <img @click="openModal(Rules)" class="help" src="/svg/help_white_48dp.svg" alt="help" />
@@ -111,7 +113,7 @@ export default {
   display: flex;
   justify-content: flex-end;
   cursor: pointer;
-
+  align-items: center;
 }
 
 .info {
@@ -119,10 +121,18 @@ export default {
 }
 
 .info:hover {
-  border-radius: 100px;
+  border-radius: 50%;
   background-color: red;
+}
 
+.full-screen-icon{
+  font-size: 30px;
+  margin: 10px;
+}
 
+.full-screen-icon:hover {
+  font-size: 30px;
+  color: red;
 }
 
 .help {
@@ -130,7 +140,7 @@ export default {
 }
 
 .help:hover {
-  border-radius: 100px;
+  border-radius: 50%;
   background-color: red;
 }
 
