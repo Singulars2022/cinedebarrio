@@ -1,3 +1,6 @@
+<script setup>
+import { toggleFullscreen } from "@/utils/utils.js";
+</script>
 <template>
   <div class="rules">
     <h2 class="title">
@@ -38,6 +41,8 @@
       </li>
     </ul>
     <p>{{ $t('rules.end') }}</p>
+    <br>
+    <p>{{ $t('rules.recommendFullscreen') }}<span class="full-screen-icon" @click="toggleFullscreen(document)"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></span></p>
   </div>
   <div class="paloma-container">
     <img

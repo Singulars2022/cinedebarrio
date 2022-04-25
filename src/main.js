@@ -5,7 +5,7 @@ import { createI18n } from 'vue-i18n/index'
 const i18n = createI18n({
     locale: navigator.language,
     messages: {
-        es: {
+        'es-ES': {
             rules: {
                 title: "¿Cómo Jugar?",
                 intro: "¿Has jugado al ahorcado? ¡Pues esto es parecido, pero con películas de la época dorada!",
@@ -18,7 +18,8 @@ const i18n = createI18n({
                 fourthRule: "Si adivinas una letra correcta, ésta se pintará de color verde y la letra aparecerá en su panel correspondiente. Si la letra es incorrecta se pondrá de color rojo y perderás uno de tus cinco intentos.",
                 fourthRuleImgDescription: "Ejemplo del panel con letras correctas e incorrectas.",
                 fifthRule: "Cada vez que falles, tendrás disponible una imagen nueva.",
-                end: "¿Qué tanto sabes de cine? ¿Serás capaz de adivinar todas?"
+                end: "¿Qué tanto sabes de cine? ¿Serás capaz de adivinar todas?",
+                recommendFullscreen: "Para una experiencia más inmersiva, haga click aquí (o F11): "
             },
             info: {
                 title: "Bienvenido a Cine de Barrio",
@@ -43,7 +44,8 @@ const i18n = createI18n({
                 fourthRule: "Si encertes una lletra, aquesta es pintarà de color verd i apareixerà al seu panell corresponent. Si la lletra és incorrecta, es posarà de color vermell i perdràs un dels 5 intents.",
                 fourthRuleImgDescription: "Exemple del panell i teclat amb lletres correctes i incorrectes.",
                 fifthRule: "Cada cop que fallis, tindràs disponible una nova imatge.",
-                end: "Que tant saps de cinema? Seràs capaç d'endevinar-les totes?"
+                end: "Que tant saps de cinema? Seràs capaç d'endevinar-les totes?",
+                recommendFullscreen: "Per tenir una experiència més inmersiva, feu click aquí (o F11): "
             },
             info: {
                 title: "Benvingut a Cine de Barrio",
@@ -60,4 +62,3 @@ const i18n = createI18n({
 createApp(App)
     .use(i18n)
     .mount('#app');
-

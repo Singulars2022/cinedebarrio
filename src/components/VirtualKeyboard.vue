@@ -1,4 +1,5 @@
-
+<script setup>
+import { dragElement } from "@/utils/utils.js";</script>
 <script>
 export default {
   props: {
@@ -13,64 +14,74 @@ export default {
   },
   emits: ["clicked-Letter"],
   data() {
-    return {};
+    
+    return {
+         
+    };
   },
   methods: {
     emitLetter(letter) {
       this.$emit("clicked-Letter", letter);
     },
   },
+  mounted() {
+    dragElement(document.getElementById("keyboardContainer"),document.getElementById("drag-icon"));    
+  }
 };
 </script>
 
 <template>
   <div>
     <div class="tryCount">
-      <div class="popcornContent">
+      <div class="popcornContent">  
         <span>Intentos:</span>
         <div class="popcornPoints">
-          <div
-            v-for="i in this.chances"
-            :key="i"
-          >
-            🍿
-          </div>
+          <div v-for="i in chances" :key="i">🍿</div>
         </div>
       </div>
     </div>
-    <p
-      class="keyboardLines"
-      v-for="(letterRow, index) in letters"
-      :key="index"
-    >
-      <span
-        v-for="(letter, index2) in letterRow"
-        :key="index2"
+    
+    <div id="keyboardContainer">
+      <span id="drag-icon"><i class="fa-solid fa-arrows-up-down-left-right"></i></span>
+      <p class="keyboardLines" v-for="(letterRow, index) in letters" :key="index">
+        <span
+          v-for="(letter, index2) in letterRow"
+          :key="index2"
         @click="emitLetter(letter.letter)"
-        class="keyStyles"
-        :class="
-          letter.status == 'default'
-            ? 'keyIsDefault'
-            : letter.status == 'correct'
+          class="keyStyles"
+          :class="
+            letter.status == 'default'
+              ? 'keyIsDefault'
+              : letter.status == 'correct'
               ? 'keyIsCorrect'
               : 'keyIsWrong'
-        "
-      >
-        {{ letter.letter }}
-      </span>
-    </p>
+          "
+        >
+          {{ letter.letter }}
+        </span>
+      </p>
+    </div>
   </div>
 </template>
 
 
 <style scoped>
+[v-cloak]  {
+  display: none;
+}
 div {
-  padding: 10px;
+  padding: 3px;
 }
 .keyboardLines {
   text-align: center;
+  padding: 8px;
+  
 }
 
+#drag-icon{
+  font-size: 40px;
+  cursor: grab;
+}
 .keyStyles {
   background-color: #303030 ;
   text-align: center;
@@ -78,10 +89,12 @@ div {
   height: 40px;
   padding: 5px;
   border-radius: 5px;
+  margin-bottom: 3px;
   margin: 3px;
   display: inline-block;
   text-transform: uppercase;
   font-weight: bold;
+  font-size: clamp(12px, 2rem, 20px);
   user-select: none;
 }
 
@@ -90,6 +103,7 @@ div {
   background-color:#303030;
   border: 2px solid grey;
   cursor: pointer;
+  
 }
 .keyIsDefault:active {
   background-color: rgb(87, 0, 0);
@@ -116,15 +130,32 @@ div {
 .tryCount {
   display: flex;
   color: white;
-  font-size: 2em;
+  font-size: clamp(10px, 1.5rem, 40px);
   justify-content: center;
   align-items: center;
 }
 
 .popcornContent{
+  
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#keyboardContainer {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+}
+  .keyboardLines{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+
+  }
+.keyboardLines, #keyboardContainer {
+  text-align: center;
+  flex-wrap: nowrap !important;
 }
 
 </style>

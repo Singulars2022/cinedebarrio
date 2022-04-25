@@ -52,12 +52,14 @@ export default {
 </template>
 
 <style scoped>
+
 .empty {
   background-color: transparent;
   border: none;
 }
 
 .quest--panel {
+  margin-top: 28px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -69,8 +71,9 @@ export default {
   flex-wrap: nowrap;
   margin-left: 72px;
   margin-right: 72px;
+  margin-top: 10px;
   justify-content: center;
-  align-items: center;
+  align-items: bottom;
 }
 
 .letter {
@@ -78,11 +81,11 @@ export default {
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
-  font-size: 3rem;
+  font-size: 20px;
   border: black solid 1px;
   background-color: white;
   color: black;
-  width: 80px;
+ width: 80px;
   height: 80px;
   text-align: center;
   font-weight: 700;
@@ -133,5 +136,59 @@ export default {
 .slide-fade-leave-to {
   opacity: 0;
   transform: rotateY(0deg);
+}
+@media (max-width: 415px) {
+
+.letter--panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-image: url("/panel-1letters.png");
+  background-size: 100%;
+  width: 65px;
+  height: 64px;
+  margin: -4px;
+
+}
+.letter {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 20px;
+  border: black solid 1px;
+  background-color: white;
+  color: black;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  font-weight: 700;
+  transition: 1s all;
+  position: absolute;
+  user-select: none;
+
+}
+.quest--panel {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.word--panel {
+  display: flex;
+  text-transform: uppercase;
+  flex-wrap: nowrap;
+  margin-left: 72px;
+  margin-right: 72px;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5px;
+}
+
+
+
 }
 </style>

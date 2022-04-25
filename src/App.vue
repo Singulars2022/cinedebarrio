@@ -12,15 +12,18 @@ import Winer from "./components/pages/WinerPage.vue";
 
 //Funciones from utils
 
-import {cleanLetter}  from '@/utils/utils.js'
-import {isSpecial}  from '@/utils/utils.js'
-import {reloadPage}  from '@/utils/utils.js'
+import { cleanLetter } from '@/utils/utils.js'
+import { isSpecial } from '@/utils/utils.js'
+import { reloadPage } from '@/utils/utils.js'
 </script>
 
 <script>
+
+
 export default {
   data() {
     return {
+
       uid: 0,
       guessedLetters: [],
       currentMovie: [],
@@ -67,54 +70,6 @@ export default {
       return this.gameElements.title.toLowerCase();
     }
   },
-  mounted() {
-    dragElement(document.getElementById("keyboard"));
-
-    function dragElement(elmnt) {
-      var pos1 = 0,
-        pos2 = 0,
-        pos3 = 0,
-        pos4 = 0;
-      if (document.getElementById(elmnt.id + "header")) {
-        /* if present, the header is where you move the DIV from:*/
-        document.getElementById(elmnt.id + "header").onmousedown =
-          dragMouseDown;
-      } else {
-        /* otherwise, move the DIV from anywhere inside the DIV:*/
-        elmnt.onmousedown = dragMouseDown;
-      }
-
-      function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // get the mouse cursor position at startup:
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        // call a function whenever the cursor moves:
-        document.onmousemove = elementDrag;
-      }
-
-      function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // calculate the new cursor position:
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        // set the element's new position:
-        elmnt.style.top = elmnt.offsetTop - pos2 + "px";
-        elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
-      }
-
-      function closeDragElement() {
-        /* stop moving when mouse button is released:*/
-        document.onmouseup = null;
-        document.onmousemove = null;
-      }
-    }
-  },
   methods: {
     // Obtiene los datos de la aplicación
     async getData() {
@@ -132,7 +87,7 @@ export default {
       const path_to_images = "https://image.tmdb.org/t/p/original";
 
       // Si existe la portada o la contraportada la metemos en el array.
-     if (this.currentMovie.backdrop) {
+      if (this.currentMovie.backdrop) {
         this.gameElements.images.push(
           path_to_images + this.currentMovie.backdrop_path
         );
@@ -165,27 +120,27 @@ export default {
       if (this.guessedLetters.includes(letter)) {
         return;
       }
-        if (normalizedMovie.includes(letter)) {
-          clickedLetter.status = "correct";
-        } else {
-          clickedLetter.status = "wrong";
+      if (normalizedMovie.includes(letter)) {
+        clickedLetter.status = "correct";
+      } else {
+        clickedLetter.status = "wrong";
 
-          // Reducimos el contador de vidas
-          this.chances--;
-          if (this.chances <= 0) {
-            this.gameStatus = 1; // 1 significa has perdido
-            this.openModal(Loser);
-          }
-
-          // Mientras queden imágenes que mostrar, sacar la siguiente
-          if (this.gameElements.images.length > 0) {
-            this.displayedImages.push(this.gameElements.images.pop());
-          } else {
-            return;
-          }
+        // Reducimos el contador de vidas
+        this.chances--;
+        if (this.chances <= 0) {
+          this.gameStatus = 1; // 1 significa has perdido
+          this.openModal(Loser);
         }
-        this.guessedLetters.push(letter);
-      
+
+        // Mientras queden imágenes que mostrar, sacar la siguiente
+        if (this.gameElements.images.length > 0) {
+          this.displayedImages.push(this.gameElements.images.pop());
+        } else {
+          return;
+        }
+      }
+      this.guessedLetters.push(letter);
+
 
       // Comprobamos si hemos ganado.
       this.checkVictory(normalizedMovie);
@@ -232,60 +187,65 @@ export default {
     }
   },
 };
+
+
 </script>
 
 <template>
   <Options />
-  <modal
-    :is-modal-visible="isModalVisible"
-    @close-modal="closeModal"
-  >
-    <component
-      :is="currentModal"
-      class="modal"
-    />
+  <modal :is-modal-visible="isModalVisible" @close-modal="closeModal">
+    <component :is="currentModal" class="modal" />
   </modal>
   <main>
-    <KeyboardEvents
-      v-if="gameStatus == 0"
-      @keyup="letterPressed"
-    />
-    <div
-      class="slider-movie"
-      :style="gameStatus != 0 ? { height: '800px' } : ''"
-    >
+    <KeyboardEvents v-if="gameStatus == 0" @keyup="letterPressed" />
+    <div class="slider-movie" :style="gameStatus != 0 ? { height: '800px' } : ''">
       <!--<SliderMovie>-->
-      <img
-        class="logo"
-        src="/img/logo-b-cinedebarrio-white.png"
-        alt="logo"
-      >
+      <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo">
       <Slider :array-images-movies="displayedImages" />
     </div>
-    <button
-      @click="reloadPage"
-      class="reset-btn"
-      v-if="gameStatus != 0"
-    >
+    <button @click="reloadPage" class="reset-btn" v-if="gameStatus != 0">
       Volver a jugar
     </button>
-    <panel-letters
-      :title-text="movieTitle"
-      :guessed-letters="guessedLetters"
-    />
-    <keyboard
-      id="keyboard"
-      v-if="gameStatus == 0"
-      :chances="chances"
-      :letters="keyboardLetter"
-      @clicked-letter="(id) => processLetter(id)"
-    />
+    <panel-letters :title-text="movieTitle" :guessed-letters="guessedLetters" />
+    <keyboard id="keyboard" v-if="gameStatus == 0 && currentMovie.length != 0" :chances="chances"
+      :letters="keyboardLetter" @clicked-letter="(id) => processLetter(id)" />
   </main>
 </template>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 @import "./assets/base.css";
 @import "./assets/style.css";
+
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #D62929;
+  background-image: -webkit-linear-gradient(90deg,
+      transparent,
+      rgba(0, 0, 0, 0.4) 50%,
+      transparent,
+      transparent)
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+
 
 #game {
   background: radial-gradient(ellipse, #303030 0%, #161312 100%);
@@ -299,13 +259,14 @@ export default {
 main #app {
   max-width: 100vw;
   max-height: 100vh;
-
   font-weight: normal;
 }
+
 
 header {
   line-height: 1.5;
 }
+
 
 .logo {
   width: 80px;
@@ -368,11 +329,5 @@ a,
     place-items: flex-start;
     flex-wrap: wrap;
   }
-}
-
-#keyboard {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
 }
 </style>

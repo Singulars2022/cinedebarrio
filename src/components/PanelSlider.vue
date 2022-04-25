@@ -1,10 +1,11 @@
 <script>
 export default {
   props: {
-    "arrayImagesMovies":{
-    type: Array,
-    required: true
-  }},
+    "arrayImagesMovies": {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       arraySlider: this.arrayImagesMovies,
@@ -12,7 +13,7 @@ export default {
     };
   },
   computed: {
-    getURL() {      
+    getURL() {
       return `url(${this.arraySlider[this.indexSlider]})`;
     },
   },
@@ -34,24 +35,13 @@ export default {
  
 <template>
   <div class="slider">
-    <div
-      :style="{ backgroundImage: getURL }"
-      class="movie"
-    >
+    <div :style="{ backgroundImage: getURL, backgroundSize: indexSlider == 0 ? '' : 'contain' }" class="movie">
       <div class="main-div">
         <nav>
-          <ul
-            v-show="arraySlider.length > 1"
-            class="menu"
-          >
-            <li
-              class="slide-fwd-center"
-              v-for="(_, index) in arraySlider"
-              :key="index"
-              @click="SwitchImage(index)"
-              href=""
-            >
-              <span class="indexmovie">{{ index + 1 }}</span>
+          <ul v-show="arraySlider.length > 1" class="menu">
+            <li class="slide-fwd-center" v-for="(_, index) in arraySlider" :key="index" @click="SwitchImage(index)"
+              href="">
+              <span class="indexmovie">{{ index + 1 }} </span>
             </li>
           </ul>
         </nav>
