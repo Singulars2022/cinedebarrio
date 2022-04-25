@@ -75,8 +75,8 @@ export default {
       </div>
 
       <div v-else>
+        <img @click="openModal(Info)" class="info-icon" src="/svg/rule-b-center.svg" alt="info" />
         <span class="full-screen-icon" @click="toggleFullscreen(document)"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></span>
-        <img @click="openModal(Info)" class="info" src="/svg/info_white_48dp.svg" alt="info" />
         <!-- <img v-on:mouseover="active = !active" src="/svg/info_white_48dp.svg" alt="info"> -->
         <img @click="openModal(Rules)" class="help" src="/svg/help_white_48dp.svg" alt="help" />
         <!-- <img v-on:mouseover="active = !active" src="/svg/help_white_48dp.svg" alt="help"> -->
@@ -124,11 +124,11 @@ export default {
   align-items: center;
 }
 
-.info {
+.info-icon {
   margin: 10px;
 }
 
-.info:hover {
+.info-icon:hover {
   border-radius: 50%;
   background-color: red;
 }
@@ -143,7 +143,7 @@ export default {
   color: red;
 }
 
-.help {
+.help{
   margin: 10px;
 }
 
