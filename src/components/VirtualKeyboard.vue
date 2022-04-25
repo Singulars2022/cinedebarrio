@@ -36,25 +36,34 @@ export default {
       <div class="popcornContent">  
         <span>Intentos:</span>
         <div class="popcornPoints">
-          <div v-for="i in chances" :key="i">🍿</div>
+          <div
+            v-for="i in chances"
+            :key="i"
+          >
+            🍿
+          </div>
         </div>
       </div>
     </div>
     
     <div id="keyboardContainer">
-      <span id="drag-icon"><i class="fa-solid fa-arrows-up-down-left-right"></i></span>
-      <p class="keyboardLines" v-for="(letterRow, index) in letters" :key="index">
+      <span id="drag-icon"><i class="fa-solid fa-arrows-up-down-left-right" /></span>
+      <p
+        class="keyboardLines"
+        v-for="(letterRow, index) in letters"
+        :key="index"
+      >
         <span
           v-for="(letter, index2) in letterRow"
           :key="index2"
-        @click="emitLetter(letter.letter)"
+          @click="emitLetter(letter.letter)"
           class="keyStyles"
           :class="
             letter.status == 'default'
               ? 'keyIsDefault'
               : letter.status == 'correct'
-              ? 'keyIsCorrect'
-              : 'keyIsWrong'
+                ? 'keyIsCorrect'
+                : 'keyIsWrong'
           "
         >
           {{ letter.letter }}

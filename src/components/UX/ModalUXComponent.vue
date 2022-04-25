@@ -16,10 +16,17 @@ export default {
 
 <template>
   <transition name="modal-fade">
-    <div v-if="isModalVisible" class="modal" @click.self="closeModal">
+    <div
+      v-if="isModalVisible"
+      class="modal"
+      @click.self="closeModal"
+    >
       <div class="modal-content animate__animated animate__zoomIn">
         <slot />
-        <span class="closeModal" @click="closeModal">&#9932;</span>
+        <span
+          class="closeModal"
+          @click="closeModal"
+        >&#9932;</span>
       </div>
     </div>
   </transition>

@@ -51,24 +51,57 @@ export default {
 }
 </script>
 <template>
-  <modal :is-modal-visible="isModalVisible" @close-modal="closeModal">
+  <modal
+    :is-modal-visible="isModalVisible"
+    @close-modal="closeModal"
+  >
     <component :is="currentModal" />
   </modal>
   <div>
     <nav class="icons">
       <div v-if="toggle">
-        <img @mouseover="onMouseOverInfo" @mouseleave="onMouseLeaveInfo" :src="srcInfoIcon" alt="info">
-        <img class="help" src="/svg/help_black_48dp.svg" alt="help">
+        <img
+          @mouseover="onMouseOverInfo"
+          @mouseleave="onMouseLeaveInfo"
+          :src="srcInfoIcon"
+          alt="info"
+        >
+        <img
+          class="help"
+          src="/svg/help_black_48dp.svg"
+          alt="help"
+        >
       </div>
 
       <div v-else>
-        <img @click="openModal(Info)" class="info-icon" src="/svg/rule-b-center.svg" alt="info" />
-        <span class="full-screen-icon" @click="toggleFullscreen(document)"><i
-            class="fa-solid fa-up-right-and-down-left-from-center"></i></span>
-        <img @click="openModal(Rules)" class="help" src="/svg/help_white_48dp.svg" alt="help" />
-        <select class="languages" v-model="$i18n.locale">
-          <option value="es-ES">ES</option>
-          <option value="ca">CA</option>
+        <img
+          @click="openModal(Info)"
+          class="info-icon"
+          src="/svg/rule-b-center.svg"
+          alt="info"
+        >
+        <span
+          class="full-screen-icon"
+          @click="toggleFullscreen(document)"
+        ><i
+          class="fa-solid fa-up-right-and-down-left-from-center"
+        /></span>
+        <img
+          @click="openModal(Rules)"
+          class="help"
+          src="/svg/help_white_48dp.svg"
+          alt="help"
+        >
+        <select
+          class="languages"
+          v-model="$i18n.locale"
+        >
+          <option value="es-ES">
+            ES
+          </option>
+          <option value="ca">
+            CA
+          </option>
         </select>
       </div>
     </nav>
