@@ -21,6 +21,8 @@ export function cleanLetter(letter) {
       return false;
     }
   }
-
+export function  reloadPage() {
+    window.location.reload();
+  }
 // import { sanitizeInput } utils from '@/utils/utils.js'
 // sanitizeInput();

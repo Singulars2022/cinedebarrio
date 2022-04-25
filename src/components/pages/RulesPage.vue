@@ -35,7 +35,6 @@
       </li>
       <li>
         {{ $t('rules.fifthRule') }}
-        <!-- <img src="/peli1.jpg" alt="Ejemplo del funcionamiento del carrousel."> -->
       </li>
     </ul>
     <p>{{ $t('rules.end') }}</p>
@@ -67,12 +66,6 @@ li {
   margin: auto;
   padding: 0 20%;
   position: relative;
-  /* background-image: url("/img/instructions/instrucciones-paloma.png");
-  background-size: 200px;
-  background-attachment: scroll fixed;
-  background-repeat: no-repeat;
-  background-position: bottom right; */
-  /* background */
 }
 
 ul {

@@ -50,7 +50,7 @@ export default {
 
   <modal
     :is-modal-visible="isModalVisible"
-    @closeModal="closeModal"
+    @close-modal="closeModal"
   >
     <component :is="currentModal" />
   </modal>

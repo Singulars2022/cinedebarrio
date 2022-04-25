@@ -14,6 +14,7 @@ import Winer from "./components/pages/WinerPage.vue";
 
 import {cleanLetter}  from '@/utils/utils.js'
 import {isSpecial}  from '@/utils/utils.js'
+import {reloadPage}  from '@/utils/utils.js'
 </script>
 
 <script>
@@ -204,7 +205,7 @@ export default {
     checkVictory(normalizedMovie) {
       // Hacemos una comprobación de si hemos ganado
       cleanLetter(normalizedMovie);
-            
+
       let contError = 0;
       console.log("Pelicula Normalizada: ", normalizedMovie);
       normalizedMovie.split("").forEach((element) => {
@@ -238,10 +239,6 @@ export default {
       this.isModalVisible = true;
       this.currentModal = modal;
     },
-    // Recargar la pagina
-    reloadPage() {
-      window.location.reload();
-    },
     onChangeTheme(isDarkTheme) {
       this.darkTheme = isDarkTheme;
     }
@@ -253,7 +250,7 @@ export default {
   <Options />
   <modal
     :is-modal-visible="isModalVisible"
-    @closeModal="closeModal"
+    @close-modal="closeModal"
   >
     <component
       :is="currentModal"
@@ -275,7 +272,7 @@ export default {
         src="/img/logo-b-cinedebarrio-white.png"
         alt="logo"
       >
-      <Slider :arrayImagesMovies="displayedImages" />
+      <Slider :array-images-movies="displayedImages" />
     </div>
     <button
       @click="reloadPage"
@@ -285,7 +282,7 @@ export default {
       Volver a jugar
     </button>
     <panel-letters
-      :titleText="movieTitle"
+      :title-text="movieTitle"
       :guessed-letters="guessedLetters"
     />
     <keyboard

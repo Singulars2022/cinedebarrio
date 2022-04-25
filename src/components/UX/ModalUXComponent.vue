@@ -4,11 +4,11 @@
 
 <script>
 export default {
-  emits: ["closeModal"],
+  emits: ["close-modal"],
   props: {"isModalVisible":{type: Boolean, required: true}},
   methods: {
     closeModal() {
-      this.$emit("closeModal");
+      this.$emit("close-modal");
     }
   }
 };

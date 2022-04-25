@@ -15,16 +15,8 @@
   </div>    
 </template>
 
-<script>
-
-
-export default {
-   methods: {
-    reloadPage() {
-      window.location.reload();
-    }
-  }
-}
+<script setup>
+import {reloadPage}  from '@/utils/utils.js'
 </script>
 
 
