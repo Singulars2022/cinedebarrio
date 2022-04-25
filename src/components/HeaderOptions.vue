@@ -11,7 +11,7 @@ export default {
   emits: ["changeTheme"],
   data() {
     return {
-      Isitblackmode: true,
+      isItBlackMode: true,
       toggle: false,
       active: false,
       srcInfoIcon: "/svg/info_black_48dp.svg",
@@ -20,19 +20,15 @@ export default {
       darkTheme: false,
     }
   },
-  created(){
-    if(!localStorage.firstVisit){
+  created() {
+    if (!localStorage.firstVisit) {
       this.openModal(Rules);
       localStorage.firstVisit = true;
     }
-    
-    
+
+
   },
   methods: {
-    ontoggle() {
-      console.log("toogle");
-      this.toggle = !this.toggle;
-    },
     onMouseOverInfo() {
       this.srcInfoIcon = "/svg/info_red_48dp.svg";
     },
@@ -55,42 +51,58 @@ export default {
 }
 </script>
 <template>
-  <!-- <main :class="[toggle ? 'var--vt-c-white' : '--vt-c-black']"> -->
-  <!-- Selector para cambiar el idioma mirar fichero main.js -->
-
-  <modal :isModalVisible="isModalVisible" @close="closeModal">
-    <component :is="currentModal"></component>
+  <modal
+    :is-modal-visible="isModalVisible"
+    @close-modal="closeModal"
+  >
+    <component :is="currentModal" />
   </modal>
   <div>
     <nav class="icons">
       <div v-if="toggle">
-        <img @mouseover="onMouseOverInfo" @mouseleave="onMouseLeaveInfo" :src="srcInfoIcon" alt="info" />
-        <img class="help" src="/svg/help_black_48dp.svg" alt="help" />
-        <!-- <img v-if="active" class="info" src="/svg/info_red_48dp.svg" alt="info">
-      <img v-on:mouseover="active = !active" class="info" src="/svg/info_black_48dp.svg" alt="info">
-      <img v-if="active" class="help" src="/svg/help_red_48dp.svg" alt="help">
-    <img v-on:mouseover="active = !active" class="help" src="/svg/help_black_48dp.svg" alt="help"> -->
-        <!-- <img class="dark animate__animated animate__rubberBand" @click="ontoggle"  src="/svg/toggle_on_black_48dp.svg" 
-  alt="toggle-dark"> -->
+        <img
+          @mouseover="onMouseOverInfo"
+          @mouseleave="onMouseLeaveInfo"
+          :src="srcInfoIcon"
+          alt="info"
+        >
+        <img
+          class="help"
+          src="/svg/help_black_48dp.svg"
+          alt="help"
+        >
       </div>
 
       <div v-else>
-        <img @click="openModal(Info)" class="info-icon" src="/svg/rule-b-center.svg" alt="info" />
-        <span class="full-screen-icon" @click="toggleFullscreen(document)"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></span>
-        <!-- <img v-on:mouseover="active = !active" src="/svg/info_white_48dp.svg" alt="info"> -->
-        <img @click="openModal(Rules)" class="help" src="/svg/help_white_48dp.svg" alt="help" />
-        <!-- <img v-on:mouseover="active = !active" src="/svg/help_white_48dp.svg" alt="help"> -->
-        <!-- <img class="light animate__animated animate__rubberBand " @click="ontoggle" src="/svg/toggle_off_white_48dp.svg" 
-  alt="toggle-light"> -->
-        <select class="languages" v-model="$i18n.locale">
-          <option  value="es-ES">ES</option>
-          <option value="ca">CA</option>
+        <img
+          @click="openModal(Info)"
+          class="info-icon"
+          src="/svg/rule-b-center.svg"
+          alt="info"
+        >
+        <span
+          class="full-screen-icon"
+          @click="toggleFullscreen(document)"
+        ><i
+          class="fa-solid fa-up-right-and-down-left-from-center"
+        /></span>
+        <img
+          @click="openModal(Rules)"
+          class="help"
+          src="/svg/help_white_48dp.svg"
+          alt="help"
+        >
+        <select
+          class="languages"
+          v-model="$i18n.locale"
+        >
+          <option value="es-ES">
+            ES
+          </option>
+          <option value="ca">
+            CA
+          </option>
         </select>
-        <!-- <button @click="changeTheme" class="btn-toggle">
-          <i v-if="darkTheme" class="fas fa-sun"></i>
-
-          <i v-else class="fa-solid fa-moon"></i>
-        </button> -->
       </div>
     </nav>
   </div>
@@ -133,7 +145,7 @@ export default {
   background-color: red;
 }
 
-.full-screen-icon{
+.full-screen-icon {
   font-size: 30px;
   margin: 10px;
 }
@@ -143,7 +155,7 @@ export default {
   color: red;
 }
 
-.help{
+.help {
   margin: 10px;
 }
 

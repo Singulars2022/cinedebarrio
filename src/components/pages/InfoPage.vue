@@ -1,27 +1,53 @@
 <template>
   <div class="info">
-    <h2 class="title">{{ $t('info.title') }}</h2>
+    <h2 class="title">
+      {{ $t('info.title') }}
+    </h2>
     <ul>
       <li>{{ $t('info.intro') }}</li>
-      <li class="question">{{ $t('info.firstQuestion') }}</li>
+      <li class="question">
+        {{ $t('info.firstQuestion') }}
+      </li>
       <li>{{ $t('info.firstAnswer') }}</li>
-      <li class="question">{{ $t('info.secondQuestion') }}</li>
+      <li class="question">
+        {{ $t('info.secondQuestion') }}
+      </li>
       <li>{{ $t('info.secondAnswer') }}</li>
       <li>
         <div class="buttons logos-delboton">
-          <a href="https://github.com/Singulars2022/cinedebarrio" target="_blank">
-            <img class="logo-item" src="/img/github-logo.png" alt="">
+          <a
+            href="https://github.com/Singulars2022/cinedebarrio"
+            target="_blank"
+          >
+            <img
+              class="logo-item"
+              src="/img/github-logo.png"
+              alt=""
+            >
           </a>
-          <a href="https://www.linkedin.com/groups/12653166/" target="_blank">
-            <img class="logo-item" src="/img/linkedin-logo.png" alt="">
+          <a
+            href="https://www.linkedin.com/groups/12653166/"
+            target="_blank"
+          >
+            <img
+              class="logo-item"
+              src="/img/linkedin-logo.png"
+              alt=""
+            >
           </a>
-          <a href="https://singulars2022.github.io/cinedebarrio-landingpage/" target="_blank">
-            <img class="logo-item" src="/img/logo-b-cinedebarrio-black.png" alt="">
+          <a
+            href="https://singulars2022.github.io/cinedebarrio-landingpage/"
+            target="_blank"
+          >
+            <img
+              class="logo-item"
+              src="/img/logo-b-cinedebarrio-black.png"
+              alt=""
+            >
           </a>
         </div>
       </li>
     </ul>
-
   </div>
 </template>
 

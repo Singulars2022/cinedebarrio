@@ -1,33 +1,15 @@
 
+<script setup>
+import { cleanLetter } from '@/utils/utils.js'
+import { isSpecial } from '@/utils/utils.js'
+</script>
 
 <script>
 export default {
-  props: ["text", "guessedLetters"],
+  props: { "titleText": { type: String, required: true }, "guessedLetters": { type: Array, required: true } },
   computed: {
     title() {
-      return this.text.split(" ");
-    },
-  },
-  methods: {
-    cleanLetter(letter) {
-      letter = letter.replace(/á/gi, "a");
-      letter = letter.replace(/é/gi, "e");
-      letter = letter.replace(/í/gi, "i");
-      letter = letter.replace(/ó/gi, "o");
-      letter = letter.replace(/ú/gi, "u");
-      letter = letter.replace(/ü/gi, "u");
-      letter = letter.replace(/ö/gi, "o");
-      return letter;
-    },
-    isSpecial(letter) {
-      var specialChars = "¡!@#$^&%*()+=-[]/{}|:<>¿?,.'";
-      let patern = /^[0-9]+$/;
-      //console.log(specialChars.includes(letter))
-      if (specialChars.includes(letter) || letter.match(patern)) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.titleText.split(" ");
     },
   },
 };
@@ -36,17 +18,33 @@ export default {
 <template>
   <div class="quest--panel">
     <!-- Bucle de palabras -->
-    <span class="word--panel" v-for="(word, index) in title" :key="index">
+    <span
+      class="word--panel"
+      v-for="(word, index) in title"
+      :key="index"
+    >
       <!-- Bucle de letras -->
-      <span class="letter--panel" :class="{ empty: letter === ' ' }" v-for="(letter, index) in word" :key="index">
+      <span
+        class="letter--panel"
+        :class="{ empty: letter === ' ' }"
+        v-for="(letter, index2) in word"
+        :key="index2"
+      >
         <TransitionGroup name="slide-fade">
           <!-- Letra con letra -->
-          <span class="letter" :class="
-            guessedLetters.includes(cleanLetter(letter)) || isSpecial(letter) ? 'animation' : ''
-          " v-if="guessedLetters.includes(cleanLetter(letter)) || isSpecial(letter)">
+          <span
+            class="letter"
+            :class="
+              guessedLetters.includes(cleanLetter(letter)) || isSpecial(letter) ? 'animation' : ''
+            "
+            v-if="guessedLetters.includes(cleanLetter(letter)) || isSpecial(letter)"
+          >
             {{ letter }}</span>
           <!-- Letra sin letra o espacio -->
-          <span class="letter" v-if="!guessedLetters.includes(cleanLetter(letter)) && !isSpecial(letter)"></span>
+          <span
+            class="letter"
+            v-if="!guessedLetters.includes(cleanLetter(letter)) && !isSpecial(letter)"
+          />
         </TransitionGroup>
       </span>
     </span>
@@ -54,7 +52,6 @@ export default {
 </template>
 
 <style scoped>
-
 .empty {
   background-color: transparent;
   border: none;
@@ -83,11 +80,11 @@ export default {
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
-  font-size: 20px;
+  font-size: 60px;
   border: black solid 1px;
   background-color: white;
   color: black;
- width: 80px;
+  width: 80px;
   height: 80px;
   text-align: center;
   font-weight: 700;
@@ -139,56 +136,59 @@ export default {
   opacity: 0;
   transform: rotateY(0deg);
 }
+
 @media (max-width: 415px) {
 
-.letter--panel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  background-image: url("/panel-1letters.png");
-  background-size: 100%;
-  width: 65px;
-  height: 64px;
-  margin: -4px;
+  .letter--panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-image: url("/panel-1letters.png");
+    background-size: 100%;
+    width: 65px;
+    height: 64px;
+    margin: -4px;
 
-}
-.letter {
-  margin-top: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: uppercase;
-  font-size: 20px;
-  border: black solid 1px;
-  background-color: white;
-  color: black;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  font-weight: 700;
-  transition: 1s all;
-  position: absolute;
-  user-select: none;
+  }
 
-}
-.quest--panel {
-  margin-top: 28px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+  .letter {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 20px;
+    border: black solid 1px;
+    background-color: white;
+    color: black;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-weight: 700;
+    transition: 1s all;
+    position: absolute;
+    user-select: none;
 
-.word--panel {
-  display: flex;
-  text-transform: uppercase;
-  flex-wrap: nowrap;
-  margin-left: 72px;
-  margin-right: 72px;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 5px;
-}
+  }
+
+  .quest--panel {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .word--panel {
+    display: flex;
+    text-transform: uppercase;
+    flex-wrap: nowrap;
+    margin-left: 72px;
+    margin-right: 72px;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5px;
+  }
 
 
 

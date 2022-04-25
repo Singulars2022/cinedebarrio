@@ -3,10 +3,16 @@ import { dragElement } from "@/utils/utils.js";</script>
 <script>
 export default {
   props: {
-    letters: Array,
-    popcornNumber: Number,
+    letters: {
+      type: Array,
+      required: true
+    },
+    chances:{
+      type: Number,
+      required: true
+    },
   },
-  emits: ["clickedLetter"],
+  emits: ["clicked-Letter"],
   data() {
     
     return {
@@ -14,8 +20,8 @@ export default {
     };
   },
   methods: {
-    checkLetter(letter) {
-      this.$emit("clickedLetter", letter);
+    emitLetter(letter) {
+      this.$emit("clicked-Letter", letter);
     },
   },
   mounted() {
@@ -30,25 +36,34 @@ export default {
       <div class="popcornContent">  
         <span>Intentos:</span>
         <div class="popcornPoints">
-          <div v-for="i in popcornNumber" :key="i">🍿</div>
+          <div
+            v-for="i in chances"
+            :key="i"
+          >
+            🍿
+          </div>
         </div>
       </div>
     </div>
     
     <div id="keyboardContainer">
-      <span id="drag-icon"><i class="fa-solid fa-arrows-up-down-left-right"></i></span>
-      <p class="keyboardLines" v-for="(letterRow, index) in letters" :key="index">
+      <span id="drag-icon"><i class="fa-solid fa-arrows-up-down-left-right" /></span>
+      <p
+        class="keyboardLines"
+        v-for="(letterRow, index) in letters"
+        :key="index"
+      >
         <span
           v-for="(letter, index2) in letterRow"
           :key="index2"
-          @click="checkLetter(letter.letter)"
+          @click="emitLetter(letter.letter)"
           class="keyStyles"
           :class="
             letter.status == 'default'
               ? 'keyIsDefault'
               : letter.status == 'correct'
-              ? 'keyIsCorrect'
-              : 'keyIsWrong'
+                ? 'keyIsCorrect'
+                : 'keyIsWrong'
           "
         >
           {{ letter.letter }}

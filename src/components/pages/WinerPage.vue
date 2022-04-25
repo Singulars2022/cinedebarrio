@@ -1,26 +1,23 @@
 <template>
-    <h1>Has Ganado</h1>
+  <h1>Has Ganado</h1>
     
-    <div class="winerContent">
-        <img src="/img/PalomaGanadora.png" alt="Carmen ha perdido :( ">
-        <div class="description">
-            <p>¡Felicidades! Has adivinado la pelicula 🎉</p>
-            <button @click="reloadPage">Volver a Jugar</button>        
-        </div>
-
-    </div>    
+  <div class="winerContent">
+    <img
+      src="/img/PalomaGanadora.png"
+      alt="Carmen ha perdido :( "
+    >
+    <div class="description">
+      <p>¡Felicidades! Has adivinado la pelicula 🎉</p>
+      <button @click="reloadPage">
+        Volver a Jugar
+      </button>        
+    </div>
+  </div>    
 </template>
 
-<script>
+<script setup>
 
-
-export default {
-   methods: {
-    reloadPage() {
-      window.location.reload();
-    }
-  }
-}
+import {reloadPage}  from '@/utils/utils.js'
 </script>
 
 <style scoped>

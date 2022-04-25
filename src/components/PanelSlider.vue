@@ -1,26 +1,31 @@
 <script>
 export default {
-  props: ["ArrayMovies"],
+  props: {
+    "arrayImagesMovies": {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
-      arraySlider: this.ArrayMovies,
-      index: 0,
+      arraySlider: this.arrayImagesMovies,
+      indexSlider: 0,
     };
   },
   computed: {
     getURL() {
-      return `url(${this.arraySlider[this.index]})`;
+      return `url(${this.arraySlider[this.indexSlider]})`;
     },
   },
   methods: {
     SwitchImage(value) {
-      this.index = value;
+      this.indexSlider = value;
     },
   },
   watch: {
     arraySlider: {
       handler() {
-        this.index = this.arraySlider.length - 1;
+        this.indexSlider = this.arraySlider.length - 1;
       },
       deep: true,
     },
@@ -30,12 +35,23 @@ export default {
  
 <template>
   <div class="slider">
-    <div :style="{ backgroundImage: getURL, backgroundSize: index == 0 ? '' : 'contain'}" class="movie">
+    <div
+      :style="{ backgroundImage: getURL, backgroundSize: indexSlider == 0 ? '' : 'contain' }"
+      class="movie"
+    >
       <div class="main-div">
         <nav>
-          <ul v-show="arraySlider.length > 1" class="menu">
-            <li class="slide-fwd-center" v-for="(_, index) in arraySlider" :key="index" @click="SwitchImage(index)"
-              href="">
+          <ul
+            v-show="arraySlider.length > 1"
+            class="menu"
+          >
+            <li
+              class="slide-fwd-center"
+              v-for="(_, index) in arraySlider"
+              :key="index"
+              @click="SwitchImage(index)"
+              href=""
+            >
               <span class="indexmovie">{{ index + 1 }} </span>
             </li>
           </ul>

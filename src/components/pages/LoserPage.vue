@@ -1,26 +1,22 @@
 <template>
-    <h1>Has Perdido</h1>
+  <h1>Has Perdido</h1>
     
-    <div class="loserContent">
-        <img src="/img/PalomaPerdedoraRecortada.png" alt="Carmen ha perdido :( ">
-        <div class="description">
-            <p>😥Esta vez no has adivinado la pelicula, pero no pasa nada, porque puedes intentarlo las veces que quieras !</p>
-            <button @click="reloadPage">Volver a Jugar</button>        
-        </div>
-
-    </div>    
+  <div class="loserContent">
+    <img
+      src="/img/PalomaPerdedoraRecortada.png"
+      alt="Carmen ha perdido :( "
+    >
+    <div class="description">
+      <p>😥Esta vez no has adivinado la pelicula, pero no pasa nada, porque puedes intentarlo las veces que quieras !</p>
+      <button @click="reloadPage">
+        Volver a Jugar
+      </button>        
+    </div>
+  </div>    
 </template>
 
-<script>
-
-
-export default {
-   methods: {
-    reloadPage() {
-      window.location.reload();
-    }
-  }
-}
+<script setup>
+import {reloadPage}  from '@/utils/utils.js'
 </script>
 
 

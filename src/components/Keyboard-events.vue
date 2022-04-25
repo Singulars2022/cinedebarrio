@@ -1,7 +1,11 @@
-
 <template>
+  <span style="display: none">
+    Contenido que justifica mi exsitencia.
+  </span>
 </template>
+
 <script>export default {
+  emits:['keyup'],
   created() {
     const component = this;
     this.handler = function (e) {
@@ -9,7 +13,7 @@
     }
     window.addEventListener('keyup', this.handler);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('keyup', this.handler);
   }
 }

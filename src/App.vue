@@ -1,14 +1,20 @@
 <script setup>
 import PanelLetters from "./components/PanelLetters.vue";
-import keyboard from "./components/Keyboard.vue";
+import keyboard from "./components/VirtualKeyboard.vue";
 import helpIcon from "./assets/icons/help_white_48dp.svg";
 
-import Slider from "./components/Slider.vue";
-import Options from "./components/Options.vue";
+import Slider from "./components/PanelSlider.vue";
+import Options from "./components/HeaderOptions.vue";
 import KeyboardEvents from "./components/Keyboard-events.vue";
 import Modal from "./components/UX/ModalUXComponent.vue";
-import Loser from "./components/pages/Loser.vue";
-import Winer from "./components/pages/Winer.vue";
+import Loser from "./components/pages/LoserPage.vue";
+import Winer from "./components/pages/WinerPage.vue";
+
+//Funciones from utils
+
+import { cleanLetter } from '@/utils/utils.js'
+import { isSpecial } from '@/utils/utils.js'
+import { reloadPage } from '@/utils/utils.js'
 </script>
 
 <script>
@@ -17,12 +23,12 @@ import Winer from "./components/pages/Winer.vue";
 export default {
   data() {
     return {
-   
+
       uid: 0,
       guessedLetters: [],
-      actualMovie: [],
-      Panelmovie: { images: [], title: "" },
-      letterArray: [
+      currentMovie: [],
+      gameElements: { images: [], title: "" },
+      keyboardLetter: [
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
         ["z", "x", "c", "v", "b", "n", "m"],
@@ -35,7 +41,7 @@ export default {
       displayedImages: [],
 
       // Vriables de jugabilidad
-      tryNumber: 5,
+      chances: 5,
       gameStatus: 0,
       darkTheme: true,
     };
@@ -45,11 +51,11 @@ export default {
     await this.getData();
 
     // Ponemos la primera imagen
-    const firstImage = this.Panelmovie.images.pop();
+    const firstImage = this.gameElements.images.pop();
     this.displayedImages.push(firstImage);
 
     // Creación del teclado
-    this.letterArray = this.letterArray.map((arrayRow) => {
+    this.keyboardLetter = this.keyboardLetter.map((arrayRow) => {
       return arrayRow.map((l) => {
         return {
           id: this.uid++,
@@ -60,11 +66,8 @@ export default {
     });
   },
   computed: {
-    lettersControl() {
-      return this.letterArray;
-    },
     movieTitle() {
-      return this.Panelmovie.title.toLowerCase();
+      return this.gameElements.title.toLowerCase();
     }
   },
   methods: {
@@ -75,77 +78,69 @@ export default {
       );
       let json = await results.json();
       // Peticion de peliculas a la api
-      this.actualMovie = json.items[Math.floor(Math.random() * json.items.length - 1)];
+      this.currentMovie = json.items[Math.floor(Math.random() * json.items.length - 1)];
 
       // Obtenemos el titulo de la api
-      this.Panelmovie.title = this.actualMovie.title;
+      this.gameElements.title = this.currentMovie.title;
 
       // Creamos un array de imagenes con la portada y un frame de la pelicula
       const path_to_images = "https://image.tmdb.org/t/p/original";
 
       // Si existe la portada o la contraportada la metemos en el array.
-      if (
-        this.actualMovie.backdrop_path != null &&
-        this.actualMovie.backdrop_path != undefined
-      ) {
-        this.Panelmovie.images.push(
-          path_to_images + this.actualMovie.backdrop_path
+      if (this.currentMovie.backdrop) {
+        this.gameElements.images.push(
+          path_to_images + this.currentMovie.backdrop_path
         );
       }
       if (
-        this.actualMovie.poster_path != null &&
-        this.actualMovie.poster_path != undefined
+        this.currentMovie.poster_path != null &&
+        this.currentMovie.poster_path != undefined
       ) {
-        this.Panelmovie.images.push(
-          path_to_images + this.actualMovie.poster_path
+        this.gameElements.images.push(
+          path_to_images + this.currentMovie.poster_path
         );
       }
     },
     // Mega funcion, 1. Comprueba y pulsa la tecla del teclado virtual, 2. Resta intentos,3. Comprueba si has perdido, 5. Llama a la función para comprobar si has perdido
-    letterClicked(letter) {
+    processLetter(letter) {
       if (this.gameStatus != 0) {
         return;
       }
       letter = letter.toLowerCase();
-
       let normalizedMovie = this.movieTitle;
-      console.log("movie:", normalizedMovie);
-
       const removeAccents = (str) => {
         return str.normalize().replace(/[\u0300-\u036f]/g, "");
       };
-
       normalizedMovie = removeAccents(normalizedMovie);
-
-      console.log("movie:", normalizedMovie);
-
       const clickedLetter = []
-        .concat(...this.letterArray)
+        .concat(...this.keyboardLetter)
         .find((l) => l.letter == letter);
 
       // TODO: Refactorizar, hacer un return
-      if (!this.guessedLetters.includes(letter)) {
-        if (normalizedMovie.includes(letter)) {
-          clickedLetter.status = "correct";
-        } else {
-          clickedLetter.status = "wrong";
-
-          // Reducimos el contador de vidas
-          this.tryNumber--;
-          if (this.tryNumber <= 0) {
-            this.gameStatus = 1; // 1 significa has perdido
-            this.openModal(Loser);
-          }
-
-          // Mientras queden imágenes que mostrar, sacar la siguiente
-          if (this.Panelmovie.images.length > 0) {
-            this.displayedImages.push(this.Panelmovie.images.pop());
-          } else {
-            return;
-          }
-        }
-        this.guessedLetters.push(letter);
+      if (this.guessedLetters.includes(letter)) {
+        return;
       }
+      if (normalizedMovie.includes(letter)) {
+        clickedLetter.status = "correct";
+      } else {
+        clickedLetter.status = "wrong";
+
+        // Reducimos el contador de vidas
+        this.chances--;
+        if (this.chances <= 0) {
+          this.gameStatus = 1; // 1 significa has perdido
+          this.openModal(Loser);
+        }
+
+        // Mientras queden imágenes que mostrar, sacar la siguiente
+        if (this.gameElements.images.length > 0) {
+          this.displayedImages.push(this.gameElements.images.pop());
+        } else {
+          return;
+        }
+      }
+      this.guessedLetters.push(letter);
+
 
       // Comprobamos si hemos ganado.
       this.checkVictory(normalizedMovie);
@@ -153,15 +148,9 @@ export default {
     // Función que comprueba si has ganado
     checkVictory(normalizedMovie) {
       // Hacemos una comprobación de si hemos ganado
-      normalizedMovie = normalizedMovie.replace(/á/gi, "a");
-      normalizedMovie = normalizedMovie.replace(/é/gi, "e");
-      normalizedMovie = normalizedMovie.replace(/í/gi, "i");
-      normalizedMovie = normalizedMovie.replace(/ó/gi, "o");
-      normalizedMovie = normalizedMovie.replace(/ú/gi, "u");
-      normalizedMovie = normalizedMovie.replace(/ü/gi, "u");
-      normalizedMovie = normalizedMovie.replace(/ö/gi, "o");
+      normalizedMovie = cleanLetter(normalizedMovie);
+
       let contError = 0;
-      console.log("Pelicula Normalizada: ", normalizedMovie);
       normalizedMovie.split("").forEach((element) => {
         if (
           !this.guessedLetters.includes(element) &&
@@ -177,22 +166,12 @@ export default {
         this.openModal(Winer);
       }
     },
-    isSpecial(letter) {
-      // Comprobamos si un elemento es especial
-      var specialChars = "¡!@#$^&%*()+=-[]/{}|:<>¿?,.'";
-      let patern = /^[0-9]+$/;
-      if (specialChars.includes(letter) || letter.match(patern)) {
-        return true;
-      } else {
-        return false;
-      }
-    },
     letterPressed(e) {
       if ((e.keyCode < 65 || e.keyCode > 90) && e.keyCode != 192) {
         return;
       }
       let keyPressed = e.key;
-      this.letterClicked(keyPressed);
+      this.processLetter(keyPressed);
     },
     // Modal, abrir y cerrar
     closeModal() {
@@ -203,37 +182,61 @@ export default {
       this.isModalVisible = true;
       this.currentModal = modal;
     },
-    // Recargar la pagina
-    reloadPage() {
-      window.location.reload();
-    },
     onChangeTheme(isDarkTheme) {
       this.darkTheme = isDarkTheme;
     }
   },
 };
-  
-  
+
+
 </script>
 
-<template >
-  <Options @changeTheme="onChangeTheme" />
-  <modal :isModalVisible="isModalVisible" @close="closeModal">
-    <component :is="currentModal" class="modal"></component>
+<template>
+  <Options />
+  <modal
+    :is-modal-visible="isModalVisible"
+    @close-modal="closeModal"
+  >
+    <component
+      :is="currentModal"
+      class="modal"
+    />
   </modal>
   <main>
-    <KeyboardEvents v-if="gameStatus == 0" @keyup="letterPressed"></KeyboardEvents>
-    <div class="slider-movie" :style="gameStatus != 0 ? { height: '800px' } : ''">
+    <KeyboardEvents
+      v-if="gameStatus == 0"
+      @keyup="letterPressed"
+    />
+    <div
+      class="slider-movie"
+      :style="gameStatus != 0 ? { height: '800px' } : ''"
+    >
       <!--<SliderMovie>-->
-      <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo" />
-      <Slider :ArrayMovies="displayedImages" />
+      <img
+        class="logo"
+        src="/img/logo-b-cinedebarrio-white.png"
+        alt="logo"
+      >
+      <Slider :array-images-movies="displayedImages" />
     </div>
-    <button @click="reloadPage" class="reset-btn" v-if="gameStatus != 0">
+    <button
+      @click="reloadPage"
+      class="reset-btn"
+      v-if="gameStatus != 0"
+    >
       Volver a jugar
     </button>
-    <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
-    <keyboard id="keyboard" v-if="gameStatus == 0 && actualMovie.length!=0" :popcornNumber="tryNumber" :letters="letterArray"
-      @clickedLetter="(id) => letterClicked(id)" />
+    <panel-letters
+      :title-text="movieTitle"
+      :guessed-letters="guessedLetters"
+    />
+    <keyboard
+      id="keyboard"
+      v-if="gameStatus == 0 && currentMovie.length != 0"
+      :chances="chances"
+      :letters="keyboardLetter"
+      @clicked-letter="(id) => processLetter(id)"
+    />
   </main>
 </template>
 <style>
@@ -242,30 +245,32 @@ export default {
 @import "./assets/style.css";
 
 
-::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	background-color: #D62929;
-	background-image: -webkit-linear-gradient(90deg,
-											  transparent,
-											  rgba(0, 0, 0, 0.4) 50%,
-											  transparent,
-											  transparent)
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #D62929;
+  background-image: -webkit-linear-gradient(90deg,
+      transparent,
+      rgba(0, 0, 0, 0.4) 50%,
+      transparent,
+      transparent)
 }
-::-webkit-scrollbar
-{
-	width: 12px;
-	background-color: #F5F5F5;
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
 }
+
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px     rgba(0,0,0,0.5); 
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -284,6 +289,7 @@ main #app {
   max-height: 100vh;
   font-weight: normal;
 }
+
 
 header {
   line-height: 1.5;
@@ -352,5 +358,4 @@ a,
     flex-wrap: wrap;
   }
 }
-
 </style>
