@@ -12,9 +12,12 @@ import Winer from "./components/pages/Winer.vue";
 </script>
 
 <script>
+
+
 export default {
   data() {
     return {
+   
       uid: 0,
       guessedLetters: [],
       actualMovie: [],
@@ -257,6 +260,8 @@ export default {
     }
   },
 };
+  
+  
 </script>
 
 <template >
@@ -283,6 +288,35 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 @import "./assets/base.css";
 @import "./assets/style.css";
+
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #D62929;
+	background-image: -webkit-linear-gradient(90deg,
+											  transparent,
+											  rgba(0, 0, 0, 0.4) 50%,
+											  transparent,
+											  transparent)
+}
+::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px     rgba(0,0,0,0.5); 
+}
+
+
 
 #game {
   background: radial-gradient(ellipse, #303030 0%, #161312 100%);
