@@ -87,15 +87,12 @@ export default {
       const path_to_images = "https://image.tmdb.org/t/p/original";
 
       // Si existe la portada o la contraportada la metemos en el array.
-      if (this.currentMovie.backdrop) {
+      if (this.currentMovie.backdrop_path) {
         this.gameElements.images.push(
           path_to_images + this.currentMovie.backdrop_path
         );
       }
-      if (
-        this.currentMovie.poster_path != null &&
-        this.currentMovie.poster_path != undefined
-      ) {
+      if (this.currentMovie.poster_path) {
         this.gameElements.images.push(
           path_to_images + this.currentMovie.poster_path
         );
@@ -193,50 +190,22 @@ export default {
 
 <template>
   <Options />
-  <modal
-    :is-modal-visible="isModalVisible"
-    @close-modal="closeModal"
-  >
-    <component
-      :is="currentModal"
-      class="modal"
-    />
+  <modal :is-modal-visible="isModalVisible" @close-modal="closeModal">
+    <component :is="currentModal" class="modal" />
   </modal>
   <main>
-    <KeyboardEvents
-      v-if="gameStatus == 0"
-      @keyup="letterPressed"
-    />
-    <div
-      class="slider-movie"
-      :style="gameStatus != 0 ? { height: '800px' } : ''"
-    >
+    <KeyboardEvents v-if="gameStatus == 0" @keyup="letterPressed" />
+    <div class="slider-movie" :style="gameStatus != 0 ? { height: '800px' } : ''">
       <!--<SliderMovie>-->
-      <img
-        class="logo"
-        src="/img/logo-b-cinedebarrio-white.png"
-        alt="logo"
-      >
+      <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo">
       <Slider :array-images-movies="displayedImages" />
     </div>
-    <button
-      @click="reloadPage"
-      class="reset-btn"
-      v-if="gameStatus != 0"
-    >
+    <button @click="reloadPage" class="reset-btn" v-if="gameStatus != 0">
       Volver a jugar
     </button>
-    <panel-letters
-      :title-text="movieTitle"
-      :guessed-letters="guessedLetters"
-    />
-    <keyboard
-      id="keyboard"
-      v-if="gameStatus == 0 && currentMovie.length != 0"
-      :chances="chances"
-      :letters="keyboardLetter"
-      @clicked-letter="(id) => processLetter(id)"
-    />
+    <panel-letters :title-text="movieTitle" :guessed-letters="guessedLetters" />
+    <keyboard id="keyboard" v-if="gameStatus == 0 && currentMovie.length != 0" :chances="chances"
+      :letters="keyboardLetter" @clicked-letter="(id) => processLetter(id)" />
   </main>
 </template>
 <style>
