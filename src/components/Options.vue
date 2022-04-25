@@ -127,6 +127,7 @@ export default {
 
 .full-screen-icon{
   font-size: 30px;
+  margin: 10px;
 }
 
 .full-screen-icon:hover {
