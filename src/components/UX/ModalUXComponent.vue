@@ -5,7 +5,7 @@
 <script>
 export default {
   emits: ["close"],
-  props: ["isModalVisible"],
+  props: {"isModalVisible":{type: Boolean, required: true}},
   methods: {
     close() {
       this.$emit("close");
@@ -16,10 +16,17 @@ export default {
 
 <template>
   <transition name="modal-fade">
-    <div v-if="isModalVisible" class="modal" @click.self="close">
+    <div
+      v-if="isModalVisible"
+      class="modal"
+      @click.self="close"
+    >
       <div class="modal-content animate__animated animate__zoomIn">
-        <slot></slot>
-        <span class="closeModal" @click="close">&#9932;</span>
+        <slot />
+        <span
+          class="closeModal"
+          @click="close"
+        >&#9932;</span>
       </div>
     </div>
   </transition>

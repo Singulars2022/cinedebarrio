@@ -49,14 +49,26 @@ export default {
   <!-- <main :class="[toggle ? 'var--vt-c-white' : '--vt-c-black']"> -->
   <!-- Selector para cambiar el idioma mirar fichero main.js -->
 
-  <modal :isModalVisible="isModalVisible" @close="closeModal">
-    <component :is="currentModal"></component>
+  <modal
+    :is-modal-visible="isModalVisible"
+    @close="closeModal"
+  >
+    <component :is="currentModal" />
   </modal>
   <div>
     <nav class="icons">
       <div v-if="toggle">
-        <img @mouseover="onMouseOverInfo" @mouseleave="onMouseLeaveInfo" :src="srcInfoIcon" alt="info" />
-        <img class="help" src="/svg/help_black_48dp.svg" alt="help" />
+        <img
+          @mouseover="onMouseOverInfo"
+          @mouseleave="onMouseLeaveInfo"
+          :src="srcInfoIcon"
+          alt="info"
+        >
+        <img
+          class="help"
+          src="/svg/help_black_48dp.svg"
+          alt="help"
+        >
         <!-- <img v-if="active" class="info" src="/svg/info_red_48dp.svg" alt="info">
       <img v-on:mouseover="active = !active" class="info" src="/svg/info_black_48dp.svg" alt="info">
       <img v-if="active" class="help" src="/svg/help_red_48dp.svg" alt="help">
@@ -66,15 +78,32 @@ export default {
       </div>
 
       <div v-else>
-        <img @click="openModal(Info)" class="info" src="/svg/info_white_48dp.svg" alt="info" />
+        <img
+          @click="openModal(Info)"
+          class="info"
+          src="/svg/info_white_48dp.svg"
+          alt="info"
+        >
         <!-- <img v-on:mouseover="active = !active" src="/svg/info_white_48dp.svg" alt="info"> -->
-        <img @click="openModal(Rules)" class="help" src="/svg/help_white_48dp.svg" alt="help" />
+        <img
+          @click="openModal(Rules)"
+          class="help"
+          src="/svg/help_white_48dp.svg"
+          alt="help"
+        >
         <!-- <img v-on:mouseover="active = !active" src="/svg/help_white_48dp.svg" alt="help"> -->
         <!-- <img class="light animate__animated animate__rubberBand " @click="ontoggle" src="/svg/toggle_off_white_48dp.svg" 
   alt="toggle-light"> -->
-        <select class="languages" v-model="$i18n.locale">
-          <option value="es-ES">ES</option>
-          <option value="ca">CA</option>
+        <select
+          class="languages"
+          v-model="$i18n.locale"
+        >
+          <option value="es-ES">
+            ES
+          </option>
+          <option value="ca">
+            CA
+          </option>
         </select>
         <!-- <button @click="changeTheme" class="btn-toggle">
           <i v-if="darkTheme" class="fas fa-sun"></i>

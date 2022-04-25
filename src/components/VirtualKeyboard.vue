@@ -2,8 +2,14 @@
 <script>
 export default {
   props: {
-    letters: Array,
-    popcornNumber: Number,
+    letters: {
+      type: Array,
+      required: true
+    },
+    popcornNumber:{
+      type: Number,
+      required: true
+    },
   },
   emits: ["clickedLetter"],
   data() {
@@ -23,11 +29,20 @@ export default {
       <div class="popcornContent">
         <span>Intentos:</span>
         <div class="popcornPoints">
-          <div v-for="i in this.popcornNumber" :key="i">🍿</div>
+          <div
+            v-for="i in this.popcornNumber"
+            :key="i"
+          >
+            🍿
+          </div>
         </div>
       </div>
     </div>
-    <p class="keyboardLines" v-for="(letterRow, index) in letters" :key="index">
+    <p
+      class="keyboardLines"
+      v-for="(letterRow, index) in letters"
+      :key="index"
+    >
       <span
         v-for="(letter, index2) in letterRow"
         :key="index2"
@@ -37,8 +52,8 @@ export default {
           letter.status == 'default'
             ? 'keyIsDefault'
             : letter.status == 'correct'
-            ? 'keyIsCorrect'
-            : 'keyIsWrong'
+              ? 'keyIsCorrect'
+              : 'keyIsWrong'
         "
       >
         {{ letter.letter }}

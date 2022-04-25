@@ -1,29 +1,51 @@
 <template>
   <div class="rules">
-    <h2 class="title">{{ $t('rules.title') }}</h2>
+    <h2 class="title">
+      {{ $t('rules.title') }}
+    </h2>
     <ul>
       <li>{{ $t('rules.intro') }}</li>
-      <li>{{ $t('rules.firstRule') }}
-        <img src="/img/instructions/instrucciones-pantalla-completa.jpg" :alt="$t('rules.firstRuleImgDescription')">
+      <li>
+        {{ $t('rules.firstRule') }}
+        <img
+          src="/img/instructions/instrucciones-pantalla-completa.jpg"
+          :alt="$t('rules.firstRuleImgDescription')"
+        >
       </li>
-      <li>{{ $t('rules.secondRule') }}
-        <img src="/img/instructions/instrucciones-teclado.jpg" :alt="$t('rules.secondRuleImgDescription')">
+      <li>
+        {{ $t('rules.secondRule') }}
+        <img
+          src="/img/instructions/instrucciones-teclado.jpg"
+          :alt="$t('rules.secondRuleImgDescription')"
+        >
       </li>
-      <li>{{ $t('rules.thirdRule') }}
-        <img src="/img/instructions/instrucciones-panel.jpg" :alt="$t('rules.thirdRuleImgDescription')">
+      <li>
+        {{ $t('rules.thirdRule') }}
+        <img
+          src="/img/instructions/instrucciones-panel.jpg"
+          :alt="$t('rules.thirdRuleImgDescription')"
+        >
       </li>
       <li>
         {{ $t('rules.fourthRule') }}
-        <img src="/img/instructions/instrucciones-demo.png" :alt="$t('rules.fourthRuleImgDescription')">
+        <img
+          src="/img/instructions/instrucciones-demo.png"
+          :alt="$t('rules.fourthRuleImgDescription')"
+        >
       </li>
-      <li>{{ $t('rules.fifthRule') }}
+      <li>
+        {{ $t('rules.fifthRule') }}
         <!-- <img src="/peli1.jpg" alt="Ejemplo del funcionamiento del carrousel."> -->
       </li>
     </ul>
     <p>{{ $t('rules.end') }}</p>
   </div>
   <div class="paloma-container">
-    <img id="paloma" src="/img/instructions/instrucciones-paloma.png" alt="">
+    <img
+      id="paloma"
+      src="/img/instructions/instrucciones-paloma.png"
+      alt=""
+    >
   </div>
 </template>
 

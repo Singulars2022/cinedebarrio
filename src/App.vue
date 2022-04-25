@@ -1,14 +1,14 @@
 <script setup>
 import PanelLetters from "./components/PanelLetters.vue";
-import keyboard from "./components/Keyboard.vue";
+import keyboard from "./components/VirtualKeyboard.vue";
 import helpIcon from "./assets/icons/help_white_48dp.svg";
 
-import Slider from "./components/Slider.vue";
-import Options from "./components/Options.vue";
+import Slider from "./components/PanelSlider.vue";
+import Options from "./components/HeaderOptions.vue";
 import KeyboardEvents from "./components/Keyboard-events.vue";
 import Modal from "./components/UX/ModalUXComponent.vue";
-import Loser from "./components/pages/Loser.vue";
-import Winer from "./components/pages/Winer.vue";
+import Loser from "./components/pages/LoserPage.vue";
+import Winer from "./components/pages/WinerPage.vue";
 </script>
 
 <script>
@@ -259,24 +259,52 @@ export default {
 };
 </script>
 
-<template >
+<template>
   <Options />
-  <modal :isModalVisible="isModalVisible" @close="closeModal">
-    <component :is="currentModal" class="modal"></component>
+  <modal
+    :is-modal-visible="isModalVisible"
+    @close="closeModal"
+  >
+    <component
+      :is="currentModal"
+      class="modal"
+    />
   </modal>
   <main>
-    <KeyboardEvents v-if="gameStatus == 0" @keyup="letterPressed"></KeyboardEvents>
-    <div class="slider-movie" :style="gameStatus != 0 ? { height: '800px' } : ''">
+    <KeyboardEvents
+      v-if="gameStatus == 0"
+      @keyup="letterPressed"
+    />
+    <div
+      class="slider-movie"
+      :style="gameStatus != 0 ? { height: '800px' } : ''"
+    >
       <!--<SliderMovie>-->
-      <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo" />
-      <Slider :ArrayMovies="displayedImages" />
+      <img
+        class="logo"
+        src="/img/logo-b-cinedebarrio-white.png"
+        alt="logo"
+      >
+      <Slider :array-movies="displayedImages" />
     </div>
-    <button @click="reloadPage" class="reset-btn" v-if="gameStatus != 0">
+    <button
+      @click="reloadPage"
+      class="reset-btn"
+      v-if="gameStatus != 0"
+    >
       Volver a jugar
     </button>
-    <panel-letters :text="movieTitle" :guessedLetters="guessedLetters" />
-    <keyboard id="keyboard" v-if="gameStatus == 0" :popcornNumber="tryNumber" :letters="letterArray"
-      @clickedLetter="(id) => letterClicked(id)" />
+    <panel-letters
+      :text="movieTitle"
+      :guessed-letters="guessedLetters"
+    />
+    <keyboard
+      id="keyboard"
+      v-if="gameStatus == 0"
+      :popcorn-number="tryNumber"
+      :letters="letterArray"
+      @clicked-letter="(id) => letterClicked(id)"
+    />
   </main>
 </template>
 <style>

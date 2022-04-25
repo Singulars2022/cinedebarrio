@@ -2,7 +2,7 @@
 
 <script>
 export default {
-  props: ["text", "guessedLetters"],
+  props: {"text":{ type:String, required: true}, "guessedLetters":{type: Array, required: true}},
   computed: {
     title() {
       return this.text.split(" ");
@@ -36,17 +36,33 @@ export default {
 <template>
   <div class="quest--panel">
     <!-- Bucle de palabras -->
-    <span class="word--panel" v-for="(word, index) in title" :key="index">
+    <span
+      class="word--panel"
+      v-for="(word, index) in title"
+      :key="index"
+    >
       <!-- Bucle de letras -->
-      <span class="letter--panel" :class="{ empty: letter === ' ' }" v-for="(letter, index) in word" :key="index">
+      <span
+        class="letter--panel"
+        :class="{ empty: letter === ' ' }"
+        v-for="(letter, index2) in word"
+        :key="index2"
+      >
         <TransitionGroup name="slide-fade">
           <!-- Letra con letra -->
-          <span class="letter" :class="
-            guessedLetters.includes(cleanLetter(letter)) || isSpecial(letter) ? 'animation' : ''
-          " v-if="guessedLetters.includes(cleanLetter(letter)) || isSpecial(letter)">
+          <span
+            class="letter"
+            :class="
+              guessedLetters.includes(cleanLetter(letter)) || isSpecial(letter) ? 'animation' : ''
+            "
+            v-if="guessedLetters.includes(cleanLetter(letter)) || isSpecial(letter)"
+          >
             {{ letter }}</span>
           <!-- Letra sin letra o espacio -->
-          <span class="letter" v-if="!guessedLetters.includes(cleanLetter(letter)) && !isSpecial(letter)"></span>
+          <span
+            class="letter"
+            v-if="!guessedLetters.includes(cleanLetter(letter)) && !isSpecial(letter)"
+          />
         </TransitionGroup>
       </span>
     </span>

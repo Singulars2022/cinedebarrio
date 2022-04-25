@@ -1,14 +1,18 @@
 <template>
-    <h1>Has Ganado</h1>
+  <h1>Has Perdido</h1>
     
-    <div class="winerContent">
-        <img src="/img/PalomaGanadora.png" alt="Carmen ha perdido :( ">
-        <div class="description">
-            <p>¡Felicidades! Has adivinado la pelicula 🎉</p>
-            <button @click="reloadPage">Volver a Jugar</button>        
-        </div>
-
-    </div>    
+  <div class="loserContent">
+    <img
+      src="/img/PalomaPerdedoraRecortada.png"
+      alt="Carmen ha perdido :( "
+    >
+    <div class="description">
+      <p>😥Esta vez no has adivinado la pelicula, pero no pasa nada, porque puedes intentarlo las veces que quieras !</p>
+      <button @click="reloadPage">
+        Volver a Jugar
+      </button>        
+    </div>
+  </div>    
 </template>
 
 <script>
@@ -23,15 +27,15 @@ export default {
 }
 </script>
 
+
 <style scoped>
-    .winerContent{
+    .loserContent{
         display: flex;
-        flex-direction: column;
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
     }
-    .winerContent button{
+    .loserContent button{
         background: black;
         color: white;
         border-radius: 1em;
