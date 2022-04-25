@@ -30,13 +30,13 @@ export default {
  
 <template>
   <div class="slider">
-    <div :style="{ backgroundImage: getURL }" class="movie">
+    <div :style="{ backgroundImage: getURL, backgroundSize: index == 0 ? '' : 'contain'}" class="movie">
       <div class="main-div">
         <nav>
           <ul v-show="arraySlider.length > 1" class="menu">
             <li class="slide-fwd-center" v-for="(_, index) in arraySlider" :key="index" @click="SwitchImage(index)"
               href="">
-              <span class="indexmovie">{{ index + 1 }}</span>
+              <span class="indexmovie">{{ index + 1 }} </span>
             </li>
           </ul>
         </nav>
