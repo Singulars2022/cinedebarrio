@@ -27,7 +27,7 @@ export default {
       <div class="popcornContent">
         <span>Intentos:</span>
         <div class="popcornPoints">
-          <div v-for="i in this.popcornNumber" :key="i">🍿</div>
+          <div v-for="i in popcornNumber" :key="i">🍿</div>
         </div>
       </div>
     </div>
