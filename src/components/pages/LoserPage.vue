@@ -1,5 +1,5 @@
 <template>
-  <h1>Has Perdido</h1>
+  <h1>{{ $t("lose.title") }}</h1>
     
   <div class="loserContent">
     <img
@@ -7,9 +7,9 @@
       alt="Carmen ha perdido :( "
     >
     <div class="description">
-      <p>😥Esta vez no has adivinado la pelicula, pero no pasa nada, porque puedes intentarlo las veces que quieras !</p>
+      <p>{{ $t("lose.loseText") }}</p>
       <button @click="reloadPage">
-        Volver a Jugar
+        {{ $t("lose.btnText") }}
       </button>        
     </div>
   </div>    
