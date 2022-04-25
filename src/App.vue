@@ -260,7 +260,7 @@ export default {
 </script>
 
 <template >
-  <Options />
+  <Options @changeTheme="onChangeTheme" />
   <modal :isModalVisible="isModalVisible" @close="closeModal">
     <component :is="currentModal" class="modal"></component>
   </modal>
