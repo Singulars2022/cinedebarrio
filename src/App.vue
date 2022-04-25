@@ -12,18 +12,15 @@ import Winer from "./components/pages/WinerPage.vue";
 
 //Funciones from utils
 
-import { cleanLetter } from '@/utils/utils.js'
-import { isSpecial } from '@/utils/utils.js'
-import { reloadPage } from '@/utils/utils.js'
+import { cleanLetter } from "@/utils/utils.js";
+import { isSpecial } from "@/utils/utils.js";
+import { reloadPage } from "@/utils/utils.js";
 </script>
 
 <script>
-
-
 export default {
   data() {
     return {
-
       uid: 0,
       guessedLetters: [],
       currentMovie: [],
@@ -68,7 +65,7 @@ export default {
   computed: {
     movieTitle() {
       return this.gameElements.title.toLowerCase();
-    }
+    },
   },
   methods: {
     // Obtiene los datos de la aplicación
@@ -78,7 +75,8 @@ export default {
       );
       let json = await results.json();
       // Peticion de peliculas a la api
-      this.currentMovie = json.items[Math.floor(Math.random() * json.items.length - 1)];
+      this.currentMovie =
+        json.items[Math.floor(Math.random() * json.items.length - 1)];
 
       // Obtenemos el titulo de la api
       this.gameElements.title = this.currentMovie.title;
@@ -100,23 +98,32 @@ export default {
     },
     // Mega funcion, 1. Comprueba y pulsa la tecla del teclado virtual, 2. Resta intentos,3. Comprueba si has perdido, 5. Llama a la función para comprobar si has perdido
     processLetter(letter) {
+      // Si el juego no esta en 0 (jugando) no escuches las teclas.
       if (this.gameStatus != 0) {
         return;
       }
+
+      // Transformamos los datos de entrada
       letter = letter.toLowerCase();
       let normalizedMovie = this.movieTitle;
+
+      // Eliminamos los acentos
       const removeAccents = (str) => {
         return str.normalize().replace(/[\u0300-\u036f]/g, "");
       };
+
       normalizedMovie = removeAccents(normalizedMovie);
+
+      // Creamos un array con letras pulsadas.
       const clickedLetter = []
         .concat(...this.keyboardLetter)
         .find((l) => l.letter == letter);
 
-      // TODO: Refactorizar, hacer un return
+      // Si el guessedLetters ya tiene la letra ir fuera.
       if (this.guessedLetters.includes(letter)) {
         return;
       }
+
       if (normalizedMovie.includes(letter)) {
         clickedLetter.status = "correct";
       } else {
@@ -124,6 +131,7 @@ export default {
 
         // Reducimos el contador de vidas
         this.chances--;
+
         if (this.chances <= 0) {
           this.gameStatus = 1; // 1 significa has perdido
           this.openModal(Loser);
@@ -132,12 +140,9 @@ export default {
         // Mientras queden imágenes que mostrar, sacar la siguiente
         if (this.gameElements.images.length > 0) {
           this.displayedImages.push(this.gameElements.images.pop());
-        } else {
-          return;
         }
       }
       this.guessedLetters.push(letter);
-
 
       // Comprobamos si hemos ganado.
       this.checkVictory(normalizedMovie);
@@ -181,11 +186,9 @@ export default {
     },
     onChangeTheme(isDarkTheme) {
       this.darkTheme = isDarkTheme;
-    }
+    },
   },
 };
-
-
 </script>
 
 <template>
@@ -195,17 +198,25 @@ export default {
   </modal>
   <main>
     <KeyboardEvents v-if="gameStatus == 0" @keyup="letterPressed" />
-    <div class="slider-movie" :style="gameStatus != 0 ? { height: '800px' } : ''">
+    <div
+      class="slider-movie"
+      :style="gameStatus != 0 ? { height: '800px' } : ''"
+    >
       <!--<SliderMovie>-->
-      <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo">
+      <img class="logo" src="/img/logo-b-cinedebarrio-white.png" alt="logo" />
       <Slider :array-images-movies="displayedImages" />
     </div>
     <button @click="reloadPage" class="reset-btn" v-if="gameStatus != 0">
       Volver a jugar
     </button>
     <panel-letters :title-text="movieTitle" :guessed-letters="guessedLetters" />
-    <keyboard id="keyboard" v-if="gameStatus == 0 && currentMovie.length != 0" :chances="chances"
-      :letters="keyboardLetter" @clicked-letter="(id) => processLetter(id)" />
+    <keyboard
+      id="keyboard"
+      v-if="gameStatus == 0 && currentMovie.length != 0"
+      :chances="chances"
+      :letters="keyboardLetter"
+      @clicked-letter="(id) => processLetter(id)"
+    />
   </main>
 </template>
 <style>
@@ -213,20 +224,21 @@ export default {
 @import "./assets/base.css";
 @import "./assets/style.css";
 
-
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: #D62929;
-  background-image: -webkit-linear-gradient(90deg,
-      transparent,
-      rgba(0, 0, 0, 0.4) 50%,
-      transparent,
-      transparent)
+  background-color: #d62929;
+  background-image: -webkit-linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent,
+    transparent
+  );
 }
 
 ::-webkit-scrollbar {
   width: 12px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 
 ::-webkit-scrollbar-track {
@@ -242,15 +254,12 @@ export default {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
-
-
 #game {
   background: radial-gradient(ellipse, #303030 0%, #161312 100%);
 }
 
 #game.light {
   background: radial-gradient(ellipse, #dfdfdf 0%, #7b7b7b 100%);
-
 }
 
 main #app {
@@ -259,11 +268,9 @@ main #app {
   font-weight: normal;
 }
 
-
 header {
   line-height: 1.5;
 }
-
 
 .logo {
   width: 80px;
