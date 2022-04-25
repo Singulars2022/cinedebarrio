@@ -38,6 +38,8 @@ export default {
     };
   },
   async created() {
+    
+
     // Peticion Fetch a TMDB
     await this.getData();
 
