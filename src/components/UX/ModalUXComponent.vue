@@ -4,11 +4,11 @@
 
 <script>
 export default {
-  emits: ["close"],
+  emits: ["closeModal"],
   props: {"isModalVisible":{type: Boolean, required: true}},
   methods: {
-    close() {
-      this.$emit("close");
+    closeModal() {
+      this.$emit("closeModal");
     }
   }
 };
@@ -19,13 +19,13 @@ export default {
     <div
       v-if="isModalVisible"
       class="modal"
-      @click.self="close"
+      @click.self="closeModal"
     >
       <div class="modal-content animate__animated animate__zoomIn">
         <slot />
         <span
           class="closeModal"
-          @click="close"
+          @click="closeModal"
         >&#9932;</span>
       </div>
     </div>
