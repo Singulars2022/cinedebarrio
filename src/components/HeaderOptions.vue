@@ -20,9 +20,6 @@ export default {
     }
   },
   methods: {
-    ontoggle() {
-      this.toggle = !this.toggle;
-    },
     onMouseOverInfo() {
       this.srcInfoIcon = "/svg/info_red_48dp.svg";
     },
@@ -45,9 +42,6 @@ export default {
 }
 </script>
 <template>
-  <!-- <main :class="[toggle ? 'var--vt-c-white' : '--vt-c-black']"> -->
-  <!-- Selector para cambiar el idioma mirar fichero main.js -->
-
   <modal
     :is-modal-visible="isModalVisible"
     @close-modal="closeModal"
@@ -68,12 +62,6 @@ export default {
           src="/svg/help_black_48dp.svg"
           alt="help"
         >
-        <!-- <img v-if="active" class="info" src="/svg/info_red_48dp.svg" alt="info">
-      <img v-on:mouseover="active = !active" class="info" src="/svg/info_black_48dp.svg" alt="info">
-      <img v-if="active" class="help" src="/svg/help_red_48dp.svg" alt="help">
-    <img v-on:mouseover="active = !active" class="help" src="/svg/help_black_48dp.svg" alt="help"> -->
-        <!-- <img class="dark animate__animated animate__rubberBand" @click="ontoggle"  src="/svg/toggle_on_black_48dp.svg" 
-  alt="toggle-dark"> -->
       </div>
 
       <div v-else>
@@ -83,16 +71,13 @@ export default {
           src="/svg/info_white_48dp.svg"
           alt="info"
         >
-        <!-- <img v-on:mouseover="active = !active" src="/svg/info_white_48dp.svg" alt="info"> -->
         <img
           @click="openModal(Rules)"
           class="help"
           src="/svg/help_white_48dp.svg"
           alt="help"
         >
-        <!-- <img v-on:mouseover="active = !active" src="/svg/help_white_48dp.svg" alt="help"> -->
-        <!-- <img class="light animate__animated animate__rubberBand " @click="ontoggle" src="/svg/toggle_off_white_48dp.svg" 
-  alt="toggle-light"> -->
+
         <select
           class="languages"
           v-model="$i18n.locale"
@@ -104,11 +89,6 @@ export default {
             CA
           </option>
         </select>
-        <!-- <button @click="changeTheme" class="btn-toggle">
-          <i v-if="darkTheme" class="fas fa-sun"></i>
-
-          <i v-else class="fa-solid fa-moon"></i>
-        </button> -->
       </div>
     </nav>
   </div>

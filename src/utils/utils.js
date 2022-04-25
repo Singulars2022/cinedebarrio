@@ -1,20 +1,20 @@
 export function sanitizeInput(){
 
 }
-export function cleanLetter(letter) {
-    letter = letter.replace(/á/gi, "a");
-    letter = letter.replace(/é/gi, "e");
-    letter = letter.replace(/í/gi, "i");
-    letter = letter.replace(/ó/gi, "o");
-    letter = letter.replace(/ú/gi, "u");
-    letter = letter.replace(/ü/gi, "u");
-    letter = letter.replace(/ö/gi, "o");
-    return letter;
+export function cleanLetter(param) {
+    param = param.replace(/á/gi, "a");
+    param = param.replace(/é/gi, "e");
+    param = param.replace(/í/gi, "i");
+    param = param.replace(/ó/gi, "o");
+    param = param.replace(/ú/gi, "u");
+    param = param.replace(/ü/gi, "u");
+    param = param.replace(/ö/gi, "o");
+    return param;
   }
   export function isSpecial(letter) {
     var specialChars = "¡!@#$^&%*()+=-[]/{}|:<>¿?,.'";
     let patern = /^[0-9]+$/;
-    //console.log(specialChars.includes(letter))
+   
     if (specialChars.includes(letter) || letter.match(patern)) {
       return true;
     } else {
@@ -24,5 +24,3 @@ export function cleanLetter(letter) {
 export function  reloadPage() {
     window.location.reload();
   }
-// import { sanitizeInput } utils from '@/utils/utils.js'
-// sanitizeInput();

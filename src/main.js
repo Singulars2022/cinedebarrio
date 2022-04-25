@@ -57,8 +57,6 @@ const i18n = createI18n({
     }
 })
 
-console.log(navigator);
-
 createApp(App)
     .use(i18n)
     .mount('#app');

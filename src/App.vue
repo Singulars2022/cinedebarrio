@@ -63,9 +63,6 @@ export default {
     });
   },
   computed: {
-    lettersControl() {
-      return this.keyboardLetter;
-    },
     movieTitle() {
       return this.gameElements.title.toLowerCase();
     }
@@ -135,10 +132,7 @@ export default {
       const path_to_images = "https://image.tmdb.org/t/p/original";
 
       // Si existe la portada o la contraportada la metemos en el array.
-      if (
-        this.currentMovie.backdrop_path != null &&
-        this.currentMovie.backdrop_path != undefined
-      ) {
+     if (this.currentMovie.backdrop) {
         this.gameElements.images.push(
           path_to_images + this.currentMovie.backdrop_path
         );
@@ -158,24 +152,19 @@ export default {
         return;
       }
       letter = letter.toLowerCase();
-
       let normalizedMovie = this.movieTitle;
-      console.log("movie:", normalizedMovie);
-
       const removeAccents = (str) => {
         return str.normalize().replace(/[\u0300-\u036f]/g, "");
       };
-
       normalizedMovie = removeAccents(normalizedMovie);
-
-      console.log("movie:", normalizedMovie);
-
       const clickedLetter = []
         .concat(...this.keyboardLetter)
         .find((l) => l.letter == letter);
 
       // TODO: Refactorizar, hacer un return
-      if (!this.guessedLetters.includes(letter)) {
+      if (this.guessedLetters.includes(letter)) {
+        return;
+      }
         if (normalizedMovie.includes(letter)) {
           clickedLetter.status = "correct";
         } else {
@@ -196,7 +185,7 @@ export default {
           }
         }
         this.guessedLetters.push(letter);
-      }
+      
 
       // Comprobamos si hemos ganado.
       this.checkVictory(normalizedMovie);
@@ -204,10 +193,9 @@ export default {
     // Función que comprueba si has ganado
     checkVictory(normalizedMovie) {
       // Hacemos una comprobación de si hemos ganado
-      cleanLetter(normalizedMovie);
+      normalizedMovie = cleanLetter(normalizedMovie);
 
       let contError = 0;
-      console.log("Pelicula Normalizada: ", normalizedMovie);
       normalizedMovie.split("").forEach((element) => {
         if (
           !this.guessedLetters.includes(element) &&
