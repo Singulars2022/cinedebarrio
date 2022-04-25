@@ -8,7 +8,10 @@ export default {
   },
   emits: ["clickedLetter"],
   data() {
-    return {};
+    
+    return {
+         
+    };
   },
   methods: {
     checkLetter(letter) {
@@ -24,7 +27,7 @@ export default {
 <template>
   <div>
     <div class="tryCount">
-      <div class="popcornContent">
+      <div class="popcornContent">  
         <span>Intentos:</span>
         <div class="popcornPoints">
           <div v-for="i in popcornNumber" :key="i">🍿</div>
@@ -57,8 +60,16 @@ export default {
 
 
 <style scoped>
+[v-cloak]  {
+  display: none;
+}
 div {
-  padding: 10px;
+  padding: 3px;
+}
+.keyboardLines {
+  text-align: center;
+  padding: 8px;
+  
 }
 
 #drag-icon{
@@ -72,10 +83,12 @@ div {
   height: 40px;
   padding: 5px;
   border-radius: 5px;
+  margin-bottom: 3px;
   margin: 3px;
   display: inline-block;
   text-transform: uppercase;
   font-weight: bold;
+  font-size: clamp(12px, 2rem, 20px);
   user-select: none;
 }
 
@@ -84,6 +97,7 @@ div {
   background-color:#303030;
   border: 2px solid grey;
   cursor: pointer;
+  
 }
 .keyIsDefault:active {
   background-color: rgb(87, 0, 0);
@@ -110,12 +124,13 @@ div {
 .tryCount {
   display: flex;
   color: white;
-  font-size: 2em;
+  font-size: clamp(10px, 1.5rem, 40px);
   justify-content: center;
   align-items: center;
 }
 
 .popcornContent{
+  
     display: flex;
     align-items: center;
     justify-content: center;

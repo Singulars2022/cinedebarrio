@@ -83,7 +83,7 @@ export default {
         <!-- <img class="light animate__animated animate__rubberBand " @click="ontoggle" src="/svg/toggle_off_white_48dp.svg" 
   alt="toggle-light"> -->
         <select class="languages" v-model="$i18n.locale">
-          <option value="es-ES">ES</option>
+          <option  value="es-ES">ES</option>
           <option value="ca">CA</option>
         </select>
         <!-- <button @click="changeTheme" class="btn-toggle">
