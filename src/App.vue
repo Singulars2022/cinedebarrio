@@ -9,6 +9,11 @@ import KeyboardEvents from "./components/Keyboard-events.vue";
 import Modal from "./components/UX/ModalUXComponent.vue";
 import Loser from "./components/pages/LoserPage.vue";
 import Winer from "./components/pages/WinerPage.vue";
+
+//Funciones from utils
+
+import {cleanLetter}  from '@/utils/utils.js'
+import {isSpecial}  from '@/utils/utils.js'
 </script>
 
 <script>
@@ -198,13 +203,8 @@ export default {
     // Función que comprueba si has ganado
     checkVictory(normalizedMovie) {
       // Hacemos una comprobación de si hemos ganado
-      normalizedMovie = normalizedMovie.replace(/á/gi, "a");
-      normalizedMovie = normalizedMovie.replace(/é/gi, "e");
-      normalizedMovie = normalizedMovie.replace(/í/gi, "i");
-      normalizedMovie = normalizedMovie.replace(/ó/gi, "o");
-      normalizedMovie = normalizedMovie.replace(/ú/gi, "u");
-      normalizedMovie = normalizedMovie.replace(/ü/gi, "u");
-      normalizedMovie = normalizedMovie.replace(/ö/gi, "o");
+      cleanLetter(normalizedMovie);
+            
       let contError = 0;
       console.log("Pelicula Normalizada: ", normalizedMovie);
       normalizedMovie.split("").forEach((element) => {
@@ -220,16 +220,6 @@ export default {
       if (contError == 0) {
         this.gameStatus = 2;
         this.openModal(Winer);
-      }
-    },
-    isSpecial(letter) {
-      // Comprobamos si un elemento es especial
-      var specialChars = "¡!@#$^&%*()+=-[]/{}|:<>¿?,.'";
-      let patern = /^[0-9]+$/;
-      if (specialChars.includes(letter) || letter.match(patern)) {
-        return true;
-      } else {
-        return false;
       }
     },
     letterPressed(e) {
@@ -285,7 +275,7 @@ export default {
         src="/img/logo-b-cinedebarrio-white.png"
         alt="logo"
       >
-      <Slider :array-movies="displayedImages" />
+      <Slider :arrayImagesMovies="displayedImages" />
     </div>
     <button
       @click="reloadPage"
@@ -295,13 +285,13 @@ export default {
       Volver a jugar
     </button>
     <panel-letters
-      :text="movieTitle"
+      :titleText="movieTitle"
       :guessed-letters="guessedLetters"
     />
     <keyboard
       id="keyboard"
       v-if="gameStatus == 0"
-      :popcorn-number="chances"
+      :chances="chances"
       :letters="keyboardLetter"
       @clicked-letter="(id) => processLetter(id)"
     />

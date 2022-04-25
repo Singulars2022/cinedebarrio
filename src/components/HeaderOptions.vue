@@ -10,7 +10,7 @@ export default {
   emits: ["changeTheme"],
   data() {
     return {
-      Isitblackmode: true,
+      isItBlackMode: true,
       toggle: false,
       active: false,
       srcInfoIcon: "/svg/info_black_48dp.svg",
@@ -21,7 +21,6 @@ export default {
   },
   methods: {
     ontoggle() {
-      console.log("toogle");
       this.toggle = !this.toggle;
     },
     onMouseOverInfo() {

@@ -1,12 +1,13 @@
 <script>
 export default {
-  props: {"arrayMovies":{
+  props: {
+    "arrayImagesMovies":{
     type: Array,
     required: true
   }},
   data() {
     return {
-      arraySlider: this.arrayMovies,
+      arraySlider: this.arrayImagesMovies,
       indexSlider: 0,
     };
   },

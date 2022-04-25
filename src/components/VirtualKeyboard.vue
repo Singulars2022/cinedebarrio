@@ -6,18 +6,18 @@ export default {
       type: Array,
       required: true
     },
-    popcornNumber:{
+    chances:{
       type: Number,
       required: true
     },
   },
-  emits: ["clickedLetter"],
+  emits: ["clicked-Letter"],
   data() {
     return {};
   },
   methods: {
-    checkLetter(letter) {
-      this.$emit("clickedLetter", letter);
+    emitLetter(letter) {
+      this.$emit("clicked-Letter", letter);
     },
   },
 };
@@ -30,7 +30,7 @@ export default {
         <span>Intentos:</span>
         <div class="popcornPoints">
           <div
-            v-for="i in this.popcornNumber"
+            v-for="i in this.chances"
             :key="i"
           >
             🍿
@@ -46,7 +46,7 @@ export default {
       <span
         v-for="(letter, index2) in letterRow"
         :key="index2"
-        @click="checkLetter(letter.letter)"
+        @click="emitLetter(letter.letter)"
         class="keyStyles"
         :class="
           letter.status == 'default'
