@@ -7,16 +7,16 @@ export default {
       type: Array,
       required: true
     },
-    chances:{
+    chances: {
       type: Number,
       required: true
     },
   },
   emits: ["clicked-Letter"],
   data() {
-    
+
     return {
-         
+
     };
   },
   methods: {
@@ -25,7 +25,7 @@ export default {
     },
   },
   mounted() {
-    dragElement(document.getElementById("keyboardContainer"),document.getElementById("drag-icon"));    
+    dragElement(document.getElementById("keyboardContainer"), document.getElementById("drag-icon"));
   }
 };
 </script>
@@ -33,39 +33,27 @@ export default {
 <template>
   <div>
     <div class="tryCount">
-      <div class="popcornContent">  
+      <div class="popcornContent">
         <span>Intentos:</span>
         <div class="popcornPoints">
-          <div
-            v-for="i in chances"
-            :key="i"
-          >
+          <div v-for="i in chances" :key="i">
             🍿
           </div>
         </div>
       </div>
     </div>
-    
+
     <div id="keyboardContainer">
       <span id="drag-icon"><i class="fa-solid fa-arrows-up-down-left-right" /></span>
-      <p
-        class="keyboardLines"
-        v-for="(letterRow, index) in letters"
-        :key="index"
-      >
-        <span
-          v-for="(letter, index2) in letterRow"
-          :key="index2"
-          @click="emitLetter(letter.letter)"
-          class="keyStyles"
+      <p class="keyboardLines" v-for="(letterRow, index) in letters" :key="index">
+        <span v-for="(letter, index2) in letterRow" :key="index2" @click="emitLetter(letter.letter)" class="keyStyles"
           :class="
             letter.status == 'default'
               ? 'keyIsDefault'
               : letter.status == 'correct'
                 ? 'keyIsCorrect'
                 : 'keyIsWrong'
-          "
-        >
+          ">
           {{ letter.letter }}
         </span>
       </p>
@@ -75,24 +63,27 @@ export default {
 
 
 <style scoped>
-[v-cloak]  {
+[v-cloak] {
   display: none;
 }
+
 div {
   padding: 3px;
 }
+
 .keyboardLines {
   text-align: center;
   padding: 8px;
-  
+
 }
 
-#drag-icon{
+#drag-icon {
   font-size: 40px;
   cursor: grab;
 }
+
 .keyStyles {
-  background-color: #303030 ;
+  background-color: #303030;
   text-align: center;
   width: 40px;
   height: 40px;
@@ -109,11 +100,12 @@ div {
 
 .keyIsDefault {
   color: white;
-  background-color:#303030;
+  background-color: #303030;
   border: 2px solid grey;
   cursor: pointer;
-  
+
 }
+
 .keyIsDefault:active {
   background-color: rgb(87, 0, 0);
 }
@@ -139,16 +131,16 @@ div {
 .tryCount {
   display: flex;
   color: white;
-  font-size: clamp(10px, 1.5rem, 40px);
+  font-size: clamp(16px, 2rem, 80px);
   justify-content: center;
   align-items: center;
 }
 
-.popcornContent{
-  
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.popcornContent {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #keyboardContainer {
@@ -156,15 +148,17 @@ div {
   left: 50%;
   transform: translate(-50%);
 }
-  .keyboardLines{
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
 
-  }
-.keyboardLines, #keyboardContainer {
+.keyboardLines {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
+
+.keyboardLines,
+#keyboardContainer {
   text-align: center;
   flex-wrap: nowrap !important;
 }
-
 </style>

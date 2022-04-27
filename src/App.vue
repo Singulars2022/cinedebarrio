@@ -318,7 +318,8 @@ a,
   color: white;
   border-radius: 1em;
   padding: 1em;
-  font-size: 1em;
+  font-size: 1.3em;
+  font-weight: 700;
   border: 0px transparent;
   cursor: pointer;
   margin-top: 1em;
