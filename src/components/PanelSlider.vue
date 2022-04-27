@@ -1,3 +1,8 @@
+<script setup>
+import { toggleFullscreen } from "@/utils/utils.js";
+import Modal from "./UX/ModalUXComponent.vue";
+</script>
+
 <script>
 export default {
   props: {
@@ -10,17 +15,26 @@ export default {
     return {
       arraySlider: this.arrayImagesMovies,
       indexSlider: 0,
+      isModalVisible: false,
+
     };
   },
   computed: {
     getURL() {
       return `url(${this.arraySlider[this.indexSlider]})`;
     },
+    getSrcURL() {
+      return this.arraySlider[this.indexSlider];
+
+    }
   },
   methods: {
     SwitchImage(value) {
       this.indexSlider = value;
     },
+    openModal() {
+      this.isModalVisible = true;
+    }
   },
   watch: {
     arraySlider: {
@@ -34,24 +48,18 @@ export default {
 </script>
  
 <template>
-  <div class="slider">
-    <div
-      :style="{ backgroundImage: getURL, backgroundSize: indexSlider == 0 ? '' : 'contain' }"
-      class="movie"
-    >
+  <modal :is-modal-visible="isModalVisible" @close-modal="isModalVisible = false">
+    <!-- <div style="height: 100vh; width: 100vw"
+      :style="{ backgroundImage: getURL, backgroundSize: indexSlider == 0 ? '' : 'contain' }" class="movie"> </div> -->
+    <img :src="getSrcURL" alt="">
+  </modal>
+  <div @click="openModal" class="slider">
+    <div :style="{ backgroundImage: getURL, backgroundSize: indexSlider == 0 ? '' : 'contain' }" class="movie">
       <div class="main-div">
         <nav>
-          <ul
-            v-show="arraySlider.length > 1"
-            class="menu"
-          >
-            <li
-              class="slide-fwd-center"
-              v-for="(_, index) in arraySlider"
-              :key="index"
-              @click="SwitchImage(index)"
-              href=""
-            >
+          <ul v-show="arraySlider.length > 1" class="menu">
+            <li class="slide-fwd-center" v-for="(_, index) in arraySlider" :key="index" @click.stop="SwitchImage(index)"
+              href="">
               <span class="indexmovie">{{ index + 1 }} </span>
             </li>
           </ul>

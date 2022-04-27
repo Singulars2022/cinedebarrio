@@ -73,12 +73,31 @@ export default {
   methods: {
     // Obtiene los datos de la aplicación
     async getData() {
+      let indexMovie = 0;
+
       let results = await fetch(
-        `https://api.themoviedb.org/3/list/8199288?api_key=42f1941bec5c4006006323f020c28fa5&language=es-ES`
+        `https://api.themoviedb.org/3/list/8200476?api_key=42f1941bec5c4006006323f020c28fa5&language=es-ES`
       );
       let json = await results.json();
       // Peticion de peliculas a la api
-      this.currentMovie = json.items[Math.floor(Math.random() * json.items.length - 1)];
+      console.log(json)
+
+      // si existe, me la cargas
+      if (localStorage.indexMovie) {
+        indexMovie = localStorage.indexMovie;
+      }
+
+      this.currentMovie = json.items[indexMovie];
+
+      indexMovie++;
+      if (indexMovie == json.items.length) {
+        localStorage.indexMovie = 0;
+      }
+
+      else {
+        localStorage.indexMovie = indexMovie;
+
+      }
 
       // Obtenemos el titulo de la api
       this.gameElements.title = this.currentMovie.title;
@@ -97,6 +116,12 @@ export default {
           path_to_images + this.currentMovie.poster_path
         );
       }
+
+      // añadir si hay, imágenes de la carepta /public/idTMDB/escena1.png
+      this.gameElements.images.push(`/movies/${this.currentMovie.id}/escena1.jpg`);
+      this.gameElements.images.push(`/movies/${this.currentMovie.id}/escena2.jpg`);
+      this.gameElements.images.push(`/movies/${this.currentMovie.id}/escena3.jpg`);
+
     },
     // Mega funcion, 1. Comprueba y pulsa la tecla del teclado virtual, 2. Resta intentos,3. Comprueba si has perdido, 5. Llama a la función para comprobar si has perdido
     processLetter(letter) {
